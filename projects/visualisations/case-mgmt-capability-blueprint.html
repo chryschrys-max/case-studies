@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capability Blueprint — Case Management Platform Modernisation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --surface2: #263348;
+  --bdr: #334155;
+  --tx: #E2E8F0;
+  --tx2: #94A3B8;
+  --tx3: #64748B;
+  --txb: #F8FAFC;
+  --primary: #3B82F6;
+  --primary-dim: rgba(59,130,246,0.15);
+  --sys-a: #F59E0B;
+  --sys-b: #EF4444;
+  --sys-c: #10B981;
+  --sys-d: #8B5CF6;
+  --gap: #EF4444;
+  --gap-bg: rgba(239,68,68,0.12);
+  --partial: #F59E0B;
+  --partial-bg: rgba(245,158,11,0.12);
+  --aligned: #10B981;
+  --aligned-bg: rgba(16,185,129,0.12);
+  --font: 'DM Sans', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--tx); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+
+/* ── HEADER ── */
+.header { margin-bottom: 48px; }
+.back-link { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--tx3); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; transition: color 0.2s; }
+.back-link:hover { color: var(--primary); }
+.back-link::before { content: '\2190'; font-size: 14px; }
+.header-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); margin-bottom: 12px; }
+.header h1 { font-size: 32px; font-weight: 700; color: var(--txb); margin-bottom: 12px; line-height: 1.2; }
+.header p { font-size: 15px; color: var(--tx2); max-width: 720px; line-height: 1.7; }
+
+/* ── SYSTEM LEGEND ── */
+.legend { display: flex; gap: 24px; flex-wrap: wrap; margin: 32px 0; padding: 20px 24px; background: var(--surface); border-radius: 10px; border: 1px solid var(--bdr); }
+.legend-item { display: flex; align-items: center; gap: 10px; }
+.legend-dot { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+.legend-label { font-size: 13px; color: var(--tx2); }
+.legend-label strong { color: var(--tx); font-weight: 600; }
+.legend-divider { width: 1px; background: var(--bdr); align-self: stretch; margin: 0 4px; }
+
+.status-legend { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.sl-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--tx2); }
+.sl-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+/* ── BLUEPRINT GRID ── */
+.blueprint { width: 100%; }
+
+/* Column headers */
+.bp-head { display: grid; grid-template-columns: 200px repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
+.bp-col-head { padding: 14px 16px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; text-align: center; }
+.bp-col-label { padding: 14px 0; display: flex; align-items: center; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--tx3); }
+.sys-a-head { background: rgba(245,158,11,0.15); color: var(--sys-a); border: 1px solid rgba(245,158,11,0.25); }
+.sys-b-head { background: rgba(239,68,68,0.12); color: var(--sys-b); border: 1px solid rgba(239,68,68,0.2); }
+.sys-c-head { background: rgba(16,185,129,0.12); color: var(--sys-c); border: 1px solid rgba(16,185,129,0.2); }
+.sys-d-head { background: rgba(139,92,246,0.12); color: var(--sys-d); border: 1px solid rgba(139,92,246,0.2); }
+
+/* Rows */
+.bp-section-label { grid-column: 1 / -1; padding: 10px 0 6px; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--tx3); border-top: 1px solid var(--bdr); margin-top: 8px; }
+.bp-row { display: grid; grid-template-columns: 200px repeat(4, 1fr); gap: 8px; margin-bottom: 6px; align-items: stretch; }
+.bp-cap { padding: 14px 16px; background: var(--surface); border-radius: 8px 0 0 8px; border: 1px solid var(--bdr); display: flex; flex-direction: column; justify-content: center; }
+.bp-cap-name { font-size: 13px; font-weight: 700; color: var(--txb); margin-bottom: 3px; }
+.bp-cap-desc { font-size: 11px; color: var(--tx3); line-height: 1.4; }
+.bp-cell { padding: 12px 14px; border-radius: 6px; border: 1px solid transparent; font-size: 12px; line-height: 1.5; }
+.bp-cell .cell-status { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; display: block; }
+.bp-cell p { color: var(--tx2); font-size: 12px; line-height: 1.5; margin: 0; }
+
+/* Cell states */
+.cell-gap { background: var(--gap-bg); border-color: rgba(239,68,68,0.2); }
+.cell-gap .cell-status { color: var(--gap); }
+.cell-partial { background: var(--partial-bg); border-color: rgba(245,158,11,0.2); }
+.cell-partial .cell-status { color: var(--partial); }
+.cell-ok { background: var(--aligned-bg); border-color: rgba(16,185,129,0.2); }
+.cell-ok .cell-status { color: var(--aligned); }
+.cell-absent { background: rgba(100,116,139,0.08); border-color: rgba(100,116,139,0.15); }
+.cell-absent .cell-status { color: var(--tx3); }
+.cell-only { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.2); }
+.cell-only .cell-status { color: var(--primary); }
+
+/* ── SUMMARY BAND ── */
+.summary-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 40px 0 0; }
+.summary-col { background: var(--surface); border-radius: 10px; border: 1px solid var(--bdr); padding: 20px; }
+.summary-col .sys-tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; display: block; }
+.summary-col h3 { font-size: 14px; font-weight: 700; color: var(--txb); margin-bottom: 12px; }
+.summary-col .priority { font-size: 12px; font-weight: 700; color: var(--gap); margin-bottom: 4px; }
+.summary-col p { font-size: 12px; color: var(--tx2); line-height: 1.6; margin-bottom: 8px; }
+
+@media (max-width: 900px) {
+  .bp-head, .bp-row { grid-template-columns: 140px repeat(4, 1fr); }
+  .summary-band { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .page { padding: 32px 16px 60px; }
+  .bp-head, .bp-row { grid-template-columns: 1fr; }
+  .bp-col-head, .bp-col-label { display: none; }
+  .summary-band { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<a class="back-link" href="../case-management-scoping-case-study.html">Back to Case Study</a>
+
+<div class="header">
+  <div class="header-label">Scoping Phase &mdash; Visualisation</div>
+  <h1>Capability Blueprint</h1>
+  <p>A cross-system view of twelve capability categories assessed across all four platforms during the pre-discovery scoping phase. Each cell reflects what the system actually did in day-to-day operation &mdash; not what it was designed to do.</p>
+</div>
+
+<div class="legend">
+  <div class="legend-item">
+    <div class="legend-dot" style="background: var(--sys-a);"></div>
+    <div class="legend-label"><strong>System A</strong> &mdash; Civil Litigation Platform</div>
+  </div>
+  <div class="legend-divider"></div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background: var(--sys-b);"></div>
+    <div class="legend-label"><strong>System B</strong> &mdash; Criminal &amp; Regulatory Platform</div>
+  </div>
+  <div class="legend-divider"></div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background: var(--sys-c);"></div>
+    <div class="legend-label"><strong>System C</strong> &mdash; Family Justice Platform</div>
+  </div>
+  <div class="legend-divider"></div>
+  <div class="legend-item">
+    <div class="legend-dot" style="background: var(--sys-d);"></div>
+    <div class="legend-label"><strong>System D</strong> &mdash; Community Tribunals Platform</div>
+  </div>
+</div>
+
+<div class="status-legend">
+  <div class="sl-item"><div class="sl-dot" style="background: var(--gap);"></div> Gap / Not implemented</div>
+  <div class="sl-item"><div class="sl-dot" style="background: var(--partial);"></div> Partially implemented / friction</div>
+  <div class="sl-item"><div class="sl-dot" style="background: var(--aligned);"></div> Functional</div>
+  <div class="sl-item"><div class="sl-dot" style="background: var(--primary);"></div> Present in this system only</div>
+</div>
+
+<!-- ── BLUEPRINT ── -->
+<div class="blueprint">
+
+  <!-- Column headers -->
+  <div class="bp-head">
+    <div class="bp-col-label">Capability</div>
+    <div class="bp-col-head sys-a-head">System A<br><span style="font-weight:400;font-size:10px;text-transform:none;letter-spacing:0">Civil Litigation</span></div>
+    <div class="bp-col-head sys-b-head">System B<br><span style="font-weight:400;font-size:10px;text-transform:none;letter-spacing:0">Criminal &amp; Regulatory</span></div>
+    <div class="bp-col-head sys-c-head">System C<br><span style="font-weight:400;font-size:10px;text-transform:none;letter-spacing:0">Family Justice</span></div>
+    <div class="bp-col-head sys-d-head">System D<br><span style="font-weight:400;font-size:10px;text-transform:none;letter-spacing:0">Community Tribunals</span></div>
+  </div>
+
+  <!-- CONTENT & DOCUMENTS GROUP -->
+  <div class="bp-row"><div style="grid-column:1/-1;padding:10px 0 6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border-top:1px solid var(--bdr);margin-top:8px;">Content &amp; Documents</div></div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Document Management</div><div class="bp-cap-desc">Upload, preview, file limits, OCR, storage</div></div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>File sizes reach 100s MB. 100s TB total storage. No in-app multimedia preview &mdash; media embedded in PDFs. High storage cost from absence of archival.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>Low file size limit forces document splitting on complex cases (up to 1,000 charges). Some OCR capability. TCQ micro-frontend for doc rendering.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>Low file size limit. No in-app preview &mdash; planned multimedia preview platform. PDF-only, limiting complex cases with video/audio evidence.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Functional</span>
+      <p>Simple cases; 5MB file limit is sufficient. PDF preview via browser. OCR initiative in progress (Tesseract). DB size still manageable.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Templates</div><div class="bp-cap-desc">Central management of notices, orders, letters</div></div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Templates not standardised, not centrally managed. Changes require vendor intervention. Differences in look and feel across court divisions.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Separately implemented. Most frequently cited pain point across all court officer sessions. No central template repository or governance.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Disparate from other systems. Templates for maintenance orders and family-specific notices are complex and not aligned with civil equivalents.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Separate implementation. CJTS-specific tribunal orders and notices are not aligned with any other system&rsquo;s templates.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Input Forms</div><div class="bp-cap-desc">Case filing forms, minute sheets, intake screens</div></div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Intake forms require simplification. Minute sheets tailored to specific court divisions. Changes are difficult when form logic is embedded in source code.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Separate form implementations. Minute sheets are highly specialised per court type. Cross-court alignment identified as needed for modernisation.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Gap</span>
+      <p>Family-specific forms (MCA applications, maintenance orders) are complex multi-party forms. Not aligned with civil or criminal intake patterns.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Needs work</span>
+      <p>Simpler forms overall. Self-represented filers find forms confusing. No built-in guidance or smart validation. One-page case info view needed.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Search</div><div class="bp-cap-desc">Case search, cause book, cross-system</div></div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Poorly used</span>
+      <p>Search barely used by practitioners &mdash; does not work well. Cause book search is an external-facing use case. No cross-system index. Keyword only.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Meets needs</span>
+      <p>Users report search largely meets requirements. No cross-system capability. No semantic search. Large volumes of information remain hidden in documents.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Meets needs</span>
+      <p>Search meets user requirements within the system. No integration with civil or criminal case records.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Limited</span>
+      <p>Basic search for own cases only. No need for global search at current volume. No cross-system visibility.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Broadcast &amp; Doc Sync</div><div class="bp-cap-desc">Courtroom document synchronisation</div></div>
+    <div class="bp-cell cell-absent">
+      <span class="cell-status">— Not present</span>
+      <p>No courtroom document synchronisation capability. In-hearing document sharing handled by separate means.</p>
+    </div>
+    <div class="bp-cell cell-only">
+      <span class="cell-status">★ Only system</span>
+      <p>Only platform with broadcast functionality &mdash; allows judge to navigate and all parties follow. Reports occasional instability. Not replicated elsewhere.</p>
+    </div>
+    <div class="bp-cell cell-absent">
+      <span class="cell-status">— Not present</span>
+      <p>No broadcast functionality. Family hearings use other document-sharing approaches.</p>
+    </div>
+    <div class="bp-cell cell-absent">
+      <span class="cell-status">— Not present</span>
+      <p>Not applicable at current case type and complexity. Judges review uploaded documents independently.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Archival</div><div class="bp-cap-desc">Long-term file storage, retrieval</div></div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Absent</span>
+      <p>No archival in place. All files on fast-access storage. 100s TB driving high ongoing costs. Glacier considered but dropped due to access delay for cause book searches.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Partial</span>
+      <p>Access to SCRIMS (predecessor system) archived cases via a UI. No archival for current cases. High storage costs from volume of active cases.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Absent</span>
+      <p>No archival capability. Family records need long retention periods due to ongoing proceedings and enforcement requirements.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Planned</span>
+      <p>Considering Glacier archival after 10 years. DB still small enough to be manageable. Not urgent but approaching threshold.</p>
+    </div>
+  </div>
+
+  <!-- OPERATIONS GROUP -->
+  <div class="bp-row"><div style="grid-column:1/-1;padding:10px 0 6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border-top:1px solid var(--bdr);margin-top:8px;">Operations &amp; Scheduling</div></div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Calendaring</div><div class="bp-cap-desc">Hearing scheduling, rooms, quotas</div></div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>Separately implemented. Room availability, court holidays, and quotas manually entered. Insufficient sync with other systems for conflict resolution.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>Same fragmentation. High-volume scheduling (400+ cases/day) amplifies cost of manual reconciliation. Background processes required to resolve conflicts.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>Family hearings require room booking that intersects with criminal/civil calendars. No shared view. Manual coordination for multi-party hearings.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Functional</span>
+      <p>DayPilot JS calendar. Simpler scheduling needs. Separate instances for filing, consultations, and hearings. Functionally adequate for current volume.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Workflow &amp; Tasks</div><div class="bp-cap-desc">Task assignment, case progress tracking</div></div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Inconsistent</span>
+      <p>Workflow features exist but coverage is uneven. Users who work across multiple courts experience significant variation in how work is assigned and tracked.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Functional</span>
+      <p>Case queue, task list, appointments calendar. Supports full criminal workflow from intake through hearing and judgment. Most complete workflow implementation.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Functional</span>
+      <p>Workflow and task assignment features present. Supports multi-party family proceedings including mediators, social workers, and external agencies.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Basic</span>
+      <p>Basic case folder and task list. Adequate for simple tribunal cases. Backend user has limited workflow support. Registrar-led case management.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Notifications</div><div class="bp-cap-desc">Hearing notices, information requests, updates</div></div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Redundant</span>
+      <p>In-app inbox, email, SMS. Redundant SGTS SMS gateways for internal vs external users. Functions but with unnecessary complexity and maintenance overhead.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Redundant</span>
+      <p>Aligned approach overall. Multiple overlapping gateways. High volume of notifications (bail, hearings, judgment) makes gateway consolidation a meaningful efficiency gain.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Functional</span>
+      <p>Notifications to parties, social workers, and agencies broadly functional. Some redundancy with civil system gateways. Not flagged as urgent.</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Functional</span>
+      <p>Simpler notification needs. Parties notified via in-app and email. No SMS complexity. Functionally adequate for self-service model.</p>
+    </div>
+  </div>
+
+  <!-- FINANCE GROUP -->
+  <div class="bp-row"><div style="grid-column:1/-1;padding:10px 0 6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border-top:1px solid var(--bdr);margin-top:8px;">Finance &amp; Data</div></div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Payment</div><div class="bp-cap-desc">Filing fees, fines, bail, subscriptions</div></div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Misaligned</span>
+      <p>Subscription model for law firms. Payment via central gateway (eNETS). Fee structure not aligned with other systems. Ongoing issues with payment gateway reliability reported.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Complex</span>
+      <p>Bail and fine collection via a separate financial system (IFAS). Online and offline payment modes. Fee structures not harmonised. Two systems involved in every payment flow.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Friction</span>
+      <p>Payment gateway: eNETS primary. Maintenance orders involve ongoing payment tracking not just point-of-filing fees. Unique family law payment complexity (recurring orders).</p>
+    </div>
+    <div class="bp-cell cell-ok">
+      <span class="cell-status">✓ Simpler</span>
+      <p>Filing fees only. eNETS and PayNow. Simpler fee structure than other platforms. No subscription model or ongoing payment tracking needed.</p>
+    </div>
+  </div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">Reporting &amp; Statistics</div><div class="bp-cap-desc">Self-service reports, dashboards, ad-hoc queries</div></div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Manual</span>
+      <p>Some standard reports built in. Many queries require manual DB access by vendor. Tableau exists but on a small data subset. Lost key power user recently. Inconsistent capability.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Fragmented</span>
+      <p>Reporting DB synced via AWS DMS. No single platform. Vendor delivers ad-hoc reports from production DB. Qlik dashboards available but coverage inconsistent.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Fragmented</span>
+      <p>Elixir reporting done by vendor. Tableau used directly by statistics team (strongest among courts&rsquo; teams). Still no unified data platform.</p>
+    </div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Minimal</span>
+      <p>Monthly DB dump for statistics team. No self-service dashboard. Ad-hoc reporting requires vendor involvement. Appropriate to volume but no scalability.</p>
+    </div>
+  </div>
+
+  <!-- ACCESS GROUP -->
+  <div class="bp-row"><div style="grid-column:1/-1;padding:10px 0 6px;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--tx3);border-top:1px solid var(--bdr);margin-top:8px;">Access &amp; Identity</div></div>
+
+  <div class="bp-row">
+    <div class="bp-cap"><div class="bp-cap-name">User Management &amp; Auth</div><div class="bp-cap-desc">Roles, access, identity federation</div></div>
+    <div class="bp-cell cell-gap">
+      <span class="cell-status">✗ Fragmented</span>
+      <p>SingPass/CorpPass + WOG AD + CAM for internal users. Law firm admin manages user access within portal. Each court division has its own roles. No unified matrix.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Complex</span>
+      <p>Multi-level roles: JO, CO, RO, Bailiff, Interpreter, Call Centre, PPO, plus agency roles. Practicing cert info received from Family platform. No shared role definitions.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Cross-agency</span>
+      <p>Agency users (MSF, hospitals) use SingPass/CorpPass. Social workers, mediators, and DJOs have separate role definitions. Most complex user matrix of the four.</p>
+    </div>
+    <div class="bp-cell cell-partial">
+      <span class="cell-status">⚠ Public-facing</span>
+      <p>SRPs and companies use the same portal with different views. Mediators in back-end. CJTS Pass for public users without SingPass. Fine-grained tribunal-level role assignment.</p>
+    </div>
+  </div>
+
+</div><!-- end blueprint -->
+
+<!-- ── SYSTEM SUMMARIES ── -->
+<div class="summary-band">
+  <div class="summary-col">
+    <span class="sys-tag" style="color: var(--sys-a);">System A &mdash; Civil Litigation</span>
+    <h3>Highest technical debt</h3>
+    <div class="priority">Priority gaps:</div>
+    <p>Document archival (100s TB at risk), template management, intake form simplification, and search. Oldest platform, longest vendor relationship &mdash; modernisation here requires the most careful vendor negotiation.</p>
+  </div>
+  <div class="summary-col">
+    <span class="sys-tag" style="color: var(--sys-b);">System B &mdash; Criminal &amp; Regulatory</span>
+    <h3>Most operationally critical</h3>
+    <div class="priority">Priority gaps:</div>
+    <p>Broadcast capability stabilisation, document management for high-charge cases, calendaring sync (400+ cases/day magnifies every friction), and reporting self-service. Most risk if taken down for modernisation.</p>
+  </div>
+  <div class="summary-col">
+    <span class="sys-tag" style="color: var(--sys-c);">System C &mdash; Family Justice</span>
+    <h3>Most cross-agency complexity</h3>
+    <div class="priority">Priority gaps:</div>
+    <p>30+ agency integrations, recurring payment tracking, most complex user/role matrix. MCA and care order workflows require multi-party data sharing that no other system manages at equivalent complexity.</p>
+  </div>
+  <div class="summary-col">
+    <span class="sys-tag" style="color: var(--sys-d);">System D &mdash; Community Tribunals</span>
+    <h3>Best pilot candidate</h3>
+    <div class="priority">Priority gaps:</div>
+    <p>Self-represented user experience, form guidance, workflow support for registrars. Lowest technical risk, highest usability opportunity. Strong pilot candidate &mdash; but learnings must be deliberately structured to generalise to other systems.</p>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

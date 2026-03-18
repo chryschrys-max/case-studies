@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Case Study — Mapping the Machine: Pre-Discovery Systems Scoping for a Complex Case Management Platform</title>
+<title>Case Study — Modernisation Program: Pre-Discovery Systems Scoping for a Complex Case Management Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #F9FAFB;
-  --bg2: #F0F4FF;
-  --bg3: #E8EDFF;
+  --bg2: #EFF6FF;
+  --bg3: #DBEAFE;
   --surface: #FFFFFF;
   --bdr: #E5E7EB;
   --bdr2: #F3F4F6;
@@ -18,521 +18,168 @@
   --tx3: #9CA3AF;
   --txb: #111827;
   --deep: #1E3A5F;
-  --salmon: #2563EB;
-  --salmon-light: rgba(37,99,235,0.1);
+  --primary: #2563EB;
+  --primary-light: rgba(37,99,235,0.1);
   --almond: #BFDBFE;
   --silver: #93C5FD;
   --grape: #1D4ED8;
-  --violet: #1E40AF;
-  --sage: #10B981;
-  --sage-light: #D1FAE5;
-  --coral: #EC4899;
-  --coral-light: #FCE7F3;
-  --sky: #0EA5E9;
-  --sky-light: #E0F2FE;
   --teal: #0D9488;
   --teal-light: #CCFBF1;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
   --font: 'DM Sans', -apple-system, sans-serif;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { background: var(--bg); color: var(--tx); font-family: var(--font); line-height: 1.75; -webkit-font-smoothing: antialiased; }
 
-/* ── LAYOUT ── */
 .page { max-width: 1060px; margin: 0 auto; padding: 0 40px 120px; }
 
 /* ── HERO ── */
-.hero {
-  padding: 88px 0 64px;
-  border-bottom: 2px solid var(--txb);
-  margin-bottom: 64px;
-}
-.hero-label {
-  font-family: var(--font);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--salmon);
-  margin-bottom: 18px;
-}
-.hero h1 {
-  font-family: var(--font);
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1.15;
-  color: var(--txb);
-  margin-bottom: 20px;
-  max-width: 860px;
-}
-.hero-sub {
-  font-size: 18px;
-  line-height: 1.7;
-  color: var(--tx2);
-  max-width: 760px;
-  margin-bottom: 40px;
-}
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-}
-.hero-meta-item {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  font-size: 14px;
-  color: var(--tx2);
-}
-.hero-meta-item strong {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--tx3);
-}
+.hero { padding: 88px 0 64px; border-bottom: 2px solid var(--txb); margin-bottom: 64px; }
+.hero-label { font-size: 12px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--primary); margin-bottom: 18px; }
+.hero h1 { font-size: 44px; font-weight: 700; line-height: 1.15; color: var(--txb); margin-bottom: 20px; max-width: 880px; }
+.hero-sub { font-size: 18px; line-height: 1.7; color: var(--tx2); max-width: 780px; margin-bottom: 40px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 32px; }
+.hero-meta-item { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--tx2); }
+.hero-meta-item strong { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--tx3); }
 
 /* ── SECTION ── */
 .section { margin-bottom: 64px; }
-.section-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--salmon);
-  margin-bottom: 14px;
-}
-.section h2 {
-  font-size: 32px;
-  font-weight: 700;
-  color: var(--txb);
-  margin-bottom: 20px;
-  line-height: 1.25;
-}
-.section h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--txb);
-  margin: 36px 0 14px;
-}
-.section p {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--tx);
-  margin-bottom: 16px;
-}
-.section ul, .section ol {
-  margin: 12px 0 20px 20px;
-}
-.section li {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--tx);
-  margin-bottom: 8px;
-}
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.section h2 { font-size: 32px; font-weight: 700; color: var(--txb); margin-bottom: 20px; line-height: 1.25; }
+.section h3 { font-size: 20px; font-weight: 700; color: var(--txb); margin: 40px 0 14px; }
+.section p { font-size: 16px; line-height: 1.8; color: var(--tx); margin-bottom: 16px; }
+.section ul, .section ol { margin: 12px 0 20px 20px; }
+.section li { font-size: 16px; line-height: 1.8; color: var(--tx); margin-bottom: 8px; }
 
 /* ── ROLE BLOCK ── */
-.role-block {
-  background: var(--bg2);
-  border-left: 4px solid var(--salmon);
-  border-radius: 0 10px 10px 0;
-  padding: 28px 32px;
-  margin: 32px 0;
-}
-.role-block .label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: var(--salmon);
-  margin-bottom: 14px;
-}
-.role-block p, .role-block ul {
-  font-size: 15px;
-  margin-bottom: 12px;
-}
+.role-block { background: var(--bg2); border-left: 4px solid var(--primary); border-radius: 0 10px 10px 0; padding: 28px 32px; margin: 32px 0; }
+.role-block .label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.role-block p { font-size: 15px; margin-bottom: 12px; line-height: 1.8; }
+.role-block ul { margin: 12px 0 0 20px; }
+.role-block li { font-size: 15px; line-height: 1.8; margin-bottom: 8px; }
 
 /* ── THINKING BLOCK ── */
-.thinking-block {
-  background: var(--surface);
-  border: 1px solid var(--bdr);
-  border-radius: 10px;
-  padding: 28px 32px;
-  margin: 32px 0;
-}
-.thinking-block .label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  color: var(--grape);
-  margin-bottom: 12px;
-}
-.thinking-block p {
-  font-size: 15px;
-  line-height: 1.8;
-  color: var(--tx);
-  margin-bottom: 0;
-}
+.thinking-block { background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px; padding: 28px 32px; margin: 32px 0; }
+.thinking-block .label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--grape); margin-bottom: 12px; }
+.thinking-block p { font-size: 15px; line-height: 1.8; color: var(--tx); margin-bottom: 0; }
 
 /* ── STAT STRIP ── */
-.stat-strip {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin: 40px 0 0;
-}
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 24px 28px;
-  min-width: 160px;
-  flex: 1;
-}
-.stat-num {
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--salmon);
-  line-height: 1.1;
-  margin-bottom: 6px;
-}
-.stat-label {
-  font-size: 13px;
-  color: var(--tx2);
-  line-height: 1.5;
-}
+.stat-strip { display: flex; gap: 20px; flex-wrap: wrap; margin: 40px 0 0; }
+.stat-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 12px; padding: 24px 28px; min-width: 150px; flex: 1; }
+.stat-num { font-size: 34px; font-weight: 700; color: var(--primary); line-height: 1.1; margin-bottom: 6px; }
+.stat-label { font-size: 13px; color: var(--tx2); line-height: 1.5; }
 
 /* ── SYSTEMS GRID ── */
-.systems-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin: 32px 0;
-}
+.systems-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 32px 0; }
 @media (max-width: 700px) { .systems-grid { grid-template-columns: 1fr; } }
-.system-card {
-  background: var(--surface);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 24px 28px;
-}
-.system-card .sys-num {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--tx3);
-  margin-bottom: 10px;
-}
-.system-card h4 {
-  font-size: 17px;
-  font-weight: 700;
-  color: var(--txb);
-  margin-bottom: 10px;
-}
-.system-card p {
-  font-size: 14px;
-  color: var(--tx2);
-  line-height: 1.7;
-  margin-bottom: 0;
-}
-.system-card .placeholder-note {
-  font-size: 13px;
-  color: var(--tx3);
-  font-style: italic;
-  margin-top: 10px;
-}
+.system-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 12px; padding: 24px 28px; }
+.system-card.highlight { border-color: var(--primary); border-width: 2px; }
+.system-card .sys-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--primary); margin-bottom: 6px; }
+.system-card .sys-age { font-size: 12px; color: var(--tx3); margin-bottom: 12px; }
+.system-card h4 { font-size: 17px; font-weight: 700; color: var(--txb); margin-bottom: 10px; }
+.system-card p { font-size: 14px; color: var(--tx2); line-height: 1.7; margin-bottom: 10px; }
+.system-card .sys-tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: var(--bg2); color: var(--grape); margin: 2px 2px 0 0; }
 
-/* ── FLOW ── */
-.flow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 32px 0;
-}
-.flow-node {
-  padding: 16px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  text-align: center;
-  line-height: 1.4;
-  min-width: 120px;
-}
-.flow-node small {
-  display: block;
-  font-size: 12px;
-  font-weight: 400;
-  margin-top: 4px;
-  opacity: 0.8;
-}
-.flow-arrow {
-  font-size: 20px;
-  color: var(--tx3);
-}
+/* ── CAPABILITY TABLE ── */
+.cap-table { width: 100%; border-collapse: collapse; margin: 32px 0; font-size: 14px; }
+.cap-table th { background: var(--txb); color: #fff; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
+.cap-table td { padding: 12px 16px; border-bottom: 1px solid var(--bdr); vertical-align: top; line-height: 1.6; }
+.cap-table tr:last-child td { border-bottom: none; }
+.cap-table tr:nth-child(even) td { background: var(--bg); }
+.cap-table .cap-name { font-weight: 600; color: var(--txb); white-space: nowrap; }
+.cap-status { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+.s-gap { background: rgba(220,38,38,0.1); color: #DC2626; }
+.s-partial { background: rgba(217,119,6,0.12); color: var(--amber); }
+.s-aligned { background: rgba(13,148,136,0.1); color: var(--teal); }
+
+/* ── HANDSHAKE FLOW ── */
+.hs-flow { display: flex; align-items: stretch; gap: 0; margin: 32px 0; overflow-x: auto; }
+.hs-sys { flex: 1; min-width: 160px; padding: 20px; background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px 0 0 10px; }
+.hs-sys + .hs-arrow { border-radius: 0; }
+.hs-sys h5 { font-size: 13px; font-weight: 700; color: var(--txb); margin-bottom: 6px; }
+.hs-sys p { font-size: 12px; color: var(--tx2); line-height: 1.5; margin: 0; }
+.hs-arrow { display: flex; align-items: center; justify-content: center; padding: 0 12px; background: var(--bg2); color: var(--primary); font-size: 18px; font-weight: 700; min-width: 36px; border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr); }
+.hs-sys:last-child { border-radius: 0 10px 10px 0; }
+
+/* ── INTEGRATION CARDS ── */
+.integration-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 32px 0; }
+@media (max-width: 700px) { .integration-grid { grid-template-columns: 1fr; } }
+.integration-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px; padding: 20px 24px; }
+.integration-card .int-type { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--tx3); margin-bottom: 6px; }
+.integration-card h5 { font-size: 15px; font-weight: 700; color: var(--txb); margin-bottom: 8px; }
+.integration-card p { font-size: 13px; color: var(--tx2); line-height: 1.65; margin: 0; }
+.int-gap { border-left: 3px solid #DC2626; }
+.int-complex { border-left: 3px solid var(--amber); }
+.int-manual { border-left: 3px solid var(--primary); }
+
+/* ── FINDING CARDS ── */
+.finding-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin: 32px 0; }
+@media (max-width: 700px) { .finding-grid { grid-template-columns: 1fr; } }
+.finding-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px; padding: 24px; }
+.finding-card .num { font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+.finding-card h4 { font-size: 15px; font-weight: 700; color: var(--txb); margin-bottom: 8px; }
+.finding-card p { font-size: 14px; color: var(--tx2); line-height: 1.7; margin: 0; }
+
+/* ── TEAM CARDS ── */
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 28px 0; }
+@media (max-width: 700px) { .team-grid { grid-template-columns: 1fr; } }
+.team-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 12px; padding: 24px; }
+.team-card .role { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+.team-card h4 { font-size: 15px; font-weight: 700; color: var(--txb); margin-bottom: 8px; }
+.team-card p { font-size: 14px; color: var(--tx2); line-height: 1.6; margin: 0; }
 
 /* ── OUTPUT CARDS ── */
-.output-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 32px 0;
-}
+.output-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; }
 @media (max-width: 700px) { .output-grid { grid-template-columns: 1fr; } }
-.output-card {
-  background: var(--surface);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 24px;
-}
-.output-card .icon {
-  font-size: 24px;
-  margin-bottom: 12px;
-}
-.output-card h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--txb);
-  margin-bottom: 8px;
-}
-.output-card p {
-  font-size: 14px;
-  color: var(--tx2);
-  line-height: 1.7;
-  margin-bottom: 0;
-}
-
-/* ── HANDSHAKE DIAGRAM ── */
-.handshake-row {
-  display: flex;
-  align-items: stretch;
-  gap: 0;
-  margin: 32px 0;
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid var(--bdr);
-}
-.hs-system {
-  flex: 1;
-  padding: 20px;
-  background: var(--surface);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--txb);
-}
-.hs-system span {
-  display: block;
-  font-size: 12px;
-  font-weight: 400;
-  color: var(--tx2);
-  margin-top: 4px;
-}
-.hs-connector {
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  background: var(--bg2);
-  font-size: 20px;
-  color: var(--salmon);
-  font-weight: 700;
-}
-
-/* ── TEAM BLOCK ── */
-.team-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 28px 0;
-}
-@media (max-width: 700px) { .team-grid { grid-template-columns: 1fr; } }
-.team-card {
-  background: var(--surface);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 24px;
-}
-.team-card .role {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--salmon);
-  margin-bottom: 8px;
-}
-.team-card h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--txb);
-  margin-bottom: 8px;
-}
-.team-card p {
-  font-size: 14px;
-  color: var(--tx2);
-  line-height: 1.6;
-  margin-bottom: 0;
-}
-
-/* ── PRINCIPLES ── */
-.principles {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 28px 0;
-}
-@media (max-width: 700px) { .principles { grid-template-columns: 1fr; } }
-.principle {
-  padding: 24px;
-  border: 1px solid var(--bdr);
-  border-radius: 10px;
-  background: var(--surface);
-}
-.principle .num {
-  font-family: var(--font);
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--salmon);
-  margin-bottom: 10px;
-}
-.principle h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--txb);
-  margin-bottom: 8px;
-}
-.principle p {
-  font-size: 14px;
-  color: var(--tx2);
-  line-height: 1.7;
-  margin-bottom: 0;
-}
+.output-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 12px; padding: 22px; }
+.output-card h4 { font-size: 15px; font-weight: 700; color: var(--txb); margin-bottom: 8px; }
+.output-card p { font-size: 13px; color: var(--tx2); line-height: 1.65; margin: 0; }
 
 /* ── LEARNING CARDS ── */
-.learning-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-  margin: 28px 0;
-}
+.learning-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 28px 0; }
 @media (max-width: 700px) { .learning-grid { grid-template-columns: 1fr; } }
-.learning-card {
-  background: var(--surface);
-  border: 1px solid var(--bdr);
-  border-radius: 12px;
-  padding: 28px;
-}
-.learning-card .num {
-  font-size: 26px;
-  font-weight: 700;
-  color: var(--salmon);
-  margin-bottom: 10px;
-}
-.learning-card h4 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--txb);
-  margin-bottom: 10px;
-}
-.learning-card p {
-  font-size: 14px;
-  color: var(--tx2);
-  line-height: 1.75;
-  margin-bottom: 0;
-}
+.learning-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 12px; padding: 28px; }
+.learning-card .num { font-size: 26px; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.learning-card h4 { font-size: 16px; font-weight: 700; color: var(--txb); margin-bottom: 10px; }
+.learning-card p { font-size: 14px; color: var(--tx2); line-height: 1.75; margin: 0; }
 
-/* ── DIVIDER ── */
-.divider {
-  border: none;
-  border-top: 1px solid var(--bdr);
-  margin: 64px 0;
-}
-
-/* ── TOP NAV ── */
-.top-nav {
-  padding: 20px 0;
-}
-.top-nav a {
-  font-family: var(--font);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--grape);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.top-nav a:hover { color: var(--salmon); }
-.top-nav a::before { content: '\2190\00a0\00a0'; }
-
-/* ── FOOTER ── */
-.footer {
-  margin-top: 80px;
-  padding-top: 28px;
-  border-top: 1px solid var(--bdr);
-  font-size: 13px;
-  color: var(--tx3);
-}
-
-/* ── BOTTOM BAR ── */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  z-index: 100;
-  background: rgba(249, 250, 251, 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-top: 1px solid var(--bdr);
-  padding: 14px 0;
-  text-align: center;
-}
-.bottom-bar a {
-  font-family: var(--font);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--grape);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.bottom-bar a:hover { color: var(--salmon); }
+/* ── PRINCIPLES ── */
+.principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 28px 0; }
+@media (max-width: 700px) { .principles { grid-template-columns: 1fr; } }
+.principle { padding: 24px; border: 1px solid var(--bdr); border-radius: 10px; background: var(--surface); }
+.principle .num { font-size: 26px; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.principle h4 { font-size: 16px; font-weight: 700; color: var(--txb); margin-bottom: 8px; }
+.principle p { font-size: 14px; color: var(--tx2); line-height: 1.7; margin: 0; }
 
 /* ── METHODS GRID ── */
-.methods-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 28px;
-}
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
 @media (max-width: 700px) { .methods-grid { grid-template-columns: 1fr; } }
-.method-item {
-  background: linear-gradient(135deg, var(--deep), #2563EB);
-  border-radius: 10px;
-  padding: 20px;
-}
-.method-item h5 {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--almond);
-  margin-bottom: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-.method-item p {
-  font-size: 13px;
-  color: rgba(255,255,255,0.78);
-  line-height: 1.6;
-  margin-bottom: 0;
-}
+.method-item { background: linear-gradient(135deg, var(--deep), #2563EB); border-radius: 10px; padding: 20px; }
+.method-item h5 { font-size: 12px; font-weight: 700; color: var(--almond); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.8px; }
+.method-item p { font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.6; margin: 0; }
 
-/* ── RESPONSIVE ── */
+/* ── IMAGE ── */
+.img-full { width: 100%; border-radius: 12px; border: 1px solid var(--bdr); margin: 32px 0; }
+.img-caption { font-size: 13px; color: var(--tx3); text-align: center; margin-top: -20px; margin-bottom: 32px; font-style: italic; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--bdr); margin: 64px 0; }
+
+/* ── NAV ── */
+.top-nav { padding: 20px 0; }
+.top-nav a { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--grape); text-decoration: none; transition: color 0.2s; }
+.top-nav a:hover { color: var(--primary); }
+.top-nav a::before { content: '\2190\00a0\00a0'; }
+.footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--bdr); font-size: 13px; color: var(--tx3); }
+.bottom-bar { position: fixed; bottom: 0; left: 0; width: 100%; z-index: 100; background: rgba(249,250,251,0.92); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-top: 1px solid var(--bdr); padding: 14px 0; text-align: center; }
+.bottom-bar a { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--grape); text-decoration: none; }
+.bottom-bar a:hover { color: var(--primary); }
+
 @media (max-width: 700px) {
-  .hero h1 { font-size: 32px; }
+  .hero h1 { font-size: 30px; }
   .page { padding: 0 20px 100px; }
-  .hero-meta { gap: 20px; }
 }
 </style>
 </head>
@@ -543,276 +190,494 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <a href="index.html#case-studies">All Projects</a>
 </nav>
 
-<!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ HERO ════════════════════ -->
 <header class="hero">
   <div class="hero-label">Case Study</div>
-  <h1>Mapping the Machine: Pre-Discovery Systems Scoping for a Complex Public Sector Platform</h1>
-  <p class="hero-sub">Before you can redesign a system, you have to understand what it actually is. This is the story of a one-month scoping engagement that mapped four interconnected systems, charted every capability, and identified where the real complexity lives &mdash; so that discovery could begin with eyes open.</p>
+  <h1>Modernisation Program: Pre-Discovery Systems Scoping for a Complex Case Management Platform</h1>
+  <p class="hero-sub">Before a multi-year platform modernisation could begin, someone had to map what actually existed. This is the story of a one-month scoping engagement across four interconnected case management systems &mdash; charting capabilities, mapping integration points, and surfacing the complexity that formal discovery would need to contend with.</p>
   <div class="hero-meta">
     <div class="hero-meta-item"><strong>Client</strong>Singapore Government Agency (Public Sector)</div>
-    <div class="hero-meta-item"><strong>Phase</strong>Pre-Discovery Scoping (1 Month)</div>
-    <div class="hero-meta-item"><strong>Team</strong>Lead Designer, Principal BA, Solutions Architect</div>
+    <div class="hero-meta-item"><strong>Phase</strong>Pre-Discovery Scoping &mdash; 1 Month</div>
+    <div class="hero-meta-item"><strong>Team</strong>Lead Designer &bull; Principal BA &bull; Solutions Architect</div>
     <div class="hero-meta-item"><strong>Role</strong>Lead Designer / Design Strategist</div>
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ THE BRIEF ════════════════════ -->
 <section class="section">
   <div class="section-label">The Brief</div>
-  <h2>Four systems. One month. Everything as-is.</h2>
-  <p>The programme goal was to modernise a complex case management platform used across a major public sector operation. Before any discovery work could begin &mdash; before we could ask users what wasn't working or imagine what better looked like &mdash; we needed to understand the terrain.</p>
-  <p>That meant mapping what currently existed across four systems: what each one did, what it was capable of, and critically, where and how they connected to one another. This phase &mdash; which we called the <strong>scoping phase</strong> &mdash; was designed to be a pre-discovery exercise. Its purpose was to make us better prepared to plan and execute the real discovery that would follow.</p>
+  <h2>Four platforms. One organisation. Nobody had the full picture.</h2>
+  <p>The organisation managed case proceedings across four distinct case management platforms, each built for a different domain, by different vendors, at different points in time. A major modernisation programme was on the horizon. But before a single requirement could be written or a user could be interviewed, the programme team needed to understand what the current landscape actually looked like.</p>
+  <p>That meant walking through all four systems: mapping what each one did, what it was technically capable of, who used it, and &mdash; critically &mdash; how they connected to one another. The result of this one-month scoping phase would become the foundation everything else was built on.</p>
 
   <div class="role-block">
     <div class="label">What I did</div>
-    <p>I led the design and facilitation work within a cross-functional team of three &mdash; a Principal BA and a Solutions Architect alongside me. Each of us brought a different lens to the same systems.</p>
+    <p>I led the design and facilitation work as part of a three-person cross-functional scoping team &mdash; alongside a Principal BA and a Solutions Architect. Each of us brought a different lens; the value was in the synthesis across all three.</p>
     <ul>
-      <li><strong>Led engagement design</strong> &mdash; structured how we would systematically move through each system, who we needed to speak to, and how to capture capability information consistently across four different environments</li>
-      <li><strong>Facilitated stakeholder sessions</strong> across system owners and operational teams to surface how each system was actually used day-to-day, not just what it was built to do</li>
-      <li><strong>Synthesised across disciplines</strong> &mdash; translated technical architecture insights from the Solutions Architect and process documentation from the Principal BA into a picture a non-technical audience could act on</li>
-      <li><strong>Mapped the handshakes</strong> &mdash; identified and documented every point where one system passed work to another, including the informal and manual bridges that had grown up over time</li>
-      <li><strong>Framed the output as a discovery brief</strong> &mdash; turned raw mapping into a structured foundation that the discovery phase could build from, with clear questions, known unknowns, and areas of risk flagged</li>
+      <li><strong>Structured the engagement</strong> &mdash; designed how we would systematically move through all four systems, who we needed to speak to, and how to capture information consistently across different environments and vendor relationships</li>
+      <li><strong>Led stakeholder walkthroughs</strong> &mdash; facilitated sessions with system owners, court officers, judicial officers, registry staff, and operational teams to understand how each system was actually used day-to-day, not just what it was documented to do</li>
+      <li><strong>Mapped the handshakes</strong> &mdash; identified and documented every integration point between systems, including formal technical integrations, informal data bridges, and the manual workarounds that had grown up at the seams</li>
+      <li><strong>Synthesised across disciplines</strong> &mdash; translated architecture findings and BA process documentation into a picture that non-technical stakeholders could act on and that the discovery team could build from</li>
+      <li><strong>Framed the output for discovery</strong> &mdash; structured all scoping findings into a brief that told the discovery team not just what existed, but where the real complexity was, what questions needed answering, and what risks to watch for</li>
     </ul>
 
     <div class="methods-grid">
       <div class="method-item">
         <h5>Systems Mapping</h5>
-        <p>Capability inventory across 4 systems, integration point documentation, as-is state analysis</p>
+        <p>Capability inventory across 4 platforms, as-is state documentation, architecture review, vendor relationship analysis</p>
       </div>
       <div class="method-item">
-        <h5>Stakeholder Engagement</h5>
-        <p>Sessions with system owners, operational teams, and technical leads to surface real-world usage vs. designed intent</p>
+        <h5>Stakeholder Walkthroughs</h5>
+        <p>Workflow walkthroughs with 5+ user role types per system; surfacing real usage vs. designed intent</p>
+      </div>
+      <div class="method-item">
+        <h5>Integration Mapping</h5>
+        <p>Documenting every connection between systems &mdash; authentication, payment, calendaring, notifications, appeals flows, agency interfaces</p>
       </div>
       <div class="method-item">
         <h5>Cross-functional Synthesis</h5>
-        <p>Translating BA, architecture, and design observations into a unified picture of current-state complexity</p>
+        <p>Triangulating BA process docs, architecture maps, and design observations into a unified current-state picture</p>
       </div>
       <div class="method-item">
-        <h5>Handshake Analysis</h5>
-        <p>Documenting where and how systems connect &mdash; including unofficial bridges and manual workarounds</p>
+        <h5>Pain Point Identification</h5>
+        <p>Cataloguing friction across capability categories: document management, templates, calendaring, reporting, user access</p>
       </div>
       <div class="method-item">
-        <h5>Discovery Planning</h5>
-        <p>Framing scoping outputs as actionable inputs: known questions, open unknowns, and risk areas for the discovery team</p>
-      </div>
-      <div class="method-item">
-        <h5>Documentation Design</h5>
-        <p>Building artefacts that could be used by the discovery team without requiring the scoping team to be in the room</p>
+        <h5>Discovery Brief</h5>
+        <p>Structuring all findings into actionable inputs: what we know, what we don&rsquo;t, where to focus, and what risks to flag</p>
       </div>
     </div>
   </div>
 
   <div class="stat-strip">
-    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Systems mapped end-to-end</div></div>
-    <div class="stat-card"><div class="stat-num">1 mo</div><div class="stat-label">Scoping phase duration</div></div>
-    <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Cross-functional disciplines in the team</div></div>
-    <div class="stat-card"><div class="stat-num">As-is</div><div class="stat-label">Full current-state picture delivered</div></div>
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Case management platforms mapped end-to-end</div></div>
+    <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Capability categories assessed across all systems</div></div>
+    <div class="stat-card"><div class="stat-num">30+</div><div class="stat-label">Agency interfaces catalogued</div></div>
+    <div class="stat-card"><div class="stat-num">1 mo</div><div class="stat-label">Scoping phase to full as-is picture</div></div>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ WHY SCOPE FIRST ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ CONTEXT ════════════════════ -->
 <section class="section">
   <div class="section-label">Context</div>
-  <h2>Why scope before discovery?</h2>
-  <p>In most HCD projects, discovery is where you start. You go in, talk to users, and let the problems reveal themselves. But when the environment is a multi-system, multi-stakeholder public sector operation, going in blind has a real cost: you lose weeks asking questions that a better-prepared team would already know the answers to.</p>
-  <p>The scoping phase inverted the typical approach. Instead of beginning with users, we began with the systems. The goal was not to find problems to solve &mdash; that was discovery's job &mdash; but to establish a baseline. What exists. How it works. Where it connects. What the constraints are. What we'd be designing within.</p>
+  <h2>Why this organisation needed a scoping phase</h2>
+  <p>The four platforms had been built independently over more than a decade. Each served a distinct domain of case proceedings, had its own vendor, its own users, and its own technical architecture. Some had been migrated to modern cloud infrastructure; others still ran on legacy environments. Together they handled hundreds of cases daily across a wide range of proceedings types.</p>
+  <p>A modernisation programme of this scale &mdash; one that would eventually touch all four platforms, their users, and the integrations between them &mdash; could not begin with discovery alone. Going into user research without understanding the systems those users worked in would have meant spending weeks building context that a scoping phase could deliver in days. The scoping phase was not overhead. It was preparation.</p>
 
   <div class="thinking-block">
-    <div class="label">The logic behind scoping first</div>
-    <p>A discovery team that walks in without a map of the systems will spend the first few weeks building that map. A discovery team that walks in with a map can spend those same weeks talking to users about their experience of those systems. The scoping phase was designed to give discovery that head start &mdash; not to answer discovery's questions, but to make sure discovery was asking the right ones from day one.</p>
+    <div class="label">My framing for the scoping phase</div>
+    <p>The goal was not to find problems. That was discovery&rsquo;s job. The goal was to make sure discovery was looking in the right places &mdash; and that when users described friction, the research team already had enough context to understand why it existed and where it sat in the broader system. We were building the map so discovery could navigate, not just explore.</p>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════ THE FOUR SYSTEMS ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ THE FOUR SYSTEMS ════════════════════ -->
 <section class="section">
-  <div class="section-label">Scoping Phase &mdash; What We Mapped</div>
-  <h2>The four systems</h2>
-  <p>Each system served a distinct function within the case management lifecycle. Each had its own history, its own logic, and its own users. Mapping them separately was the starting point; understanding how they connected was the harder work.</p>
+  <div class="section-label">Scoping Phase &mdash; The Four Systems</div>
+  <h2>Four platforms, four domains, one organisation</h2>
+  <p>Each platform served a distinct segment of the case management lifecycle. Understanding each one on its own terms was the starting point. Understanding how they related to each other was the harder and more important work.</p>
 
   <div class="systems-grid">
     <div class="system-card">
-      <div class="sys-num">System 01</div>
-      <h4>[System Name TBC]</h4>
-      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
-      <p class="placeholder-note">Details to be added.</p>
+      <div class="sys-label">System A</div>
+      <div class="sys-age">Longest-running &mdash; live since 2013</div>
+      <h4>Civil Litigation Platform</h4>
+      <p>The primary platform for civil case filing and management, handling the broadest range of case types: civil matters, specialist divisions (admiralty, insolvency, intellectual property, corporate rescue), divorce proceedings, probate, and appeals. The oldest of the four platforms, with the highest accumulated technical debt and the most complex vendor relationship. External-facing via a law firm portal used by thousands of registered lawyers.</p>
+      <span class="sys-tag">Civil Matters</span>
+      <span class="sys-tag">Specialist Courts</span>
+      <span class="sys-tag">Lawyer Portal</span>
+      <span class="sys-tag">Appeals</span>
     </div>
     <div class="system-card">
-      <div class="sys-num">System 02</div>
-      <h4>[System Name TBC]</h4>
-      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
-      <p class="placeholder-note">Details to be added.</p>
+      <div class="sys-label">System B</div>
+      <div class="sys-age">High-volume operational core</div>
+      <h4>Criminal &amp; Regulatory Proceedings Platform</h4>
+      <p>The operational backbone for criminal case management: intake, bail processing, hearing scheduling, judge and court officer workflows, regulatory matters, coroner proceedings, and youth court cases. The highest-volume system &mdash; handling 400+ cases daily. The only platform with a courtroom broadcast and document synchronisation capability. Shared cloud deployment infrastructure with System C.</p>
+      <span class="sys-tag">Criminal Cases</span>
+      <span class="sys-tag">Bail Processing</span>
+      <span class="sys-tag">Youth Courts</span>
+      <span class="sys-tag">Regulatory</span>
+      <span class="sys-tag">Coroner</span>
     </div>
     <div class="system-card">
-      <div class="sys-num">System 03</div>
-      <h4>[System Name TBC]</h4>
-      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
-      <p class="placeholder-note">Details to be added.</p>
+      <div class="sys-label">System C</div>
+      <div class="sys-age">Live since 2018 &mdash; shared infra with System B</div>
+      <h4>Family Justice Platform</h4>
+      <p>Dedicated to family proceedings: maintenance orders, simplified and contested divorce, mental capacity applications (MCA), custody and care orders, and welfare-related matters. Interfaces extensively with external agencies &mdash; hospitals, social workers, Ministry of Social and Family Development, and legal aid. The most cross-agency system of the four, with a user base including frontline social workers alongside legal practitioners.</p>
+      <span class="sys-tag">Divorce</span>
+      <span class="sys-tag">Maintenance Orders</span>
+      <span class="sys-tag">Mental Capacity</span>
+      <span class="sys-tag">Care &amp; Protection</span>
+      <span class="sys-tag">Agency Interfaces</span>
     </div>
     <div class="system-card">
-      <div class="sys-num">System 04</div>
-      <h4>[System Name TBC]</h4>
-      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
-      <p class="placeholder-note">Details to be added.</p>
+      <div class="sys-label">System D</div>
+      <div class="sys-age">Live since 2018 &mdash; public-facing</div>
+      <h4>Community Tribunals Platform</h4>
+      <p>The most public-facing of the four: a self-service portal for small claims, tenancy disputes, employment claims, and community mediation. The simplest case types but the most diverse user base &mdash; primarily self-represented parties with no legal background filing and managing their own cases. The platform most in need of usability improvement, and the one the programme had identified as a potential pilot for modernisation.</p>
+      <span class="sys-tag">Small Claims</span>
+      <span class="sys-tag">Tenancy Disputes</span>
+      <span class="sys-tag">Employment Claims</span>
+      <span class="sys-tag">Self-Represented</span>
     </div>
   </div>
 
   <div class="thinking-block">
-    <div class="label">What made this complex</div>
-    <p>Four systems sounds manageable on paper. In practice, complexity compounds quickly: each system has its own data model, its own user base, and its own operational history. More importantly, the real complexity wasn't <em>within</em> any single system &mdash; it was <em>between</em> them. How a case moved from one system to the next, what triggered a handoff, who was responsible at each stage, and where things fell into gaps: that's what we were really mapping.</p>
+    <div class="label">What struck me about the four-system landscape</div>
+    <p>Each platform had been built with a clear domain in mind. But over time, the organisation&rsquo;s operational needs had grown sideways &mdash; cases that started in one domain routinely crossed into another. A criminal matter could generate a family proceeding. An appeal from the criminal platform routed to the civil platform. Family cases touched external agencies that had no presence in any of the four systems. The formal integrations were documented. The informal bridges &mdash; the manual handoffs, the duplicate data entry, the workarounds that had calcified into standard practice &mdash; were not. That&rsquo;s what the scoping phase was really there to uncover.</p>
   </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════ HANDSHAKES ═══════════════════════════════════════════════ -->
-<section class="section">
-  <div class="section-label">The Core Work</div>
-  <h2>Mapping the handshakes</h2>
-  <p>In complex multi-system environments, the handshake &mdash; the moment where one system passes responsibility to another &mdash; is often where the real problems live. Not inside any one system, but in the gaps between them.</p>
-  <p>Mapping the handshakes meant going beyond what the technical documentation said should happen, to understand what actually happened: the informal workarounds, the manual steps that had become standard practice, the data that got rekeyed because two systems didn't talk to each other, and the decisions that got made in those gaps that no one had formally documented.</p>
-
-  <div class="handshake-row">
-    <div class="hs-system">System 01<span>[Handoff description TBC]</span></div>
-    <div class="hs-connector">&#8594;</div>
-    <div class="hs-system">System 02<span>[Handoff description TBC]</span></div>
-    <div class="hs-connector">&#8594;</div>
-    <div class="hs-system">System 03<span>[Handoff description TBC]</span></div>
-    <div class="hs-connector">&#8594;</div>
-    <div class="hs-system">System 04<span>[Handoff description TBC]</span></div>
-  </div>
-
-  <div class="thinking-block">
-    <div class="label">Why handshakes matter for discovery</div>
-    <p>A discovery team focused only on individual systems would miss the real friction &mdash; which almost always lives at the boundaries. By mapping handshakes in the scoping phase, we could tell the discovery team: <em>these are the moments where the case management process is most likely to break, slow down, or generate workarounds. Start your user research here.</em> That's the kind of input that turns a generic discovery into a targeted one.</p>
-  </div>
-
-  <h3>What we found at the handshakes</h3>
-  <p>Across the four systems, the handshake mapping surfaced a consistent pattern: formal integration points were well-documented, but the informal processes that had grown up around their limitations were not. [Further findings to be added based on project details.]</p>
 </section>
 
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════ THE TEAM ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ CAPABILITIES ════════════════════ -->
+<section class="section">
+  <div class="section-label">Scoping Phase &mdash; Capability Mapping</div>
+  <h2>Twelve capabilities across four platforms</h2>
+  <p>We assessed each platform against twelve capability categories &mdash; not against a theoretical benchmark, but against what the platform actually did in day-to-day operation. The picture that emerged was one of fragmented implementation: capabilities that existed in one system but not others, shared data that was manually re-entered across all four, and integration points that worked on paper but created friction in practice. &rarr; <a href="visualisations/case-mgmt-capability-blueprint.html" target="_blank" style="color:var(--primary);font-weight:600;text-decoration:none;border-bottom:1px solid var(--primary);">View full capability blueprint</a></p>
+
+  <table class="cap-table">
+    <thead>
+      <tr>
+        <th>Capability</th>
+        <th>Status across systems</th>
+        <th>Key finding</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="cap-name">Document Management</td>
+        <td><span class="cap-status s-gap">Fragmented</span></td>
+        <td>File size limits vary dramatically across systems &mdash; forcing users to split large documents. No multimedia support (work-arounds involve embedding media inside PDFs). No unified in-app preview. Storage costs in the hundreds of terabytes for the oldest platform.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Templates</td>
+        <td><span class="cap-status s-gap">Major gap</span></td>
+        <td>Separately implemented in every system. Templates for notices, letters, and court orders are not standardised and not centrally managed. Changes require vendor intervention or code changes. <strong>Most frequently cited pain point across all stakeholder sessions.</strong></td>
+      </tr>
+      <tr>
+        <td class="cap-name">Input Forms</td>
+        <td><span class="cap-status s-gap">Fragmented</span></td>
+        <td>Disparate look and feel across platforms. Intake forms &mdash; the primary touchpoint for case filing &mdash; are some of the most difficult to change and the most in need of simplification. Minute sheets tailored to specific user groups require cross-court alignment.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Calendaring</td>
+        <td><span class="cap-status s-partial">Partially aligned</span></td>
+        <td>Separately implemented in each system with insufficient sync. Shared data &mdash; room availability, quotas, court holidays &mdash; is manually entered into each platform independently, creating conflict resolution overhead and a persistent risk of scheduling errors.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Search</td>
+        <td><span class="cap-status s-gap">Significant gap</span></td>
+        <td>Two systems report functional search; one barely uses it due to poor performance; no cross-system search index exists. Large volumes of case information sit in unstructured documents &mdash; invisible to keyword search. No semantic search capability across any platform.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Reporting &amp; Statistics</td>
+        <td><span class="cap-status s-gap">Fragmented</span></td>
+        <td>No single data platform. Each system uses different tools (Tableau, Qlik, Elixir). Many analytical queries require manual database access by vendors, creating delays and resource overhead. Ad-hoc statistical analysis depends on vendor availability.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Broadcast &amp; Document Sync</td>
+        <td><span class="cap-status s-gap">Single system only</span></td>
+        <td>Only the Criminal &amp; Regulatory platform has this capability (courtroom synchronisation of documents across parties). The other three systems have no equivalent. Users in those systems rely on entirely separate approaches for in-hearing document sharing.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Payment</td>
+        <td><span class="cap-status s-partial">Partially aligned</span></td>
+        <td>Payment methods are broadly aligned (eNETS, PayNow, offline), but fee structures are misaligned across platforms. Some systems use a subscription model; others collect via a separate financial system. No harmonised fee structure or clear system-of-record for fee definitions.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Notifications</td>
+        <td><span class="cap-status s-aligned">Broadly aligned</span></td>
+        <td>Overall approach is consistent (in-app inboxes, email, SMS). However, redundant gateways exist &mdash; multiple SMS and mail services used across internal and external users. Not flagged as urgent, but consolidation would reduce operational overhead.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Archival</td>
+        <td><span class="cap-status s-gap">Largely absent</span></td>
+        <td>Minimal archival capability across all four platforms. Large volumes of files sit on fast-access storage (databases, S3) rather than cold storage, driving high ongoing costs. Only one system has any interface to archived legacy case data.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">Workflow &amp; Tasks</td>
+        <td><span class="cap-status s-partial">Inconsistent</span></td>
+        <td>Task assignment and workflow tracking exists in some systems but not others, and coverage is not consistent within systems. Users who work across multiple platforms experience significant variation in how work is assigned, tracked, and handed off.</td>
+      </tr>
+      <tr>
+        <td class="cap-name">User Management &amp; Authorisation</td>
+        <td><span class="cap-status s-gap">Fragmented</span></td>
+        <td>Each system defines its own roles and access matrix independently. Users who work across multiple platforms must be managed separately in each. No unified authorisation layer. Consolidation was identified as a prerequisite for any automated cross-system workflow.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="thinking-block">
+    <div class="label">The pattern that kept appearing</div>
+    <p>Across almost every capability, the same pattern emerged: each system had done a reasonable job solving the problem within its own domain. What no system had done &mdash; because none of them had been designed with the others in mind &mdash; was account for the user who worked across all four. Templates not standardised. Shared data manually re-entered. Role matrices defined independently. The pain wasn&rsquo;t inside any single system. It was the accumulated cost of four separate solutions that were never meant to form a coherent whole.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ════════════════════ HANDSHAKES ════════════════════ -->
+<section class="section">
+  <div class="section-label">Scoping Phase &mdash; Integration Mapping</div>
+  <h2>Where the systems meet: the handshake map</h2>
+  <p>In any multi-system environment, the integration points &mdash; the moments where one system passes data, responsibility, or a user to another &mdash; are where the real operational complexity lives. Formal integrations are documented. The informal bridges, the manual handoffs, and the workarounds built around integration limitations are not. Mapping the handshakes meant finding both. &rarr; <a href="visualisations/case-mgmt-handshake-map.html" target="_blank" style="color:var(--primary);font-weight:600;text-decoration:none;border-bottom:1px solid var(--primary);">View full handshake map</a></p>
+
+  <div class="hs-flow">
+    <div class="hs-sys">
+      <h5>Criminal &amp; Regulatory</h5>
+      <p>Criminal case filed and managed; bail processed; hearings conducted</p>
+    </div>
+    <div class="hs-arrow">&#8594;</div>
+    <div class="hs-sys">
+      <h5>Civil Litigation</h5>
+      <p>Appeals from criminal matters route here; Supreme Court proceedings handled</p>
+    </div>
+    <div class="hs-arrow">&#8660;</div>
+    <div class="hs-sys">
+      <h5>Family Justice</h5>
+      <p>Family proceedings triggered by or related to criminal matters; shared infrastructure with Criminal platform</p>
+    </div>
+    <div class="hs-arrow">&#8594;</div>
+    <div class="hs-sys">
+      <h5>Community Tribunals</h5>
+      <p>Simplest cases; self-service filing; no formal integration with other platforms</p>
+    </div>
+  </div>
+
+  <div class="integration-grid">
+    <div class="integration-card int-complex">
+      <div class="int-type">Cross-system flow</div>
+      <h5>The Appeals Path</h5>
+      <p>Criminal cases that proceed to appeal move from the Criminal &amp; Regulatory platform to the Civil Litigation platform. This cross-system handoff is a formal integration &mdash; but the transition of case files, documents, and history between the two systems requires coordination that falls on operational staff rather than on any automated workflow.</p>
+    </div>
+    <div class="integration-card int-gap">
+      <div class="int-type">Shared data gap</div>
+      <h5>Calendaring &amp; Room Management</h5>
+      <p>Court rooms, hearing quotas, and public holidays are shared data used by all four systems for scheduling. None of the systems read this data from a shared source &mdash; it is manually entered into each platform independently. Conflicts between systems require manual reconciliation by administrative staff.</p>
+    </div>
+    <div class="integration-card int-manual">
+      <div class="int-type">Authentication layer</div>
+      <h5>User Identity Across Systems</h5>
+      <p>External users (lawyers, law firms, self-represented parties) authenticate via SingPass and CorpPass. Internal users use WOG Active Directory. Each system implements its own roles and access matrix on top of these. Users working across systems must be provisioned and managed independently in each platform, with no unified authorisation layer.</p>
+    </div>
+    <div class="integration-card int-gap">
+      <div class="int-type">Agency interfaces</div>
+      <h5>30+ External Agency Connections</h5>
+      <p>The Criminal and Family platforms connect to over 30 external agencies (police, prosecutors, social services, hospitals, MSF). Each integration is independently implemented, catering to that agency&rsquo;s specific data formats and processes. No shared integration layer or common API pattern exists across the four platforms.</p>
+    </div>
+    <div class="integration-card int-complex">
+      <div class="int-type">Financial integration</div>
+      <h5>Payment Gateway</h5>
+      <p>All four platforms channel payments through a central financial system (eNETS, PayNow, offline). However, fee structures are defined differently within each platform, and the financial system serves as the record of payment rather than the point of fee definition. Misalignment in fee structures between platforms creates reconciliation complexity.</p>
+    </div>
+    <div class="integration-card int-gap">
+      <div class="int-type">Infra dependency</div>
+      <h5>Shared Deployment Infrastructure</h5>
+      <p>The Criminal and Family platforms share deployment infrastructure and maintenance windows. Changes to one can affect the other. This coupling, which was not by design but by operational convenience, creates constraints on the modernisation sequencing &mdash; changes cannot be made independently without risk.</p>
+    </div>
+  </div>
+
+  <div class="thinking-block">
+    <div class="label">What the handshake map told us about the modernisation</div>
+    <p>The integrations between systems were not the problem. Most of them worked. What the handshake map surfaced was something more useful for the programme: the dependencies that would shape the sequencing of modernisation, the shared data that no single system owned but all four depended on, and the manual workarounds that had grown to such a scale they would need to be designed out, not just eliminated. That intelligence &mdash; before discovery had spoken to a single user &mdash; was already reshaping how the programme was thinking about what to do first.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ════════════════════ A FRAMEWORK FOR WHAT CAME NEXT ════════════════════ -->
+<section class="section">
+  <div class="section-label">Scoping Output &mdash; Strategic Framing</div>
+  <h2>A model for thinking about the modernisation</h2>
+  <p>One of the outputs from the scoping phase was a four-layer platform transformation model &mdash; a framework developed with the programme team to organise the modernisation work across the right levels of the organisation simultaneously. The model made explicit what would otherwise be easy to miss: that modernising four case management platforms is not just a technology problem, and not just a user experience problem. It requires coordinated work across governance, platform architecture, individual system improvements, and user experience &mdash; in that order of dependency.</p>
+
+  <img class="img-full" src="images/case-mgmt-4-layer-model.jpg" alt="4-Layer Platform Transformation Model — showing Organisation (Governance), Harmonised Platform (Cross-System), Separate Systems (Functional), and Users (Experience) layers with associated workstreams">
+  <p class="img-caption">The 4-Layer Platform Transformation Model &mdash; developed during the scoping phase to frame the modernisation programme&rsquo;s work across four interdependent levels</p>
+
+  <div class="principles">
+    <div class="principle">
+      <div class="num">01</div>
+      <h4>Organisation Layer</h4>
+      <p>Governance, policy alignment, KPI frameworks, legal and compliance reviews, and change management. The decisions that have to be made before any system changes.</p>
+    </div>
+    <div class="principle">
+      <div class="num">02</div>
+      <h4>Platform Layer</h4>
+      <p>Shared design system, data synchronisation strategy, common services (authentication, notifications), cross-platform user flow mapping. What makes the four systems cohere.</p>
+    </div>
+    <div class="principle">
+      <div class="num">03</div>
+      <h4>Systems Layer</h4>
+      <p>System-specific workflow audits, tech debt assessment, usability testing per system, process harmonisation workshops. What needs to happen within each platform independently.</p>
+    </div>
+  </div>
+
+  <div class="thinking-block">
+    <div class="label">Why the model mattered</div>
+    <p>Without this framing, a modernisation programme of this scale tends to collapse into a long list of feature requests, each prioritised by whoever is most vocal. The model gave the programme leadership a structure for thinking about where decisions needed to be made first, which workstreams were dependencies for others, and what &ldquo;done&rdquo; meant at each level. That&rsquo;s not a design output in the traditional sense. But it&rsquo;s exactly the kind of framing work that determines whether a complex programme has a coherent direction or just a backlog.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ════════════════════ KEY FINDINGS ════════════════════ -->
+<section class="section">
+  <div class="section-label">Scoping Findings</div>
+  <h2>Where the real complexity lives</h2>
+  <p>After one month across all four systems, a set of consistent themes emerged. These were not problems the scoping phase was asked to solve &mdash; but they were patterns that the discovery phase needed to investigate, and risks the programme needed to plan around.</p>
+
+  <div class="finding-grid">
+    <div class="finding-card">
+      <div class="num">01</div>
+      <h4>Templates are the highest-friction shared problem</h4>
+      <p>Cited as a pain point in virtually every stakeholder session across all four systems. Templates for court notices, orders, and letters are maintained separately in each platform, are difficult to change without vendor involvement, and are not standardised in look or wording. Any unified platform will need a centralised template management capability as a baseline.</p>
+    </div>
+    <div class="finding-card">
+      <div class="num">02</div>
+      <h4>Document management friction scales with case complexity</h4>
+      <p>File size limits that are reasonable for simple cases (community disputes) become severe constraints for complex ones (criminal cases with 1000+ charges, each with associated files). The absence of in-app multimedia preview means complex cases require workarounds that slow down hearings. No platform has a consistent approach to document archival.</p>
+    </div>
+    <div class="finding-card">
+      <div class="num">03</div>
+      <h4>The multi-system user has no home</h4>
+      <p>A significant number of operational staff &mdash; court officers, registry staff, senior judicial officers &mdash; work across two or more systems as a matter of routine. None of the four platforms was designed with this user in mind. User management is duplicated, role matrices are inconsistent, and there is no shared view of workload or case status across systems.</p>
+    </div>
+    <div class="finding-card">
+      <div class="num">04</div>
+      <h4>Vendors are a design constraint, not just a delivery mechanism</h4>
+      <p>The four platforms have four different vendor relationships, each with different responsiveness, different code ownership arrangements, and different levels of technical documentation. The oldest platform&rsquo;s vendor relationship had deteriorated significantly. Modernisation sequencing would need to account for vendor capacity and contract timelines as real constraints on what could change and when.</p>
+    </div>
+    <div class="finding-card">
+      <div class="num">05</div>
+      <h4>Shared data is nobody&rsquo;s responsibility</h4>
+      <p>Room availability, court holidays, hearing quotas &mdash; data used by all four platforms for scheduling &mdash; has no system of record. It is manually maintained in each system independently. This is not a gap in any single platform. It is a gap in the ecosystem, and it will only be resolved by a decision at the programme level about where that data should live.</p>
+    </div>
+    <div class="finding-card">
+      <div class="num">06</div>
+      <h4>System D is the right pilot candidate &mdash; but for specific reasons</h4>
+      <p>The Community Tribunals platform handles the simplest case types, has the most self-service-oriented user base, and has the most to gain from usability improvement. But its relative simplicity also means improvements there would not automatically transfer to the other three platforms. The pilot case for platform redesign needs to be carefully framed to extract learnings that generalise, not just a usability uplift in isolation.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ════════════════════ TEAM ════════════════════ -->
 <section class="section">
   <div class="section-label">Team &amp; Approach</div>
   <h2>Three disciplines, one picture</h2>
-  <p>The scoping team was deliberately cross-functional. Each discipline contributed a different layer of understanding &mdash; and the synthesis across all three is what made the output useful for discovery.</p>
+  <p>The scoping team was deliberately cross-functional. Each discipline contributed a different layer of understanding &mdash; and the value was in what we could triangulate across all three perspectives.</p>
 
   <div class="team-grid">
     <div class="team-card">
       <div class="role">Lead Designer</div>
-      <h4>Design &amp; Facilitation</h4>
-      <p>Structured the engagement, facilitated stakeholder sessions, and synthesised across disciplines into a picture that non-technical stakeholders could act on. Led handshake mapping and framed outputs for discovery.</p>
+      <h4>Facilitation &amp; Strategic Framing</h4>
+      <p>Structured the engagement, facilitated stakeholder walkthroughs across all four systems, synthesised across disciplines, and translated findings into a format the discovery team and programme leadership could act on. Led handshake mapping and framing of the 4-layer model.</p>
     </div>
     <div class="team-card">
       <div class="role">Principal BA</div>
-      <h4>Business Analysis</h4>
-      <p>Documented business processes, capability inventories, and data flows across each system. Surfaced the operational logic behind how cases moved through the organisation.</p>
+      <h4>Business Process &amp; Capability</h4>
+      <p>Documented business processes, capability inventories, and data flows within each system. Surfaced the operational logic behind how cases moved through each platform, and identified where documented processes diverged from actual practice.</p>
     </div>
     <div class="team-card">
       <div class="role">Solutions Architect</div>
       <h4>Technical Architecture</h4>
-      <p>Assessed the technical landscape: integration patterns, system constraints, legacy dependencies, and architectural decisions that would shape what modernisation was actually possible.</p>
+      <p>Assessed the technical landscape: integration patterns, deployment architectures, legacy dependencies, code ownership arrangements, and vendor constraints. Identified the architectural decisions that would shape what modernisation was actually feasible and in what sequence.</p>
     </div>
   </div>
 
   <div class="thinking-block">
     <div class="label">What the cross-functional model gave us</div>
-    <p>Working across design, BA, and architecture meant we could triangulate. When the BA documented a process and the Solutions Architect mapped the technical integration, I could sit across both and ask: does the system actually support the process it's supposed to enable? More often than not, the answer was "partly" &mdash; and that gap became a signal for discovery to follow up on.</p>
+    <p>The most useful findings came from the intersections. When the BA documented a process and the Solutions Architect assessed the system supporting it, I could sit across both and ask: does this platform actually enable the process it&rsquo;s supposed to support? The answer was frequently &ldquo;partly.&rdquo; Sometimes the gap was technical: the system couldn&rsquo;t do what the process required. Sometimes it was operational: the process had evolved but the system hadn&rsquo;t followed. In both cases, the gap only became visible when you had someone looking at both layers at the same time. That&rsquo;s what the three-person team made possible.</p>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════ OUTPUTS ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ OUTPUTS ════════════════════ -->
 <section class="section">
   <div class="section-label">Scoping Outputs</div>
-  <h2>What the scoping phase produced</h2>
-  <p>At the end of one month, the scoping phase delivered a set of artefacts designed to serve one purpose: make the discovery phase smarter, faster, and better targeted.</p>
+  <h2>What the scoping phase delivered</h2>
+  <p>At the end of one month, the programme had a set of artefacts built around a single purpose: giving the discovery phase &mdash; and the programme leadership &mdash; what they needed to move with confidence.</p>
 
   <div class="output-grid">
     <div class="output-card">
-      <div class="icon">&#9783;</div>
-      <h4>Capability Map</h4>
-      <p>A structured inventory of what each of the four systems was capable of &mdash; actual capabilities, not documented specifications &mdash; organised by function and user group.</p>
-    </div>
-    <div class="output-card">
-      <div class="icon">&#8594;</div>
-      <h4>Handshake Map</h4>
-      <p>A visual and documented record of every integration point between systems: what triggers the handoff, what data moves, who is responsible, and where the gaps and manual bridges are.</p>
-    </div>
-    <div class="output-card">
-      <div class="icon">&#9999;</div>
       <h4>As-Is System Overview</h4>
-      <p>A consolidated view of the current-state landscape: all four systems together, how they relate, and what the case management process looks like end-to-end as it operates today.</p>
+      <p>A consolidated current-state picture of all four platforms: what each one does, who uses it, its technical architecture, and its vendor relationship. The baseline everything else was built from.</p>
     </div>
     <div class="output-card">
-      <div class="icon">&#9888;</div>
-      <h4>Risk and Complexity Register</h4>
-      <p>A flagged list of areas where complexity, legacy constraints, or undocumented processes would likely create friction during discovery or design. Input for risk planning.</p>
+      <h4>Capability Map</h4>
+      <p>Assessment of twelve capability categories across all four systems, with status ratings and key findings per capability. Designed to make cross-system comparison legible at a glance.</p>
     </div>
     <div class="output-card">
-      <div class="icon">&#63;</div>
-      <h4>Known Unknowns Log</h4>
-      <p>Explicit documentation of questions the scoping phase could not answer &mdash; things that needed user research, deeper technical investigation, or stakeholder decisions to resolve.</p>
+      <h4>Handshake Map</h4>
+      <p>Documentation of every integration point between systems: formal integrations, informal bridges, manual workarounds, and the shared data nobody owned. The part of the landscape most likely to shape modernisation sequencing.</p>
     </div>
     <div class="output-card">
-      <div class="icon">&#9654;</div>
-      <h4>Discovery Brief</h4>
-      <p>A structured brief for the discovery team: what we know, what we don't, where to focus, and what questions the first phase of user research should be built around.</p>
+      <h4>Pain Point Register</h4>
+      <p>A consolidated list of friction points surfaced across all stakeholder sessions, organised by capability area and cross-referenced to the systems they appeared in. Input to the discovery research plan.</p>
+    </div>
+    <div class="output-card">
+      <h4>Risk &amp; Dependency Log</h4>
+      <p>Areas where technical constraints, vendor relationships, or shared infrastructure would shape what modernisation could do and in what sequence. Designed to prevent the programme from making plans that would later collide with real constraints.</p>
+    </div>
+    <div class="output-card">
+      <h4>4-Layer Transformation Model</h4>
+      <p>A strategic framing of the modernisation across governance, platform, systems, and user experience layers &mdash; with associated workstreams mapped to each layer. Gave the programme a coherent structure for planning work at the right level.</p>
     </div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════ LEARNINGS ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ LEARNINGS ════════════════════ -->
 <section class="section">
   <div class="section-label">Reflections</div>
-  <h2>What I learned about working in complex systems</h2>
+  <h2>What I learned from working at this scale</h2>
 
   <div class="learning-grid">
     <div class="learning-card">
       <div class="num">01</div>
-      <h4>The gaps between systems are more revealing than the systems themselves</h4>
-      <p>Every system had documentation. None of the handshakes did. The informal processes, manual bridges, and workarounds that had grown up at integration points were invisible until we specifically went looking for them. That's where the real complexity &mdash; and the real opportunity for improvement &mdash; lives.</p>
+      <h4>The gaps between systems are more complex than the systems themselves</h4>
+      <p>Each platform, taken individually, was understandable. The complexity was in the relationships between them &mdash; the data that crossed boundaries, the users who worked across multiple platforms, the integrations that had been built one at a time without a coherent picture of the whole. Understanding a multi-system environment means specifically going looking for what the systems don&rsquo;t document: the handshakes.</p>
     </div>
     <div class="learning-card">
       <div class="num">02</div>
-      <h4>What a system does and what it's used for are not the same thing</h4>
-      <p>Across all four systems, there was a consistent gap between designed intent and actual use. Systems had capabilities that were never used, and operational needs that were being met by manual workarounds because no system had been built to handle them. Documenting both &mdash; not just one &mdash; is what makes a capability map useful.</p>
+      <h4>What a system is designed to do and what it&rsquo;s actually used for are rarely the same</h4>
+      <p>Every system had documentation. Every system had also evolved significantly beyond what that documentation described. Users had built workarounds into their daily practice. Capabilities that existed were rarely used. Capabilities that were needed didn&rsquo;t exist. Documenting only what a system was designed to do would have produced an artefact that was accurate and useless. The job was to document both: intent and reality.</p>
     </div>
     <div class="learning-card">
       <div class="num">03</div>
-      <h4>A cross-functional team sees things a single discipline misses</h4>
-      <p>Working alongside a Principal BA and Solutions Architect meant I could surface mismatches that neither discipline would have caught alone: processes that the BA documented but the Solutions Architect knew the system couldn't support; technical constraints that shaped operational workarounds that had never been flagged as a problem. The synthesis across disciplines is where the insight was.</p>
+      <h4>A cross-functional team sees what a single discipline misses</h4>
+      <p>Working alongside a Principal BA and Solutions Architect meant we could surface mismatches that neither discipline would have caught alone. The BA saw process. The architect saw constraints. I could ask whether the two were actually compatible &mdash; and often they weren&rsquo;t. The synthesis across disciplines is where the real insight lives, but it requires someone explicitly holding that synthesis role. That was my job.</p>
     </div>
     <div class="learning-card">
       <div class="num">04</div>
-      <h4>Scoping is an investment, not overhead</h4>
-      <p>On a project this complex, going straight to discovery without a systems map would have been expensive. The scoping phase cost one month. In exchange, the discovery team inherited a clear picture of the environment, a targeted set of questions, and an explicit register of risks and unknowns. That's not a delay &mdash; it's preparation that pays back across every phase that follows.</p>
+      <h4>In complex programmes, framing is as important as findings</h4>
+      <p>The capability map and handshake documentation were valuable. But what shaped the programme&rsquo;s direction most was the 4-layer model &mdash; a framing that made explicit where decisions needed to be made before features could be designed. In environments this complex, the designer&rsquo;s most important contribution is often not the artefacts but the conceptual structure that helps a large team make sense of what it&rsquo;s dealing with.</p>
     </div>
   </div>
 </section>
 
 <hr class="divider">
 
-<!-- ═══════════════════════════════════════════════ OUTCOME ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ OUTCOME ════════════════════ -->
 <section class="section">
   <div class="section-label">Outcome</div>
   <h2>What the scoping phase made possible</h2>
-  <p>We went into the scoping phase with four systems, a brief to modernise, and an unknown amount of complexity. We came out of it with a full as-is picture of the current environment, a documented map of every integration point across the four systems, a clear set of questions for discovery to build from, and a team that was genuinely prepared for what came next.</p>
-  <p>The value of this phase wasn't in the artefacts alone &mdash; it was in the shared understanding they represented. When discovery began, the team didn't need to spend weeks getting oriented. We could go straight to the work that matters: talking to users about their actual experience of these systems, and using what we already knew about the environment to ask better questions.</p>
+  <p>We entered the scoping phase with four platforms, a modernisation mandate, and an incomplete picture of what the programme was actually dealing with. We came out of it with a full current-state view, a capability assessment across twelve categories, a map of every significant integration point between the four systems, a strategic framework for organising the modernisation work, and a register of the risks and dependencies that would shape the sequencing.</p>
+  <p>More than the artefacts, the scoping phase produced something harder to document: a shared understanding. The programme team &mdash; design, BA, architecture, and leadership &mdash; came out of it with a common picture of the landscape. When discovery began, that shared picture meant conversations could start at a higher level. Users described problems; the team could immediately locate those problems in the system architecture. That compression &mdash; from landscape orientation to problem-focused research &mdash; is what a well-run scoping phase delivers.</p>
 
   <div class="thinking-block">
-    <div class="label">The broader point</div>
-    <p>Complex systems require a different kind of preparation. The skills that make HCD work in a focused, single-product context &mdash; going in early, staying open, letting users lead &mdash; don't disappear in a multi-system environment. But they need to be grounded in something. You can't design your way into clarity if you don't know what system you're designing within. This project taught me to see that preparation as part of the design work, not a precursor to it.</p>
+    <div class="label">Why I&rsquo;d argue for a scoping phase on every programme of this complexity</div>
+    <p>Complex programmes fail in predictable ways: they discover constraints too late to account for them, they plan work that turns out to be sequenced incorrectly, they treat systems as independent when they&rsquo;re actually coupled. A scoping phase doesn&rsquo;t prevent all of that. But it surfaces the constraints early, when there&rsquo;s still room to adjust. In a programme that would eventually span multiple years and involve changes to four platforms and dozens of integrations, one month invested upfront was not overhead. It was the work that made everything else more likely to succeed.</p>
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
+<!-- ════════════════════ FOOTER ════════════════════ -->
 <footer class="footer">
-  <p>Case Management Platform Modernisation &mdash; Pre-Discovery Scoping Case Study &bull; Public Sector, Singapore</p>
+  <p>Case Management Platform Modernisation &mdash; Pre-Discovery Scoping Case Study &bull; Singapore Government Agency, Public Sector</p>
 </footer>
 
 </div>

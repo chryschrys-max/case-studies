@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Handshake Map — Case Management Platform Modernisation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0F172A;
+  --surface: #1E293B;
+  --surface2: #263348;
+  --bdr: #334155;
+  --tx: #E2E8F0;
+  --tx2: #94A3B8;
+  --tx3: #64748B;
+  --txb: #F8FAFC;
+  --sys-a: #F59E0B;
+  --sys-a-bg: rgba(245,158,11,0.12);
+  --sys-a-bdr: rgba(245,158,11,0.3);
+  --sys-b: #EF4444;
+  --sys-b-bg: rgba(239,68,68,0.12);
+  --sys-b-bdr: rgba(239,68,68,0.3);
+  --sys-c: #10B981;
+  --sys-c-bg: rgba(16,185,129,0.12);
+  --sys-c-bdr: rgba(16,185,129,0.3);
+  --sys-d: #8B5CF6;
+  --sys-d-bg: rgba(139,92,246,0.12);
+  --sys-d-bdr: rgba(139,92,246,0.3);
+  --shared: #38BDF8;
+  --shared-bg: rgba(56,189,248,0.1);
+  --shared-bdr: rgba(56,189,248,0.25);
+  --risk-high: #EF4444;
+  --risk-med: #F59E0B;
+  --risk-low: #10B981;
+  --font: 'DM Sans', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--tx); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
+
+.back-link { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--tx3); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; transition: color 0.2s; }
+.back-link:hover { color: var(--shared); }
+.back-link::before { content: '\2190'; font-size: 14px; }
+
+.header { margin-bottom: 48px; }
+.header-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--shared); margin-bottom: 12px; }
+.header h1 { font-size: 32px; font-weight: 700; color: var(--txb); margin-bottom: 12px; }
+.header p { font-size: 15px; color: var(--tx2); max-width: 720px; line-height: 1.7; }
+
+/* ── SYSTEM NODES ── */
+.systems-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 8px; }
+.sys-node { border-radius: 12px; padding: 20px; text-align: center; border: 2px solid; }
+.sys-node .sys-id { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+.sys-node h3 { font-size: 14px; font-weight: 700; color: var(--txb); margin-bottom: 4px; }
+.sys-node .sys-sub { font-size: 12px; line-height: 1.4; }
+.sn-a { background: var(--sys-a-bg); border-color: var(--sys-a-bdr); }
+.sn-a .sys-id { color: var(--sys-a); }
+.sn-a .sys-sub { color: rgba(245,158,11,0.7); }
+.sn-b { background: var(--sys-b-bg); border-color: var(--sys-b-bdr); }
+.sn-b .sys-id { color: var(--sys-b); }
+.sn-b .sys-sub { color: rgba(239,68,68,0.7); }
+.sn-c { background: var(--sys-c-bg); border-color: var(--sys-c-bdr); }
+.sn-c .sys-id { color: var(--sys-c); }
+.sn-c .sys-sub { color: rgba(16,185,129,0.7); }
+.sn-d { background: var(--sys-d-bg); border-color: var(--sys-d-bdr); }
+.sn-d .sys-id { color: var(--sys-d); }
+.sn-d .sys-sub { color: rgba(139,92,246,0.7); }
+
+/* ── SECTION LABEL ── */
+.section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--shared); margin: 40px 0 16px; }
+.section-sub { font-size: 14px; color: var(--tx2); margin: -8px 0 20px; max-width: 800px; line-height: 1.6; }
+
+/* ── HANDSHAKE CARDS ── */
+.hs-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+.hs-card { background: var(--surface); border-radius: 12px; border: 1px solid var(--bdr); overflow: hidden; }
+.hs-card-head { padding: 16px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--bdr); }
+.hs-parties { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 200px; }
+.hs-party { font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+.hs-arrow-label { font-size: 16px; color: var(--tx3); }
+.hs-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
+.hs-risk { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-left: auto; }
+.risk-high { background: rgba(239,68,68,0.15); color: var(--risk-high); }
+.risk-med { background: rgba(245,158,11,0.15); color: var(--risk-med); }
+.risk-low { background: rgba(16,185,129,0.15); color: var(--risk-low); }
+
+.hs-type-cross { background: rgba(56,189,248,0.1); color: var(--shared); }
+.hs-type-manual { background: rgba(245,158,11,0.1); color: var(--risk-med); }
+.hs-type-gap { background: rgba(239,68,68,0.1); color: var(--risk-high); }
+.hs-type-shared { background: rgba(16,185,129,0.1); color: var(--risk-low); }
+.hs-type-ext { background: rgba(139,92,246,0.1); color: var(--sys-d); }
+
+.hs-card-body { padding: 16px 20px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.hs-detail h5 { font-size: 12px; font-weight: 700; color: var(--txb); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.hs-detail p { font-size: 13px; color: var(--tx2); line-height: 1.65; }
+.hs-detail ul { margin: 0 0 0 16px; }
+.hs-detail li { font-size: 13px; color: var(--tx2); line-height: 1.65; margin-bottom: 3px; }
+
+@media (max-width: 700px) {
+  .hs-card-body { grid-template-columns: 1fr; }
+  .systems-row { grid-template-columns: repeat(2, 1fr); }
+  .page { padding: 32px 16px 60px; }
+}
+
+/* Party badges */
+.p-a { background: var(--sys-a-bg); color: var(--sys-a); border: 1px solid var(--sys-a-bdr); }
+.p-b { background: var(--sys-b-bg); color: var(--sys-b); border: 1px solid var(--sys-b-bdr); }
+.p-c { background: var(--sys-c-bg); color: var(--sys-c); border: 1px solid var(--sys-c-bdr); }
+.p-d { background: var(--sys-d-bg); color: var(--sys-d); border: 1px solid var(--sys-d-bdr); }
+.p-ext { background: rgba(56,189,248,0.1); color: var(--shared); border: 1px solid rgba(56,189,248,0.25); }
+.p-all { background: rgba(255,255,255,0.06); color: var(--tx2); border: 1px solid var(--bdr); }
+
+/* ── SHARED SERVICES GRID ── */
+.shared-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+@media (max-width: 700px) { .shared-grid { grid-template-columns: 1fr; } }
+.shared-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px; padding: 18px; }
+.shared-card .sh-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--shared); margin-bottom: 8px; }
+.shared-card h4 { font-size: 14px; font-weight: 700; color: var(--txb); margin-bottom: 6px; }
+.shared-card p { font-size: 12px; color: var(--tx2); line-height: 1.6; }
+.shared-card .sh-systems { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.sh-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+
+/* ── RISK SUMMARY ── */
+.risk-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
+.risk-table th { background: var(--surface2); color: var(--tx2); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--bdr); }
+.risk-table td { padding: 12px 14px; border-bottom: 1px solid rgba(51,65,85,0.5); vertical-align: top; line-height: 1.6; color: var(--tx2); }
+.risk-table tr:last-child td { border-bottom: none; }
+.risk-table .rt-name { color: var(--txb); font-weight: 600; }
+.risk-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<a class="back-link" href="../case-management-scoping-case-study.html">Back to Case Study</a>
+
+<div class="header">
+  <div class="header-label">Scoping Phase &mdash; Visualisation</div>
+  <h1>Handshake Map</h1>
+  <p>A structured view of every integration point between the four case management platforms identified during the scoping phase &mdash; including formal technical integrations, shared infrastructure dependencies, external agency connections, and the manual bridges built at the seams between systems.</p>
+</div>
+
+<!-- ── SYSTEM NODES ── -->
+<div class="systems-row">
+  <div class="sys-node sn-a">
+    <div class="sys-id">System A</div>
+    <h3>Civil Litigation</h3>
+    <div class="sys-sub">eLit &bull; Since 2013</div>
+  </div>
+  <div class="sys-node sn-b">
+    <div class="sys-id">System B</div>
+    <h3>Criminal &amp; Regulatory</h3>
+    <div class="sys-sub">iCMS &bull; High volume</div>
+  </div>
+  <div class="sys-node sn-c">
+    <div class="sys-id">System C</div>
+    <h3>Family Justice</h3>
+    <div class="sys-sub">iFAMS &bull; Since 2018</div>
+  </div>
+  <div class="sys-node sn-d">
+    <div class="sys-id">System D</div>
+    <h3>Community Tribunals</h3>
+    <div class="sys-sub">CJTS &bull; Since 2018</div>
+  </div>
+</div>
+
+<!-- ── CROSS-SYSTEM FLOWS ── -->
+<div class="section-label">Cross-System Case Flows</div>
+<p class="section-sub">Points where a case moves from one platform to another &mdash; either formally via integration, or informally via manual handoff. These are the transitions most likely to create user confusion and operational overhead.</p>
+
+<div class="hs-group">
+
+  <div class="hs-card">
+    <div class="hs-card-head">
+      <div class="hs-parties">
+        <span class="hs-party p-b">System B &mdash; Criminal</span>
+        <span class="hs-arrow-label">&#8594;</span>
+        <span class="hs-party p-a">System A &mdash; Civil</span>
+      </div>
+      <span class="hs-type hs-type-cross">Cross-system flow</span>
+      <span class="hs-risk risk-high">High complexity</span>
+    </div>
+    <div class="hs-card-body">
+      <div class="hs-detail">
+        <h5>The Appeals Path</h5>
+        <p>Criminal cases that proceed to appeal move from the Criminal &amp; Regulatory platform to the Civil Litigation platform. Appellate proceedings at the Supreme Court are managed in System A, while the originating case record remains in System B. The handoff requires case files, documents, and hearing history to be accessible across systems &mdash; currently managed through operational coordination rather than automated integration.</p>
+      </div>
+      <div class="hs-detail">
+        <h5>What this means for modernisation</h5>
+        <ul>
+          <li>Appeal filing by lawyers happens in System A, but they need to reference criminal records in System B</li>
+          <li>Judges reviewing appeals need case history that spans both systems</li>
+          <li>No shared case identifier across platforms</li>
+          <li>Document bundles must be manually assembled across system boundaries</li>
+          <li>Changes to either platform&rsquo;s data model must account for this cross-system dependency</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="hs-card">
+    <div class="hs-card-head">
+      <div class="hs-parties">
+        <span class="hs-party p-b">System B &mdash; Criminal</span>
+        <span class="hs-arrow-label">&#8596;</span>
+        <span class="hs-party p-c">System C &mdash; Family</span>
+      </div>
+      <span class="hs-type hs-type-cross">Cross-system flow</span>
+      <span class="hs-risk risk-high">High complexity</span>
+    </div>
+    <div class="hs-card-body">
+      <div class="hs-detail">
+        <h5>Criminal cases generating family proceedings</h5>
+        <p>Criminal matters &mdash; particularly domestic violence, youth offences, and certain regulatory cases &mdash; can trigger family proceedings (care orders, protection orders, maintenance applications) that are managed in System C. The reverse also occurs: family proceedings can reference criminal records. The two systems share deployment infrastructure (EDS) but have no formal case linking capability.</p>
+      </div>
+      <div class="hs-detail">
+        <h5>What this means for modernisation</h5>
+        <ul>
+          <li>Court officers handling cross-domain cases must navigate both systems</li>
+          <li>Social workers (in System C) may need visibility into criminal proceedings (in System B) &mdash; currently handled through separate channels</li>
+          <li>Shared infrastructure means maintenance windows are coupled &mdash; changes to one affect the other</li>
+          <li>iFAMS sends practicing certificate information to iCMS &mdash; one formal integration point between the two</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="hs-card">
+    <div class="hs-card-head">
+      <div class="hs-parties">
+        <span class="hs-party p-a">System A &mdash; Civil</span>
+        <span class="hs-arrow-label">&#8594;</span>
+        <span class="hs-party p-c">System C &mdash; Family</span>
+      </div>
+      <span class="hs-type hs-type-manual">Manual handoff</span>
+      <span class="hs-risk risk-med">Medium complexity</span>
+    </div>
+    <div class="hs-card-body">
+      <div class="hs-detail">
+        <h5>Civil proceedings with family dimensions</h5>
+        <p>Some civil cases &mdash; particularly probate, mental capacity applications, and certain matrimonial property matters &mdash; have family dimensions that require coordination with the Family platform. The Civil platform handles the legal filing; the Family platform manages the welfare and relationship aspects of the same matter.</p>
+      </div>
+      <div class="hs-detail">
+        <h5>What this means for modernisation</h5>
+        <ul>
+          <li>Lawyers file in System A but social workers and welfare officers work in System C</li>
+          <li>No shared view of related proceedings across systems</li>
+          <li>Hearing scheduling across both systems cannot currently be automatically coordinated</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── SHARED DATA GAPS ── -->
+<div class="section-label">Shared Data Without a System of Record</div>
+<p class="section-sub">Data that all four platforms consume but that no single platform owns. Each system maintains its own copy, manually synchronised. These are the highest-risk gaps for a modernisation programme because they represent coordination overhead that sits outside any single system&rsquo;s scope.</p>
+
+<div class="hs-group">
+
+  <div class="hs-card">
+    <div class="hs-card-head">
+      <div class="hs-parties">
+        <span class="hs-party p-all">All 4 Systems</span>
+      </div>
+      <span class="hs-type hs-type-gap">No system of record</span>
+      <span class="hs-risk risk-high">Programme-level decision needed</span>
+    </div>
+    <div class="hs-card-body">
+      <div class="hs-detail">
+        <h5>Court rooms, quotas &amp; public holidays</h5>
+        <p>Room availability, hearing quotas per court type, and public holidays are used by all four platforms for hearing scheduling. There is no master data source for any of this &mdash; each platform maintains its own copy. Updates (new holidays, changed room availability, quota adjustments) must be manually applied to each system independently. Conflicts between systems require manual resolution by administrative staff.</p>
+      </div>
+      <div class="hs-detail">
+        <h5>What this means for modernisation</h5>
+        <ul>
+          <li>This cannot be fixed by improving any single system</li>
+          <li>Requires a programme-level decision about where this data should live and who owns it</li>
+          <li>A unified scheduling service would benefit all four platforms immediately</li>
+          <li>Cross-court hearing coordination (cases spanning multiple platforms) is currently impossible to automate without this</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="hs-card">
+    <div class="hs-card-head">
+      <div class="hs-parties">
+        <span class="hs-party p-a">System A</span>
+        <span class="hs-arrow-label">&#43;</span>
+        <span class="hs-party p-b">System B</span>
+        <span class="hs-arrow-label">&#43;</span>
+        <span class="hs-party p-c">System C</span>
+      </div>
+      <span class="hs-type hs-type-gap">Fragmented</span>
+      <span class="hs-risk risk-med">Medium complexity</span>
+    </div>
+    <div class="hs-card-body">
+      <div class="hs-detail">
+        <h5>User identity &amp; role definitions</h5>
+        <p>Users who work across multiple platforms &mdash; senior judicial officers, registry staff, court officers &mdash; must be provisioned and managed independently in each system. Each system defines its own role matrix. There is no unified authorisation layer. A change in a user&rsquo;s responsibilities requires manual updates across every system they have access to.</p>
+      </div>
+      <div class="hs-detail">
+        <h5>What this means for modernisation</h5>
+        <ul>
+          <li>Manual overhead for the IT teams managing user access across systems</li>
+          <li>Risk of permissions drift &mdash; user roles not updated consistently across platforms</li>
+          <li>Any automated cross-system workflow requires a unified authorisation model as a prerequisite</li>
+          <li>The Family platform&rsquo;s complex agency user matrix (30+ agencies) makes this the hardest to consolidate</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── EXTERNAL INTEGRATIONS ── -->
+<div class="section-label">External System Integrations</div>
+<p class="section-sub">Connections from the four platforms to external government systems and agencies. Each integration was built independently; no shared integration layer or common API pattern exists.</p>
+
+<div class="shared-grid">
+  <div class="shared-card">
+    <div class="sh-label">Authentication</div>
+    <h4>SingPass &amp; CorpPass</h4>
+    <p>All four platforms use SingPass for public users and CorpPass for law firms and businesses. Each platform implements the integration independently. Systems A, B, and C use WOG AD for internal staff; System D uses SingPass/CorpPass for agency users instead of WOG AD, creating an inconsistency for cross-system users.</p>
+    <div class="sh-systems">
+      <span class="sh-dot" style="background:var(--sys-a)"></span>
+      <span class="sh-dot" style="background:var(--sys-b)"></span>
+      <span class="sh-dot" style="background:var(--sys-c)"></span>
+      <span class="sh-dot" style="background:var(--sys-d)"></span>
+      <span style="font-size:11px;color:var(--tx3);margin-left:4px;">All 4 systems (inconsistently)</span>
+    </div>
+  </div>
+  <div class="shared-card">
+    <div class="sh-label">Identity Management</div>
+    <h4>WOG Active Directory &amp; CAM</h4>
+    <p>Internal users authenticate via WOG AD. CAM (Centralized Account Management) is used for user provisioning. Each system implements its own role definitions on top of these. A change in a user&rsquo;s role still requires updates in each system individually &mdash; CAM handles identity but not authorisation.</p>
+    <div class="sh-systems">
+      <span class="sh-dot" style="background:var(--sys-a)"></span>
+      <span class="sh-dot" style="background:var(--sys-b)"></span>
+      <span class="sh-dot" style="background:var(--sys-c)"></span>
+      <span style="font-size:11px;color:var(--tx3);margin-left:4px;">Systems A, B, C (not D)</span>
+    </div>
+  </div>
+  <div class="shared-card">
+    <div class="sh-label">Financial</div>
+    <h4>Central Payment Gateway (IFAS)</h4>
+    <p>All systems route payments through a central financial system. eNETS, PayNow, and offline channels. However, fee structures are defined differently in each platform, and the gateway is the record of payment &mdash; not the record of fee definitions. Misalignment in fee structures creates reconciliation complexity.</p>
+    <div class="sh-systems">
+      <span class="sh-dot" style="background:var(--sys-a)"></span>
+      <span class="sh-dot" style="background:var(--sys-b)"></span>
+      <span class="sh-dot" style="background:var(--sys-c)"></span>
+      <span class="sh-dot" style="background:var(--sys-d)"></span>
+      <span style="font-size:11px;color:var(--tx3);margin-left:4px;">All 4 systems</span>
+    </div>
+  </div>
+  <div class="shared-card">
+    <div class="sh-label">Notifications</div>
+    <h4>SGTS SMS &amp; Mail Gateway</h4>
+    <p>Redundant gateways: separate SGTS SMS and mail services for internal vs external users. All four platforms use these channels but each routes notifications independently. Consolidation would reduce maintenance overhead without affecting notification capability.</p>
+    <div class="sh-systems">
+      <span class="sh-dot" style="background:var(--sys-a)"></span>
+      <span class="sh-dot" style="background:var(--sys-b)"></span>
+      <span class="sh-dot" style="background:var(--sys-c)"></span>
+      <span class="sh-dot" style="background:var(--sys-d)"></span>
+      <span style="font-size:11px;color:var(--tx3);margin-left:4px;">All 4 systems (redundantly)</span>
+    </div>
+  </div>
+  <div class="shared-card">
+    <div class="sh-label">External Agencies (System C)</div>
+    <h4>30+ Agency Interfaces</h4>
+    <p>The Family Justice platform connects to MSF, hospitals, schools, and social services. Each integration is independently built. Agency users (hospitals sending medical reports, MSF providing social background) interact through the system&rsquo;s external portal. No shared integration pattern exists across the programme.</p>
+    <div class="sh-systems">
+      <span class="sh-dot" style="background:var(--sys-c)"></span>
+      <span style="font-size:11px;color:var(--tx3);margin-left:4px;">System C primarily</span>
+    </div>
+  </div>
+  <div class="shared-card">
+    <div class="sh-label">Infrastructure (Systems B &amp; C)</div>
+    <h4>Shared Deployment Infrastructure</h4>
+    <p>Systems B and C share EDS deployment infrastructure and maintenance windows. This was not a design decision &mdash; it evolved from operational convenience. Changes to either system&rsquo;s deployment must be coordinated. This coupling is a sequencing constraint for the modernisation programme.</p>
+    <div class="sh-systems">
+      <span class="sh-dot" style="background:var(--sys-b)"></span>
+      <span class="sh-dot" style="background:var(--sys-c)"></span>
+      <span style="font-size:11px;color:var(--tx3);margin-left:4px;">Systems B &amp; C only</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── RISK SUMMARY ── -->
+<div class="section-label" style="margin-top:48px;">Integration Risk Summary for Discovery</div>
+<p class="section-sub">A prioritised view of integration risks that the discovery phase should investigate &mdash; either through user research, technical deep-dives, or programme-level stakeholder alignment.</p>
+
+<table class="risk-table">
+  <thead>
+    <tr>
+      <th>Integration Point</th>
+      <th>Risk Level</th>
+      <th>Type</th>
+      <th>Why it matters for the programme</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="rt-name">Shared calendaring data (no system of record)</td>
+      <td><span class="risk-badge risk-high">High</span></td>
+      <td>Shared data gap</td>
+      <td>Affects all 4 systems. Cannot be fixed within any single system&rsquo;s scope. Requires a programme-level data ownership decision before any scheduling modernisation can proceed.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">Appeals cross-system flow (B → A)</td>
+      <td><span class="risk-badge risk-high">High</span></td>
+      <td>Cross-system case flow</td>
+      <td>Changes to either system&rsquo;s data model or document management capability must account for this dependency. A modernised System B that changes case identifiers or document structures will break the appeals handoff to System A.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">Shared deployment infrastructure (B + C)</td>
+      <td><span class="risk-badge risk-high">High</span></td>
+      <td>Infrastructure coupling</td>
+      <td>Systems B and C cannot be modernised independently without first decoupling their deployment. Any sequencing plan that treats them as separate workstreams must account for this.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">User role matrix fragmentation (all systems)</td>
+      <td><span class="risk-badge risk-med">Medium</span></td>
+      <td>Shared data gap</td>
+      <td>Multi-system users experience role inconsistency. Automated cross-system workflows are impossible without a unified authorisation model. This is a prerequisite for the Platform Layer of the transformation model.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">30+ agency integrations (System C)</td>
+      <td><span class="risk-badge risk-med">Medium</span></td>
+      <td>External integration</td>
+      <td>Each integration is independently maintained. Modernising System C without a shared integration layer means rebuilding each agency connection individually. Significant effort, and a pattern that won&rsquo;t scale to future agency additions.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">Payment gateway and fee structure misalignment</td>
+      <td><span class="risk-badge risk-med">Medium</span></td>
+      <td>Shared service</td>
+      <td>Fee structures are misaligned across platforms but all flow through the same gateway. Harmonising fees requires business alignment across court divisions before any technical changes can be made.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">Criminal-family cross-domain proceedings (B ↔ C)</td>
+      <td><span class="risk-badge risk-med">Medium</span></td>
+      <td>Cross-system case flow</td>
+      <td>Users handling cross-domain cases currently navigate two systems without a unified case view. Discovery should surface how frequently this occurs and what the user experience cost is &mdash; this may be a higher priority than it appears in system documentation.</td>
+    </tr>
+    <tr>
+      <td class="rt-name">Redundant notification gateways</td>
+      <td><span class="risk-badge risk-low">Low</span></td>
+      <td>Shared service</td>
+      <td>Functional but inefficient. Gateway consolidation is a maintenance and cost optimisation, not a user experience priority. Can be addressed as part of Platform Layer work without urgency.</td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</body>
+</html>
