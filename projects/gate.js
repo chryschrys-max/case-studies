@@ -66,7 +66,7 @@
   style.textContent =
     '#portfolio-gate {' +
       'position: fixed; inset: 0; z-index: 9999;' +
-      'background: #FFF8F0;' +
+      'background: #F9FAFB;' +
       'display: flex; align-items: center; justify-content: center;' +
       'font-family: "DM Sans", -apple-system, sans-serif;' +
     '}' +
@@ -75,42 +75,42 @@
     '}' +
     '.gate-label {' +
       'font-size: 11px; font-weight: 600; letter-spacing: 2.5px;' +
-      'text-transform: uppercase; color: #F4A261; margin-bottom: 16px;' +
+      'text-transform: uppercase; color: #7C3AED; margin-bottom: 16px;' +
     '}' +
     '.gate-title {' +
-      'font-size: 26px; font-weight: 700; color: #1B2A4A;' +
+      'font-size: 26px; font-weight: 700; color: #111827;' +
       'line-height: 1.3; margin-bottom: 12px;' +
     '}' +
     '.gate-sub {' +
-      'font-size: 15px; color: #4A5568; line-height: 1.7; margin-bottom: 32px;' +
+      'font-size: 15px; color: #6B7280; line-height: 1.7; margin-bottom: 32px;' +
     '}' +
     '#portfolio-gate input {' +
       'width: 100%; padding: 14px 16px; font-size: 15px;' +
-      'font-family: inherit; border: 1px solid #E8DDD0;' +
-      'border-radius: 8px; background: #fff; color: #2C3E50;' +
+      'font-family: inherit; border: 1px solid #E5E7EB;' +
+      'border-radius: 8px; background: #fff; color: #374151;' +
       'outline: none; margin-bottom: 12px;' +
     '}' +
     '#portfolio-gate input:focus {' +
-      'border-color: #F4A261; box-shadow: 0 0 0 3px rgba(244,162,97,0.15);' +
+      'border-color: #7C3AED; box-shadow: 0 0 0 3px rgba(124,58,237,0.15);' +
     '}' +
     '#portfolio-gate button {' +
       'font-family: inherit; cursor: pointer; border: none;' +
     '}' +
     '#gate-send-btn, #gate-unlock-btn {' +
       'width: 100%; padding: 14px; font-size: 14px; font-weight: 600;' +
-      'letter-spacing: 0.5px; color: #fff; background: #1B2A4A;' +
+      'letter-spacing: 0.5px; color: #fff; background: #312E81;' +
       'border-radius: 8px; transition: background 0.2s;' +
     '}' +
-    '#gate-send-btn:hover, #gate-unlock-btn:hover { background: #2D4470; }' +
+    '#gate-send-btn:hover, #gate-unlock-btn:hover { background: #4C1D95; }' +
     '#gate-send-btn:disabled, #gate-unlock-btn:disabled {' +
       'opacity: 0.6; cursor: not-allowed;' +
     '}' +
     '.gate-link {' +
-      'background: none; color: #6B7B8D; font-size: 13px;' +
+      'background: none; color: #9CA3AF; font-size: 13px;' +
       'margin-top: 16px; text-decoration: underline;' +
       'text-underline-offset: 3px;' +
     '}' +
-    '.gate-link:hover { color: #2D4470; }' +
+    '.gate-link:hover { color: #7C3AED; }' +
     '.gate-msg {' +
       'font-size: 13px; margin-top: 10px; min-height: 20px; line-height: 1.5;' +
     '}' +
@@ -118,9 +118,9 @@
     '.gate-msg.error { color: #C0392B; }' +
     '.gate-back {' +
       'display: inline-block; margin-top: 32px; font-size: 14px;' +
-      'color: #6B7B8D; text-decoration: none;' +
+      'color: #9CA3AF; text-decoration: none;' +
     '}' +
-    '.gate-back:hover { color: #2D4470; }';
+    '.gate-back:hover { color: #7C3AED; }';
 
   // ── INSERT INTO PAGE ────────────────────────────────────
   document.head.appendChild(style);
