@@ -632,10 +632,35 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   border-top: 1px solid var(--bdr);
   margin: 64px 0;
 }
+
+/* ── TOP NAV ── */
+.top-nav {
+  padding: 20px 0;
+}
+.top-nav a {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grape);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.top-nav a:hover {
+  color: var(--salmon);
+}
+.top-nav a::before {
+  content: '\2190\00a0\00a0';
+}
 </style>
 </head>
 <body>
 <div class="page">
+
+<nav class="top-nav">
+  <a href="index.html">All Projects</a>
+</nav>
 
 <!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
 <header class="hero">
