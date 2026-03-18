@@ -27,7 +27,7 @@
   // ── BUILD STICKY BUTTON ─────────────────────────────────
   var btn = document.createElement('button');
   btn.id = 'contact-btn';
-  btn.textContent = "Let\u2019s work together";
+  btn.innerHTML = "\u{1F64F} Let\u2019s work together";
 
   // ── BUILD OVERLAY ───────────────────────────────────────
   var overlay = document.createElement('div');
@@ -54,13 +54,13 @@
     '#contact-btn {' +
       'position: fixed; top: 16px; right: 16px; z-index: 9990;' +
       'font-family: "DM Sans", -apple-system, sans-serif;' +
-      'font-size: 13px; font-weight: 600; letter-spacing: 0.3px;' +
-      'padding: 10px 20px; border: none; border-radius: 50px;' +
-      'background: #1B2A4A; color: #fff; cursor: pointer;' +
-      'box-shadow: 0 2px 12px rgba(27,42,74,0.25);' +
-      'transition: background 0.2s, transform 0.2s;' +
+      'font-size: 14px; font-weight: 700; letter-spacing: 0.3px;' +
+      'padding: 16px 24px; border: none; border-radius: 12px;' +
+      'background: #F4A261; color: #1B2A4A; cursor: pointer;' +
+      'box-shadow: 0 4px 16px rgba(244,162,97,0.4);' +
+      'transition: background 0.2s, transform 0.2s, box-shadow 0.2s;' +
     '}' +
-    '#contact-btn:hover { background: #2D4470; transform: translateY(-1px); }' +
+    '#contact-btn:hover { background: #E8924E; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244,162,97,0.5); }' +
 
     '#contact-overlay {' +
       'display: none; position: fixed; inset: 0; z-index: 9995;' +
