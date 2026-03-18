@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study &mdash; Indonesia&rsquo;s First Personalised Digital Health App</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #faf9f8;
+  --bg2: #f3f1ef;
+  --bg3: #eceae7;
+  --surface: #ffffff;
+  --bdr: #ddd9d5;
+  --bdr2: #ebe8e5;
+  --tx: #2a2035;
+  --tx2: #4d4358;
+  --tx3: #7a7086;
+  --txb: #1e1628;
+  --deep: #2f243a;
+  --salmon: #c97a62;
+  --salmon-light: rgba(219,138,116,0.1);
+  --almond: #fac9b8;
+  --silver: #bebbbb;
+  --grape: #444054;
+  --violet: #2f243a;
+  --teal: #4a8c7f;
+  --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--tx); font-family: var(--font); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+/* ── LAYOUT ── */
+.page { max-width: 1060px; margin: 0 auto; padding: 0 40px 120px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 88px 0 64px;
+  border-bottom: 2px solid var(--txb);
+  margin-bottom: 64px;
+}
+.hero-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 48px;
+  line-height: 1.15;
+  color: var(--txb);
+  max-width: 820px;
+  margin-bottom: 24px;
+}
+.hero-sub {
+  font-size: 19px;
+  color: var(--tx2);
+  max-width: 720px;
+  line-height: 1.7;
+}
+.hero-meta {
+  display: flex;
+  gap: 40px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  font-size: 13px;
+  color: var(--tx3);
+}
+.hero-meta-item strong {
+  display: block;
+  font-size: 14px;
+  color: var(--txb);
+  font-weight: 600;
+}
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 72px;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--deep);
+  margin-bottom: 10px;
+}
+.section h2 {
+  font-family: var(--serif);
+  font-size: 32px;
+  color: var(--txb);
+  margin-bottom: 18px;
+  line-height: 1.25;
+}
+.section h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 12px;
+  margin-top: 40px;
+  line-height: 1.3;
+}
+.section p {
+  font-size: 16px;
+  color: var(--tx);
+  line-height: 1.8;
+  max-width: 760px;
+  margin-bottom: 16px;
+}
+.section ul, .section ol {
+  padding-left: 22px;
+  margin-bottom: 18px;
+  max-width: 760px;
+}
+.section li {
+  font-size: 16px;
+  color: var(--tx);
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+
+/* ── MY ROLE CALLOUT ── */
+.role-block {
+  background: var(--deep);
+  color: #fff;
+  padding: 32px 36px;
+  border-radius: 12px;
+  margin: 32px 0;
+}
+.role-block .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 12px;
+}
+.role-block p {
+  font-size: 15px;
+  color: rgba(255,255,255,0.92);
+  line-height: 1.8;
+  max-width: 100%;
+}
+.role-block p strong {
+  color: var(--almond);
+  font-weight: 600;
+}
+.role-block ul {
+  padding-left: 20px;
+  margin-top: 8px;
+}
+.role-block li {
+  font-size: 15px;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+
+/* ── THINKING BLOCK ── */
+.thinking-block {
+  background: var(--bg2);
+  border-left: 4px solid var(--salmon);
+  padding: 24px 28px;
+  border-radius: 0 10px 10px 0;
+  margin: 28px 0 32px;
+}
+.thinking-block .label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 10px;
+}
+.thinking-block p {
+  font-size: 15px;
+  color: var(--tx);
+  line-height: 1.8;
+  max-width: 100%;
+}
+.thinking-block p strong {
+  color: var(--txb);
+  font-weight: 700;
+}
+
+/* ── QUOTE ── */
+.quote-block {
+  padding: 20px 24px;
+  background: var(--bg2);
+  border-left: 3px solid var(--grape);
+  border-radius: 0 8px 8px 0;
+  margin: 20px 0;
+  max-width: 680px;
+}
+.quote-block p {
+  font-size: 16px;
+  font-style: italic;
+  color: var(--tx);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+.quote-block .source {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--tx3);
+  font-style: normal;
+}
+
+/* ── STAT STRIP ── */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  padding: 24px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--txb);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--tx2);
+  line-height: 1.5;
+}
+
+/* ── METHODS GRID ── */
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0 0;
+}
+@media (max-width: 700px) { .methods-grid { grid-template-columns: 1fr; } }
+.method-item {
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
+.method-item h5 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--almond);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.method-item p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+}
+
+/* ── PHASE CARDS ── */
+.phase-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+@media (max-width: 800px) { .phase-grid { grid-template-columns: 1fr; } }
+.phase-card {
+  padding: 24px;
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.phase-card .num {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--salmon);
+  margin-bottom: 10px;
+}
+.phase-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 8px;
+}
+.phase-card p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ── LEARNING GRID ── */
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 28px 0;
+}
+@media (max-width: 700px) { .learning-grid { grid-template-columns: 1fr; } }
+.learning-card {
+  padding: 24px;
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  background: var(--surface);
+  border-top: 3px solid var(--grape);
+}
+.learning-card .num {
+  font-family: var(--mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--salmon);
+  margin-bottom: 8px;
+}
+.learning-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 8px;
+}
+.learning-card p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ── FINDING GRID ── */
+.finding-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin: 28px 0;
+}
+.finding-card {
+  padding: 28px;
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  background: var(--surface);
+}
+.finding-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 10px;
+}
+.finding-card p {
+  font-size: 14px;
+  color: var(--tx);
+  line-height: 1.75;
+  margin-bottom: 10px;
+}
+
+/* ── BEFORE/AFTER GRID ── */
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 28px 0;
+}
+@media (max-width: 700px) { .compare-grid { grid-template-columns: 1fr; } }
+.compare-card {
+  padding: 24px;
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.compare-card.before {
+  border-top: 3px solid var(--silver);
+}
+.compare-card.after {
+  border-top: 3px solid var(--salmon);
+}
+.compare-card .compare-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--tx3);
+  margin-bottom: 12px;
+}
+.compare-card.after .compare-label {
+  color: var(--salmon);
+}
+.compare-card ul {
+  padding-left: 18px;
+  margin: 0;
+}
+.compare-card li {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+
+/* ── IMAGES ── */
+.img-full {
+  width: 100%;
+  max-width: 680px;
+  border-radius: 12px;
+  border: 1px solid var(--bdr);
+  margin: 32px 0 12px;
+}
+.img-caption {
+  font-size: 13px;
+  color: var(--tx3);
+  text-align: center;
+  max-width: 680px;
+  margin-bottom: 32px;
+  font-style: italic;
+}
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 80px;
+  padding-top: 28px;
+  border-top: 1px solid var(--bdr);
+  font-size: 13px;
+  color: var(--tx3);
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--bdr);
+  margin: 64px 0;
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  padding: 20px 0;
+}
+.top-nav a {
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grape);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.top-nav a:hover {
+  color: var(--salmon);
+}
+.top-nav a::before {
+  content: '\2190\00a0\00a0';
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="top-nav">
+  <a href="index.html">All Projects</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-label">Case Study</div>
+  <h1>Indonesia&rsquo;s First Personalised Digital Health App</h1>
+  <p class="hero-sub">One of Indonesia&rsquo;s largest healthcare providers set out to build a revolutionary digital health platform &mdash; one that bridges online care and in-clinic services, tailored to individual needs and lifestyles. I led the UX design across patient and clinician apps within a 40&ndash;50 person cross-functional team.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>Client</strong>Major Indonesian Healthcare Provider</div>
+    <div class="hero-meta-item"><strong>Domain</strong>Digital Health &bull; Healthcare</div>
+    <div class="hero-meta-item"><strong>Method</strong>Requirements Engineering &bull; Workflow Design &bull; Design Systems</div>
+    <div class="hero-meta-item"><strong>Role</strong>UX Designer</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">The Brief</div>
+  <h2>A single platform for an entire healthcare ecosystem</h2>
+  <p>Indonesia is committed to improving general access to healthcare through digitalisation. In this context, one of Indonesia&rsquo;s largest healthcare providers aimed to develop a revolutionary solution: Indonesia&rsquo;s first digital health app perfectly tailored to individual needs and lifestyles.</p>
+  <p>The solution needed to go beyond booking medical appointments. It had to enable online consultations, deliver preventive care guidance, and provide personalised health information &mdash; all within a single, seamless digital workflow that connects patients, doctors, and back-office systems.</p>
+
+  <div class="stat-strip">
+    <div class="stat-card">
+      <div class="stat-num">40&ndash;50</div>
+      <div class="stat-label">Team members across apps</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5k+</div>
+      <div class="stat-label">Clinician app installs at launch</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Connected apps in ecosystem</div>
+    </div>
+  </div>
+
+  <div class="role-block">
+    <div class="label">What I did</div>
+    <p>I led UX design across the patient and clinician apps, working within a large cross-functional team alongside BAs, engineers, and a consulting partner.</p>
+    <ul>
+      <li><strong>Led requirements gathering and engineering</strong> &mdash; understood key user and business needs through stakeholder workshops and on-site immersion in Jakarta</li>
+      <li><strong>Mapped current workflows</strong> &mdash; documented end-to-end flows within both the patient and doctor apps, identifying friction, data gaps, and duplicated steps</li>
+      <li><strong>Proposed and implemented new workflows</strong> &mdash; designed the workflows to support the newly built connected ecosystem</li>
+      <li><strong>Designed and tested prototypes</strong> &mdash; created new screens from low-fidelity sketches through to high-fidelity Figma prototypes</li>
+      <li><strong>Established a design system</strong> &mdash; audited, consolidated, and rebuilt the component library for consistency and efficiency</li>
+    </ul>
+
+    <div class="methods-grid">
+      <div class="method-item">
+        <h5>Research</h5>
+        <p>Stakeholder workshops, heuristic audit, requirements engineering, JTBD extraction</p>
+      </div>
+      <div class="method-item">
+        <h5>Synthesis</h5>
+        <p>Workflow mapping, light personas, journey maps, current-state analysis</p>
+      </div>
+      <div class="method-item">
+        <h5>Design</h5>
+        <p>Lo-fi &rarr; hi-fi prototyping, design system, localisation, developer handover</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ THE CHALLENGE ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">The Challenge</div>
+  <h2>Bridging online care and in-clinic services</h2>
+  <p>The client needed a single platform that bridges online care and in-clinic services, giving patients seamless access to booking, consultation, and results in one digital workflow. The goal was to create a one-stop health app for bookings, consults, and preventive-care guidance that anchors their digital ecosystem.</p>
+  <p>But this wasn&rsquo;t just a patient-facing problem. The ecosystem involved three interconnected apps &mdash; patient, clinician, and back-office &mdash; and the integration architecture had to link all of them into a single data flow. Designing in isolation wasn&rsquo;t an option.</p>
+
+  <div class="thinking-block">
+    <div class="label">The real constraint</div>
+    <p>Formal user testing wasn&rsquo;t permitted on this project. That meant <strong>every design decision had to be grounded in stakeholder walkthroughs, heuristic analysis, and internal validation</strong> rather than direct user feedback. It pushed us to be rigorous about the research we could do and transparent about the assumptions we were making.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ THE APPROACH ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">The Approach</div>
+  <h2>Six phases from scoping to handover</h2>
+  <p>We followed a structured but lean approach &mdash; from on-site immersion in Jakarta through to developer handover &mdash; compressing research, design, and validation into a focused engagement.</p>
+
+  <div class="phase-grid">
+    <div class="phase-card">
+      <div class="num">01</div>
+      <h4>Scoping &amp; Alignment</h4>
+      <p>Drafted a lean research-and-design plan with objectives, timeline, and approvals for client sign-off. Spent two weeks on-site in Jakarta with the consulting and dev teams to absorb requirements and constraints.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">02</div>
+      <h4>Current-State Analysis</h4>
+      <p>Ran a rapid heuristic audit of the live patient and doctor apps. Mapped &ldquo;as-is&rdquo; workflows end-to-end, highlighting friction, data gaps, and duplicated steps.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">03</div>
+      <h4>JTBD &amp; Journey Mapping</h4>
+      <p>Extracted implicit Jobs-to-Be-Done from earlier user interviews. Compiled light personas and journey maps for team alignment and prioritisation.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">04</div>
+      <h4>Ideation &amp; Lo-fi Prototyping</h4>
+      <p>Sketched low-fidelity flows in Figma and built clickable mid-fi prototypes for internal walkthroughs and early feedback loops.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">05</div>
+      <h4>High-Fidelity Design</h4>
+      <p>Produced high-fidelity Figma prototypes with clearer onboarding, patient-doctor support, contextual search, and streamlined booking flows. Internal walkthrough with engineering for tech feasibility.</p>
+    </div>
+    <div class="phase-card">
+      <div class="num">06</div>
+      <h4>Validation &amp; Handover</h4>
+      <p>Walked through new flows with stakeholders and consulting leads to catch usability issues and workflow fit. Prepared the handover package with design specs for developers.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ DESIGN SYSTEM ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Design System</div>
+  <h2>Fixing the foundation before building on it</h2>
+  <p>The existing design library was in rough shape. Multiple XD files with no single source of truth, duplicated styles, ad-hoc components, and inconsistent naming. Before we could design anything new, we had to fix the foundation.</p>
+
+  <div class="compare-grid">
+    <div class="compare-card before">
+      <div class="compare-label">Before</div>
+      <ul>
+        <li>Many XD files, no single source of truth</li>
+        <li>Repeated colours, text and spacing &mdash; &ldquo;official&rdquo; styles unclear</li>
+        <li>Ad-hoc components without variants; updates didn&rsquo;t cascade</li>
+        <li>Inconsistent naming wrecked search</li>
+        <li>Unused artboards bloated the file and slowed XD</li>
+        <li>No proper hand-off specs</li>
+        <li>Bahasa handled by full-screen duplicates, multiplying debt</li>
+      </ul>
+    </div>
+    <div class="compare-card after">
+      <div class="compare-label">After</div>
+      <ul>
+        <li>One Cloud XD master file as single source of truth</li>
+        <li>Deduped colours, text, and spacing into a single asset library</li>
+        <li>Rebuilt components with states so updates cascade</li>
+        <li>Clear naming rules and bulk-renamed layers</li>
+        <li>Published one-click Design Specs for dev hand-off</li>
+        <li>Streamlined Bahasa localisation with tracked changes and an Excel glossary</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="thinking-block">
+    <div class="label">Why this mattered</div>
+    <p>A streamlined design system kept the UI consistent and sprint velocity high. <strong>When engineers can trust that the design file is the truth, handover stops being a negotiation and starts being a handshake.</strong></p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ OUTCOMES ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Outcomes</div>
+  <h2>From concept to live product</h2>
+  <p>The project delivered tangible results &mdash; from a country-first digital health app going live to an integration architecture that proved the connected ecosystem concept.</p>
+
+  <div class="finding-grid">
+    <div class="finding-card">
+      <h4>Indonesia&rsquo;s first all-in-one health app went live</h4>
+      <p>The platform launched as a single point of access for bookings, consultations, and preventive care guidance &mdash; widening access to healthcare across the country.</p>
+    </div>
+    <div class="finding-card">
+      <h4>Clinician companion app launched with 5,000+ installs</h4>
+      <p>The doctor-facing app went live on Google Play, giving clinicians a connected tool within the same ecosystem as the patient experience.</p>
+    </div>
+    <div class="finding-card">
+      <h4>Connected app ecosystem proved out</h4>
+      <p>The integration architecture linked patient, doctor, and back-office tools into a single data flow &mdash; proving the viability of a connected healthcare app ecosystem.</p>
+    </div>
+    <div class="finding-card">
+      <h4>Requirements cleared first review &mdash; development kicked off ahead of schedule</h4>
+      <p>Thorough upfront requirements engineering meant no rework cycles. The clarity of the research and design artefacts gave the engineering team confidence to start building early.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ REFLECTIONS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Reflections</div>
+  <h2>What I took forward</h2>
+
+  <div class="learning-grid">
+    <div class="learning-card">
+      <div class="num">01</div>
+      <h4>Fix the system before the screens</h4>
+      <p>A broken design library creates friction on every sprint. Investing time upfront to consolidate, deduplicate, and document the system paid for itself many times over in velocity and consistency.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">02</div>
+      <h4>Design for the ecosystem, not just the app</h4>
+      <p>Patient, clinician, and back-office apps aren&rsquo;t separate products &mdash; they&rsquo;re parts of one workflow. Designing them in isolation creates gaps. Designing them as a system creates coherence.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">03</div>
+      <h4>When you can&rsquo;t test with users, be rigorous about everything else</h4>
+      <p>Without direct user testing, every other research method matters more. Heuristic audits, stakeholder walkthroughs, and JTBD extraction became the foundation for every design decision.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">04</div>
+      <h4>On-site immersion changes the work</h4>
+      <p>Two weeks in Jakarta gave me context that no brief or document could. Understanding the team dynamics, technical constraints, and cultural nuances firsthand shaped better design decisions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
+<footer class="footer">
+  <p>Indonesia Healthcare &mdash; Digital Health Case Study</p>
+</footer>
+
+</div>
+</body>
+</html>
