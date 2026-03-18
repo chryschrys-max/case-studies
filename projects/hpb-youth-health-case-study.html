@@ -867,6 +867,45 @@ a.viz-link::after {
   font-size: 0.8em;
   opacity: 0.6;
 }
+/* White links inside dark role-block */
+.role-block a.viz-link {
+  color: var(--almond);
+  text-decoration-color: rgba(250,201,184,0.4);
+}
+.role-block a.viz-link:hover {
+  text-decoration-color: var(--almond);
+}
+.role-block a.viz-link::after {
+  color: var(--almond);
+}
+
+/* ── METHODS GRID ── */
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0 0;
+}
+@media (max-width: 700px) { .methods-grid { grid-template-columns: 1fr; } }
+.method-item {
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+}
+.method-item h5 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--almond);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.method-item p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+}
 
 /* ── FOOTER ── */
 .footer {
@@ -910,14 +949,42 @@ a.viz-link::after {
 
   <div class="role-block">
     <div class="label">What I did</div>
-    <p>I led the entire design process end-to-end &mdash; from research planning and fieldwork through synthesis, co-creation facilitation, prototyping, and validation testing. Specifically:</p>
+    <p>I led the entire design process end-to-end &mdash; from research planning and fieldwork through synthesis, co-creation facilitation, prototyping, and validation testing.</p>
     <ul>
-      <li><strong>Planned and conducted</strong> 26 in-depth interviews (12 youth, 12 parents, 2 experts)</li>
-      <li><strong>Built the analytical frameworks</strong> &mdash; the <a class="viz-link" href="visualisations/behavioural_ecosystem.html" target="_blank">behavioural ecosystem map</a>, the 2&times;2 matrix, the <a class="viz-link" href="visualisations/transition_map.html" target="_blank">transition model</a> &mdash; to make sense of qualitative data</li>
-      <li><strong>Facilitated co-creation</strong> with 6 youth and 6 parents, turning opportunity areas into testable concepts</li>
-      <li><strong>Designed and built 3 physical prototypes</strong> and ran <a class="viz-link" href="visualisations/YPS_ConceptAssessment.html" target="_blank">validation testing</a> with 24 participants</li>
-      <li><strong>Presented findings and recommendations</strong> across 4 gate reviews with HPB stakeholders</li>
+      <li><strong>Planned and conducted</strong> 26 in-depth interviews (12 youth, 12 parents, 2 experts) &mdash; designed the discussion guides, recruited participants, and ran all sessions</li>
+      <li><strong>Built the analytical frameworks</strong> &mdash; the <a class="viz-link" href="visualisations/behavioural_ecosystem.html" target="_blank">behavioural ecosystem map</a>, the 2&times;2 matrix, and the <a class="viz-link" href="visualisations/transition_map.html" target="_blank">transition model</a> &mdash; to make sense of qualitative data and give the team a shared language for what we were seeing</li>
+      <li><strong>Facilitated co-creation workshops</strong> with 6 youth and 6 parents &mdash; designed the scenario prompts, ran the ideation exercises, and synthesised 25+ ideas into actionable concept directions</li>
+      <li><strong>Designed and built 3 physical prototypes</strong> and ran <a class="viz-link" href="visualisations/YPS_ConceptAssessment.html" target="_blank">validation testing</a> with 24 participants using think-aloud protocol and Likert-scale ratings</li>
+      <li><strong>Managed stakeholder alignment</strong> across 4 gate reviews with HPB &mdash; structured each gate around clear decision points so the client could see exactly what evidence supported each recommendation, and where we were asking them to make a call</li>
+      <li><strong>Shaped the team's thinking</strong> &mdash; the drift, the vicious/virtuous cycle, the two windows &mdash; these weren't just research outputs, they became the shared mental models the entire team used to evaluate ideas, align on direction, and explain decisions to stakeholders</li>
     </ul>
+
+    <div class="methods-grid">
+      <div class="method-item">
+        <h5>Research</h5>
+        <p>In-depth interviews, affinity mapping, COM-B behavioural analysis, thematic coding, triangulation across youth/parent/expert data</p>
+      </div>
+      <div class="method-item">
+        <h5>Synthesis</h5>
+        <p>Behavioural ecosystem mapping, 2&times;2 matrix design, transition zone modelling, opportunity area derivation, HMW iteration</p>
+      </div>
+      <div class="method-item">
+        <h5>Design</h5>
+        <p>Scenario-based co-creation, DVF scoring, physical prototyping, think-aloud testing, Likert ratings, concept assessment dashboards</p>
+      </div>
+      <div class="method-item">
+        <h5>Stakeholder management</h5>
+        <p>4-gate review structure with decision-ready artefacts, progressive disclosure of findings, feedback loops built into each phase transition</p>
+      </div>
+      <div class="method-item">
+        <h5>Team alignment</h5>
+        <p>Built shared frameworks (the drift, the 2&times;2, the windows) that gave the team a common vocabulary for evaluating ideas and explaining decisions</p>
+      </div>
+      <div class="method-item">
+        <h5>Project structuring</h5>
+        <p>Designed the 4-phase structure so each phase answered a specific question before the next one started &mdash; no phase ran on assumptions from the one before</p>
+      </div>
+    </div>
   </div>
 
   <div class="stat-strip">
