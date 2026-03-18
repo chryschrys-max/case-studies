@@ -166,8 +166,8 @@
         pwStep.style.display = 'block';
         document.getElementById('gate-pw').focus();
       }, 1500);
-    }, function () {
-      msg.textContent = 'Something went wrong. Please try again.';
+    }, function (error) {
+      msg.textContent = 'Error: ' + (error.text || error.message || JSON.stringify(error));
       msg.className = 'gate-msg error';
       btn.disabled = false;
       btn.textContent = 'Send me the password';
