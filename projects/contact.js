@@ -10,7 +10,7 @@
     emailjs: {
       publicKey: 'puqK8otqvMg_20bti',
       serviceId: 'service_0fnh6zd',
-      templateId: 'YOUR_CONTACT_TEMPLATE_ID', // Update with your contact template ID
+      templateId: 'template_vo5782j',
     },
   };
 
