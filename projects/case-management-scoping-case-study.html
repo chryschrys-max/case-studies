@@ -8,8 +8,8 @@
 <style>
 :root {
   --bg: #F9FAFB;
-  --bg2: #EFF6FF;
-  --bg3: #DBEAFE;
+  --bg2: #F3F0FF;
+  --bg3: #EDE9FE;
   --surface: #FFFFFF;
   --bdr: #E5E7EB;
   --bdr2: #F3F4F6;
@@ -17,12 +17,12 @@
   --tx2: #6B7280;
   --tx3: #9CA3AF;
   --txb: #111827;
-  --deep: #1E3A5F;
-  --primary: #2563EB;
-  --primary-light: rgba(37,99,235,0.1);
-  --almond: #BFDBFE;
-  --silver: #93C5FD;
-  --grape: #1D4ED8;
+  --deep: #312E81;
+  --primary: #7C3AED;
+  --primary-light: rgba(124,58,237,0.1);
+  --almond: #DDD6FE;
+  --silver: #A78BFA;
+  --grape: #6D28D9;
   --teal: #0D9488;
   --teal-light: #CCFBF1;
   --amber: #D97706;
@@ -54,16 +54,18 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .section li { font-size: 16px; line-height: 1.8; color: var(--tx); margin-bottom: 8px; }
 
 /* ── ROLE BLOCK ── */
-.role-block { background: var(--bg2); border-left: 4px solid var(--primary); border-radius: 0 10px 10px 0; padding: 28px 32px; margin: 32px 0; }
-.role-block .label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
-.role-block p { font-size: 15px; margin-bottom: 12px; line-height: 1.8; }
-.role-block ul { margin: 12px 0 0 20px; }
-.role-block li { font-size: 15px; line-height: 1.8; margin-bottom: 8px; }
+.role-block { background: var(--deep); color: #fff; padding: 32px 36px; border-radius: 12px; margin: 32px 0; }
+.role-block .label { font-size: 13px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #fff; margin-bottom: 12px; }
+.role-block p { font-size: 15px; color: rgba(255,255,255,0.92); line-height: 1.8; max-width: 100%; margin-bottom: 12px; }
+.role-block p strong { color: var(--almond); font-weight: 600; }
+.role-block ul { padding-left: 20px; margin-top: 8px; }
+.role-block li { font-size: 15px; color: rgba(255,255,255,0.88); line-height: 1.8; margin-bottom: 6px; }
 
 /* ── THINKING BLOCK ── */
-.thinking-block { background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px; padding: 28px 32px; margin: 32px 0; }
-.thinking-block .label { font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--grape); margin-bottom: 12px; }
-.thinking-block p { font-size: 15px; line-height: 1.8; color: var(--tx); margin-bottom: 0; }
+.thinking-block { background: var(--bg2); border-left: 4px solid var(--primary); padding: 24px 28px; border-radius: 0 10px 10px 0; margin: 28px 0 32px; }
+.thinking-block .label { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--primary); margin-bottom: 10px; }
+.thinking-block p { font-size: 15px; line-height: 1.8; color: var(--tx); max-width: 100%; margin-bottom: 0; }
+.thinking-block p strong { color: var(--txb); font-weight: 700; }
 
 /* ── STAT STRIP ── */
 .stat-strip { display: flex; gap: 20px; flex-wrap: wrap; margin: 40px 0 0; }
@@ -154,9 +156,9 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .principle p { font-size: 14px; color: var(--tx2); line-height: 1.7; margin: 0; }
 
 /* ── METHODS GRID ── */
-.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 28px; }
+.methods-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 20px 0 0; }
 @media (max-width: 700px) { .methods-grid { grid-template-columns: 1fr; } }
-.method-item { background: linear-gradient(135deg, var(--deep), #2563EB); border-radius: 10px; padding: 20px; }
+.method-item { padding: 16px 18px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
 .method-item h5 { font-size: 12px; font-weight: 700; color: var(--almond); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.8px; }
 .method-item p { font-size: 13px; color: rgba(255,255,255,0.78); line-height: 1.6; margin: 0; }
 
@@ -198,8 +200,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <div class="hero-meta">
     <div class="hero-meta-item"><strong>Client</strong>Singapore Government Agency (Public Sector)</div>
     <div class="hero-meta-item"><strong>Phase</strong>Pre-Discovery Scoping &mdash; 1 Month</div>
-    <div class="hero-meta-item"><strong>Team</strong>Lead Designer &bull; Principal BA &bull; Solutions Architect</div>
-    <div class="hero-meta-item"><strong>Role</strong>Lead Designer / Design Strategist</div>
+    <div class="hero-meta-item"><strong>Team</strong>UX Consultant &bull; Principal BA &bull; Solutions Architect</div>
+    <div class="hero-meta-item"><strong>Role</strong>UX Consultant</div>
   </div>
 </header>
 
@@ -212,7 +214,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="role-block">
     <div class="label">What I did</div>
-    <p>I led the design and facilitation work as part of a three-person cross-functional scoping team &mdash; alongside a Principal BA and a Solutions Architect. Each of us brought a different lens; the value was in the synthesis across all three.</p>
+    <p>I was brought in as UX Consultant on a three-person cross-functional scoping team &mdash; alongside a Principal BA and a Solutions Architect. Each of us brought a different lens; the value was in the synthesis across all three.</p>
     <ul>
       <li><strong>Structured the engagement</strong> &mdash; designed how we would systematically move through all four systems, who we needed to speak to, and how to capture information consistently across different environments and vendor relationships</li>
       <li><strong>Led stakeholder walkthroughs</strong> &mdash; facilitated sessions with system owners, court officers, judicial officers, registry staff, and operational teams to understand how each system was actually used day-to-day, not just what it was documented to do</li>
@@ -486,36 +488,40 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
 <hr class="divider">
 
-<!-- ════════════════════ A FRAMEWORK FOR WHAT CAME NEXT ════════════════════ -->
+<!-- ════════════════════ MAKING THE CASE FOR DISCOVERY ════════════════════ -->
 <section class="section">
-  <div class="section-label">Scoping Output &mdash; Strategic Framing</div>
-  <h2>A model for thinking about the modernisation</h2>
-  <p>One of the outputs from the scoping phase was a four-layer platform transformation model &mdash; a framework developed with the programme team to organise the modernisation work across the right levels of the organisation simultaneously. The model made explicit what would otherwise be easy to miss: that modernising four case management platforms is not just a technology problem, and not just a user experience problem. It requires coordinated work across governance, platform architecture, individual system improvements, and user experience &mdash; in that order of dependency.</p>
+  <div class="section-label">Scoping Output &mdash; Making the Case</div>
+  <h2>Using scoping to push for a proper discovery phase</h2>
+  <p>One of the most important things the scoping phase achieved wasn&rsquo;t an artefact &mdash; it was the evidence needed to argue for a full discovery phase. Before scoping, there was pressure to move straight into solution design. The thinking was that the systems were well-understood enough to start modernising. What the scoping work demonstrated was how much the organisation didn&rsquo;t yet know about its own landscape: capabilities that were assumed to exist but didn&rsquo;t, integrations that were assumed to be automated but were manual, and user workflows that had diverged significantly from what anyone in leadership expected.</p>
+  <p>The scoping findings gave us concrete evidence that a proper discovery phase &mdash; with user research, service mapping, and technical deep-dives &mdash; wasn&rsquo;t optional. At the end of that discovery, the programme would have the basis for a real transformation plan. But the scoping phase had to come first to make the case that discovery was worth the investment.</p>
 
-  <img class="img-full" src="images/case-mgmt-4-layer-model.jpg" alt="4-Layer Platform Transformation Model — showing Organisation (Governance), Harmonised Platform (Cross-System), Separate Systems (Functional), and Users (Experience) layers with associated workstreams">
-  <p class="img-caption">The 4-Layer Platform Transformation Model &mdash; developed during the scoping phase to frame the modernisation programme&rsquo;s work across four interdependent levels</p>
+  <h3>Early framing: thinking in layers</h3>
+  <p>Part of making that case was giving leadership a way to think about the scale of what they were dealing with. During the scoping phase, I developed an early framing &mdash; a four-layer model &mdash; to show that modernising these four platforms wasn&rsquo;t just a technology problem or a UX problem. It would require coordinated decisions across governance, platform architecture, individual systems, and user experience. The model wasn&rsquo;t a plan &mdash; it was a thinking tool to illustrate why discovery needed to investigate all four layers, not just the systems layer.</p>
+
+  <img class="img-full" src="images/case-mgmt-4-layer-model.jpg" alt="4-Layer Platform Transformation Model — early framing showing Organisation (Governance), Harmonised Platform (Cross-System), Separate Systems (Functional), and Users (Experience) layers">
+  <p class="img-caption">Early 4-layer framing developed during scoping &mdash; used to advocate for a discovery phase that would investigate all four levels, leading to a transformation plan at the end of discovery</p>
 
   <div class="principles">
     <div class="principle">
       <div class="num">01</div>
       <h4>Organisation Layer</h4>
-      <p>Governance, policy alignment, KPI frameworks, legal and compliance reviews, and change management. The decisions that have to be made before any system changes.</p>
+      <p>Governance, policy alignment, KPI frameworks, legal and compliance reviews, and change management. Discovery would need to investigate how decisions get made across four courts with competing priorities.</p>
     </div>
     <div class="principle">
       <div class="num">02</div>
       <h4>Platform Layer</h4>
-      <p>Shared design system, data synchronisation strategy, common services (authentication, notifications), cross-platform user flow mapping. What makes the four systems cohere.</p>
+      <p>Shared services, data synchronisation, common design patterns, cross-platform user flows. Discovery would need to define what &ldquo;shared&rdquo; actually means for four systems built by four vendors.</p>
     </div>
     <div class="principle">
       <div class="num">03</div>
       <h4>Systems Layer</h4>
-      <p>System-specific workflow audits, tech debt assessment, usability testing per system, process harmonisation workshops. What needs to happen within each platform independently.</p>
+      <p>System-specific workflow audits, tech debt assessment, usability testing. Discovery would need to go deep into each platform to understand what could be harmonised and what had to stay specific.</p>
     </div>
   </div>
 
   <div class="thinking-block">
-    <div class="label">Why the model mattered</div>
-    <p>Without something like this, a modernisation programme of this scale tends to collapse into a long list of feature requests, each prioritised by whoever is most vocal. The model gave leadership a way to think about where decisions needed to be made first &mdash; and critically, which workstreams were actually blocking other workstreams. It also made &ldquo;done&rdquo; mean something concrete at each level, rather than a vague sense of progress. It&rsquo;s not the kind of thing you&rsquo;d normally think of as a design output, but in a programme this complex, the framing is often more valuable than any individual artefact.</p>
+    <div class="label">Why the framing helped make the case</div>
+    <p>Without something like this, the conversation kept defaulting to &ldquo;which system do we modernise first?&rdquo; &mdash; which assumed the work was sequential and system-by-system. The four-layer framing reframed the question: before you touch any individual system, you need decisions at the organisation and platform layers. That meant discovery couldn&rsquo;t just be user research on one system. It had to investigate governance, shared data, integration dependencies, and user experience across all four platforms simultaneously. The transformation plan that would come out of discovery would be structured around these layers &mdash; but first, you had to do the discovery to fill them in.</p>
   </div>
 </section>
 
@@ -571,7 +577,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="team-grid">
     <div class="team-card">
-      <div class="role">Lead Designer</div>
+      <div class="role">UX Consultant</div>
       <h4>Facilitation &amp; Strategic Framing</h4>
       <p>Structured the engagement, facilitated stakeholder walkthroughs across all four systems, synthesised across disciplines, and translated findings into a format the discovery team and programme leadership could act on. Led handshake mapping and framing of the 4-layer model.</p>
     </div>
@@ -623,8 +629,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
       <p>Areas where technical constraints, vendor relationships, or shared infrastructure would shape what modernisation could do and in what sequence. Designed to prevent the programme from making plans that would later collide with real constraints.</p>
     </div>
     <div class="output-card">
-      <h4>4-Layer Transformation Model</h4>
-      <p>A strategic framing of the modernisation across governance, platform, systems, and user experience layers &mdash; with associated workstreams mapped to each layer. Gave the programme a coherent structure for planning work at the right level.</p>
+      <h4>Discovery Recommendation &amp; Framing</h4>
+      <p>The evidence-based case for why a formal discovery phase was needed, with an early four-layer framing to show leadership the scope of what discovery would need to investigate. This became the basis for securing discovery funding and resourcing.</p>
     </div>
   </div>
 </section>
@@ -667,7 +673,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <div class="section-label">Outcome</div>
   <h2>What the scoping phase made possible</h2>
   <p>We went into the scoping phase with four platforms, a modernisation mandate, and an incomplete picture of what the programme was actually dealing with. We came out with a current-state view across all four systems, a capability assessment across twelve categories, a map of every significant integration point, a strategic framework for organising the work, and a register of the risks and dependencies that would shape sequencing.</p>
-  <p>But honestly, the artefacts were only part of it. The bigger thing the scoping phase produced was a shared understanding. The programme team &mdash; design, BA, architecture, and leadership &mdash; came out of it with a common picture of the landscape. When discovery kicked off, conversations could start at a much higher level. A user would describe a problem and the research team could immediately place it in the system architecture, rather than spending twenty minutes getting oriented. That kind of compression &mdash; getting from &ldquo;what are we looking at&rdquo; to &ldquo;what&rsquo;s actually going wrong&rdquo; in a fraction of the time &mdash; is what made the scoping phase worth doing.</p>
+  <p>But honestly, the artefacts were only part of it. The bigger thing the scoping phase produced was a shared understanding. The programme team &mdash; design, BA, architecture, and leadership &mdash; came out of it with a common picture of the landscape. When discovery kicked off, conversations could start at a much higher level. A user would describe a problem and the research team could immediately place it in the system architecture, rather than spending twenty minutes getting oriented.</p>
+  <p>The scoping findings also gave us a much clearer picture of what the discovery team itself needed to look like. Once we understood the scale of cross-agency integration, the complexity of the vendor landscape, and the breadth of user types across the four platforms, it became obvious that discovery couldn&rsquo;t be staffed the same way scoping was. We could now articulate exactly what capabilities and expertise the core team needed &mdash; service design for the cross-system user journeys, technical research for the architecture dependencies, content design for the template problem, and someone who could navigate the governance and stakeholder landscape across multiple courts. The scoping phase didn&rsquo;t just tell us what to investigate. It told us who should be doing the investigating.</p>
 
   <div class="thinking-block">
     <div class="label">Why I&rsquo;d push for a scoping phase on any programme of this complexity</div>

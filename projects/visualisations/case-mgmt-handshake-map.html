@@ -7,32 +7,35 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0F172A;
-  --surface: #1E293B;
-  --surface2: #263348;
-  --bdr: #334155;
-  --tx: #E2E8F0;
-  --tx2: #94A3B8;
-  --tx3: #64748B;
-  --txb: #F8FAFC;
-  --sys-a: #F59E0B;
-  --sys-a-bg: rgba(245,158,11,0.12);
-  --sys-a-bdr: rgba(245,158,11,0.3);
-  --sys-b: #EF4444;
-  --sys-b-bg: rgba(239,68,68,0.12);
-  --sys-b-bdr: rgba(239,68,68,0.3);
-  --sys-c: #10B981;
-  --sys-c-bg: rgba(16,185,129,0.12);
-  --sys-c-bdr: rgba(16,185,129,0.3);
-  --sys-d: #8B5CF6;
-  --sys-d-bg: rgba(139,92,246,0.12);
-  --sys-d-bdr: rgba(139,92,246,0.3);
-  --shared: #38BDF8;
-  --shared-bg: rgba(56,189,248,0.1);
-  --shared-bdr: rgba(56,189,248,0.25);
-  --risk-high: #EF4444;
-  --risk-med: #F59E0B;
-  --risk-low: #10B981;
+  --bg: #F9FAFB;
+  --surface: #FFFFFF;
+  --surface2: #F3F4F6;
+  --bdr: #E5E7EB;
+  --tx: #374151;
+  --tx2: #6B7280;
+  --tx3: #9CA3AF;
+  --txb: #111827;
+  --primary: #7C3AED;
+  --grape: #6D28D9;
+  --deep: #312E81;
+  --sys-a: #D97706;
+  --sys-a-bg: rgba(217,119,6,0.06);
+  --sys-a-bdr: rgba(217,119,6,0.2);
+  --sys-b: #DC2626;
+  --sys-b-bg: rgba(220,38,38,0.06);
+  --sys-b-bdr: rgba(220,38,38,0.2);
+  --sys-c: #0D9488;
+  --sys-c-bg: rgba(13,148,136,0.06);
+  --sys-c-bdr: rgba(13,148,136,0.2);
+  --sys-d: #7C3AED;
+  --sys-d-bg: rgba(124,58,237,0.06);
+  --sys-d-bdr: rgba(124,58,237,0.2);
+  --shared: #7C3AED;
+  --shared-bg: rgba(124,58,237,0.06);
+  --shared-bdr: rgba(124,58,237,0.15);
+  --risk-high: #DC2626;
+  --risk-med: #D97706;
+  --risk-low: #0D9488;
   --font: 'DM Sans', -apple-system, sans-serif;
 }
 
@@ -41,7 +44,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .page { max-width: 1200px; margin: 0 auto; padding: 48px 40px 80px; }
 
 .back-link { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--tx3); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px; transition: color 0.2s; }
-.back-link:hover { color: var(--shared); }
+.back-link { color: var(--grape); }
+.back-link:hover { color: var(--primary); }
 .back-link::before { content: '\2190'; font-size: 14px; }
 
 .header { margin-bottom: 48px; }
@@ -57,16 +61,16 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .sys-node .sys-sub { font-size: 12px; line-height: 1.4; }
 .sn-a { background: var(--sys-a-bg); border-color: var(--sys-a-bdr); }
 .sn-a .sys-id { color: var(--sys-a); }
-.sn-a .sys-sub { color: rgba(245,158,11,0.7); }
+.sn-a .sys-sub { color: var(--sys-a); opacity: 0.7; }
 .sn-b { background: var(--sys-b-bg); border-color: var(--sys-b-bdr); }
 .sn-b .sys-id { color: var(--sys-b); }
-.sn-b .sys-sub { color: rgba(239,68,68,0.7); }
+.sn-b .sys-sub { color: var(--sys-b); opacity: 0.7; }
 .sn-c { background: var(--sys-c-bg); border-color: var(--sys-c-bdr); }
 .sn-c .sys-id { color: var(--sys-c); }
-.sn-c .sys-sub { color: rgba(16,185,129,0.7); }
+.sn-c .sys-sub { color: var(--sys-c); opacity: 0.7; }
 .sn-d { background: var(--sys-d-bg); border-color: var(--sys-d-bdr); }
 .sn-d .sys-id { color: var(--sys-d); }
-.sn-d .sys-sub { color: rgba(139,92,246,0.7); }
+.sn-d .sys-sub { color: var(--sys-d); opacity: 0.7; }
 
 /* ── SECTION LABEL ── */
 .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--shared); margin: 40px 0 16px; }
@@ -81,15 +85,15 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .hs-arrow-label { font-size: 16px; color: var(--tx3); }
 .hs-type { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; }
 .hs-risk { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; padding: 4px 10px; border-radius: 4px; margin-left: auto; }
-.risk-high { background: rgba(239,68,68,0.15); color: var(--risk-high); }
-.risk-med { background: rgba(245,158,11,0.15); color: var(--risk-med); }
-.risk-low { background: rgba(16,185,129,0.15); color: var(--risk-low); }
+.risk-high { background: rgba(220,38,38,0.08); color: var(--risk-high); }
+.risk-med { background: rgba(217,119,6,0.08); color: var(--risk-med); }
+.risk-low { background: rgba(13,148,136,0.08); color: var(--risk-low); }
 
-.hs-type-cross { background: rgba(56,189,248,0.1); color: var(--shared); }
-.hs-type-manual { background: rgba(245,158,11,0.1); color: var(--risk-med); }
-.hs-type-gap { background: rgba(239,68,68,0.1); color: var(--risk-high); }
-.hs-type-shared { background: rgba(16,185,129,0.1); color: var(--risk-low); }
-.hs-type-ext { background: rgba(139,92,246,0.1); color: var(--sys-d); }
+.hs-type-cross { background: rgba(124,58,237,0.06); color: var(--primary); }
+.hs-type-manual { background: rgba(217,119,6,0.06); color: var(--risk-med); }
+.hs-type-gap { background: rgba(220,38,38,0.06); color: var(--risk-high); }
+.hs-type-shared { background: rgba(13,148,136,0.06); color: var(--risk-low); }
+.hs-type-ext { background: rgba(124,58,237,0.06); color: var(--sys-d); }
 
 .hs-card-body { padding: 16px 20px 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .hs-detail h5 { font-size: 12px; font-weight: 700; color: var(--txb); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
@@ -115,7 +119,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .shared-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
 @media (max-width: 700px) { .shared-grid { grid-template-columns: 1fr; } }
 .shared-card { background: var(--surface); border: 1px solid var(--bdr); border-radius: 10px; padding: 18px; }
-.shared-card .sh-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--shared); margin-bottom: 8px; }
+.shared-card .sh-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
 .shared-card h4 { font-size: 14px; font-weight: 700; color: var(--txb); margin-bottom: 6px; }
 .shared-card p { font-size: 12px; color: var(--tx2); line-height: 1.6; }
 .shared-card .sh-systems { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
@@ -123,9 +127,10 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
 /* ── RISK SUMMARY ── */
 .risk-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 13px; }
-.risk-table th { background: var(--surface2); color: var(--tx2); padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid var(--bdr); }
-.risk-table td { padding: 12px 14px; border-bottom: 1px solid rgba(51,65,85,0.5); vertical-align: top; line-height: 1.6; color: var(--tx2); }
+.risk-table th { background: var(--txb); color: #fff; padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.5px; }
+.risk-table td { padding: 12px 14px; border-bottom: 1px solid var(--bdr); vertical-align: top; line-height: 1.6; color: var(--tx2); }
 .risk-table tr:last-child td { border-bottom: none; }
+.risk-table tr:nth-child(even) td { background: var(--bg); }
 .risk-table .rt-name { color: var(--txb); font-weight: 600; }
 .risk-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.3px; white-space: nowrap; }
 </style>
