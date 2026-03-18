@@ -55,8 +55,8 @@
       'position: fixed; top: 16px; right: 16px; z-index: 9990;' +
       'font-family: "DM Sans", -apple-system, sans-serif;' +
       'font-size: 14px; font-weight: 700; letter-spacing: 0.3px;' +
-      'padding: 16px 24px; border: none; border-radius: 12px;' +
-      'background: #F4A261; color: #1B2A4A; cursor: pointer;' +
+      'padding: 20px 24px; border: none; border-radius: 12px;' +
+      'background: #F4A261; color: #fff; cursor: pointer;' +
       'box-shadow: 0 4px 16px rgba(244,162,97,0.4);' +
       'transition: background 0.2s, transform 0.2s, box-shadow 0.2s;' +
     '}' +
