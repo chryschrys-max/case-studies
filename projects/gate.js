@@ -57,6 +57,8 @@
         '<p id="gate-pw-msg" class="gate-msg"></p>' +
         '<button id="gate-show-email" class="gate-link">&larr; Request password instead</button>' +
       '</div>' +
+
+      '<a href="index.html" class="gate-back">&larr; Back to home</a>' +
     '</div>';
 
   // ── STYLES ──────────────────────────────────────────────
@@ -113,7 +115,12 @@
       'font-size: 13px; margin-top: 10px; min-height: 20px; line-height: 1.5;' +
     '}' +
     '.gate-msg.success { color: #2D8A4E; }' +
-    '.gate-msg.error { color: #C0392B; }';
+    '.gate-msg.error { color: #C0392B; }' +
+    '.gate-back {' +
+      'display: inline-block; margin-top: 32px; font-size: 14px;' +
+      'color: #6B7B8D; text-decoration: none;' +
+    '}' +
+    '.gate-back:hover { color: #2D4470; }';
 
   // ── INSERT INTO PAGE ────────────────────────────────────
   document.head.appendChild(style);
