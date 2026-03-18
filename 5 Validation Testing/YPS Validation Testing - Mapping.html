@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YPS Pattern Mapping — Miro Copy Sheet</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F5F5F5; color: #1A1A28; font-size: 14px; }
+.page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+.top-note {
+  background: #FEF3E2; border: 1px solid #F5C76A;
+  border-radius: 8px; padding: 12px 16px;
+  font-size: 13px; color: #7A4A0A; margin-bottom: 16px;
+  line-height: 1.6;
+}
+.top-note strong { font-weight: 700; }
+
+.ttm-box {
+  background: #F2EDF8; border: 1px solid #C9A8E8;
+  border-left: 4px solid #3D2A5A;
+  border-radius: 8px; padding: 16px 18px;
+  margin-bottom: 28px;
+}
+.ttm-box h3 { font-size: 13px; font-weight: 700; color: #3D2A5A; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+.ttm-box p { font-size: 13px; color: #4A3A6A; line-height: 1.7; margin-bottom: 6px; }
+.ttm-stages { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.ttm-stage {
+  background: #FFF; border: 1px solid #C9A8E8; border-radius: 20px;
+  padding: 4px 12px; font-size: 11px; color: #3D2A5A; font-weight: 600;
+}
+
+h1 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: #888; margin-bottom: 20px; }
+
+.concept { margin-bottom: 48px; }
+.concept-header {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 20px; padding-bottom: 10px;
+  border-bottom: 3px solid;
+}
+.concept-header h2 { font-size: 18px; font-weight: 700; }
+.concept-header .code { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.6; }
+
+.c1 .concept-header { border-color: #1F497D; }
+.c1 .concept-header h2 { color: #1F497D; }
+.c2 .concept-header { border-color: #2E5219; }
+.c2 .concept-header h2 { color: #2E5219; }
+.c3 .concept-header { border-color: #7A3308; }
+.c3 .concept-header h2 { color: #7A3308; }
+.cx .concept-header { border-color: #3D2A5A; }
+.cx .concept-header h2 { color: #3D2A5A; }
+
+.pattern { margin-bottom: 28px; }
+.pattern-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: #FFF;
+  display: inline-block; padding: 4px 12px;
+  border-radius: 4px; margin-bottom: 10px;
+}
+.c1 .pattern-label { background: #1F497D; }
+.c2 .pattern-label { background: #2E5219; }
+.c3 .pattern-label { background: #7A3308; }
+.cx .pattern-label { background: #3D2A5A; }
+
+.stickies { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+
+.sticky {
+  background: #FEF08A;
+  border-radius: 3px;
+  padding: 10px 12px;
+  width: 200px;
+  min-height: 80px;
+  box-shadow: 2px 3px 8px rgba(0,0,0,0.15);
+  cursor: text;
+  position: relative;
+}
+.sticky.red { background: #FECACA; }
+.sticky.green { background: #A7F3D0; }
+.sticky.blue { background: #BAE6FD; }
+.sticky.purple { background: #DDD6FE; }
+.sticky.yellow { background: #FEF08A; }
+
+.sticky .s-text {
+  font-size: 13px; line-height: 1.4; color: #1A1A1A;
+  margin-bottom: 8px; user-select: text;
+}
+.sticky .s-src {
+  font-size: 10px; color: rgba(0,0,0,0.45);
+  font-family: monospace; letter-spacing: 0.02em;
+}
+.copy-btn {
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(0,0,0,0.08); border: none;
+  border-radius: 3px; padding: 2px 6px;
+  font-size: 9px; cursor: pointer; color: rgba(0,0,0,0.5);
+  font-family: monospace; letter-spacing: 0.04em;
+  transition: background 0.15s;
+}
+.copy-btn:hover { background: rgba(0,0,0,0.18); color: #000; }
+.copy-btn.copied { background: #A7F3D0; color: #065F46; }
+
+.insight {
+  background: #FFF;
+  border-radius: 8px;
+  border-left: 4px solid;
+  padding: 14px 16px;
+  max-width: 620px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-top: 4px;
+}
+.c1 .insight { border-color: #1F497D; }
+.c2 .insight { border-color: #2E5219; }
+.c3 .insight { border-color: #7A3308; }
+.cx .insight { border-color: #3D2A5A; }
+
+.insight-label { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #999; margin-bottom: 6px; }
+.insight-text { font-size: 14px; font-weight: 600; line-height: 1.5; color: #1A1A28; margin-bottom: 8px; user-select: text; }
+.insight-impl { font-size: 12px; color: #555; line-height: 1.5; user-select: text; padding-top: 8px; border-top: 1px solid #EEE; }
+.insight-copy {
+  margin-top: 8px;
+  background: #F5F5F5; border: 1px solid #DDD;
+  border-radius: 4px; padding: 3px 10px;
+  font-size: 10px; cursor: pointer; color: #666;
+  font-family: monospace; transition: background 0.15s;
+}
+.insight-copy:hover { background: #E5E5E5; color: #333; }
+.insight-copy.copied { background: #A7F3D0; color: #065F46; border-color: #6EE7B7; }
+
+.divider { height: 1px; background: #DDD; margin: 40px 0; }
+
+.new-tag {
+  display: inline-block; background: #FEF08A; border: 1px solid #D4AA00;
+  border-radius: 3px; font-size: 9px; font-weight: 700; color: #7A5A00;
+  padding: 1px 5px; margin-left: 4px; vertical-align: middle; letter-spacing: 0.04em;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>YPS Pattern Mapping — Miro Copy Sheet</h1>
+<p class="subtitle">Click any sticky or insight card to select text. Use the copy button to copy to clipboard. Participants: 9 youth, 12 parents. <span class="new-tag">NEW</span> = added from latest sessions.</p>
+
+<div class="top-note">
+  <strong>How to use:</strong> Click the Copy button on any sticky or insight card. Paste directly into a Miro sticky note or text card. Source labels (e.g. TP12 Bhavani) are included so you can add them as a sub-label in Miro.
+</div>
+
+<div class="ttm-box">
+  <h3>Behavioural anchor — Transtheoretical Model (Stages of Change)</h3>
+  <p>This study uses the Transtheoretical Model as a lens for understanding readiness to change. The model describes five stages: Precontemplation (not yet thinking about change), Contemplation (aware of the problem, not yet acting), Preparation (planning to act), Action (making the change), and Maintenance (sustaining it).</p>
+  <p>Participants in this study sit at different stages for different health behaviours. This partly explains why the same concept landed differently across sessions — it is not just about the concept design, it is about whether the concept meets a participant at the right stage. See XP5 in the cross-concept section for the full pattern.</p>
+  <div class="ttm-stages">
+    <span class="ttm-stage">1 — Precontemplation</span>
+    <span class="ttm-stage">2 — Contemplation</span>
+    <span class="ttm-stage">3 — Preparation</span>
+    <span class="ttm-stage">4 — Action</span>
+    <span class="ttm-stage">5 — Maintenance</span>
+  </div>
+</div>
+
+
+<!-- ====================================================== -->
+<!-- C1 — BEDTIME BUNDLE                                     -->
+<!-- ====================================================== -->
+<div class="concept c1">
+  <div class="concept-header">
+    <span class="code">Concept 01</span>
+    <h2>Bedtime Bundle</h2>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P1 — Resonance split by structure</div>
+    <div class="stickies">
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Creates the atmosphere, creates the mood." Immediately personal. Asked for a copy.</div>
+        <div class="s-src">TP01 Sureena</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"More of my thing — I can plan my own schedules."</div>
+        <div class="s-src">TY01 Evangeline</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Too fixed and boring." Already has a routine. Adds nothing. 1/7.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Works for preschool age, not Sec 1. Son already has a 9pm bedtime. No gap to fill.</div>
+        <div class="s-src">TP07 Julie</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"This is something we have been looking for a long time." 7/7. Single parent, strained sleep relationship with daughter.</div>
+        <div class="s-src">TP12 Bhavani</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Ranked C1 first. Liked the parent negotiation part. Would keep that even without the magnets or room setup.</div>
+        <div class="s-src">TY08 Josh</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">If parents ask, he would give it a try. But if it does not suit what he usually does, he would not use it. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY12 Augustine</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Can see herself using it. But some days she is too tired after CCA and would just go straight to sleep. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P1</div>
+      <div class="insight-text">Resonated most with parents who feel the structure slipping but have not lost it completely. TP12 is the clearest signal of who this is designed for. As she put it: "This is something we have been looking for a long time."</div>
+      <div class="insight-impl">→ Target P6–Sec 1 families. Reframe as a transition tool, not a general sleep aid.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P2 — Sustainability concern</div>
+    <div class="stickies">
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Will it be consistent for a period? I don't think so."</div>
+        <div class="s-src">TP07 Julie</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"I will keep doing it until I lose interest and forget."</div>
+        <div class="s-src">TY11 Zillia</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Only 1–2 weeks before teens stop. No re-engagement mechanism built in.</div>
+        <div class="s-src">TP09 Lee Ee Cheng</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Board comes down after 2 weeks." Needs something new to sustain interest.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"When you start you are on the ball, then over time you cannot follow through."</div>
+        <div class="s-src">TP11 Nur Aishah</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Suggested a calendar or monthly view. The weekly reset alone is not enough.</div>
+        <div class="s-src">TY08 Josh</div>
+      </div>
+      <div class="sticky red new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Some days after CCA she is exhausted and comes home late. Would not have time to use it on those days. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P2</div>
+      <div class="insight-text">No built-in re-engagement. Once novelty fades, nothing pulls participants back. Every age group flagged this independently. A youth put it plainly: "I will keep doing it until I lose interest and forget." A parent said the same thing differently: "When you start you are on the ball, then over time you cannot follow through."</div>
+      <div class="insight-impl">→ Fix the weekly review. Add a rotating element or reset mechanic.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P3 — Parent column misread</div>
+    <div class="stickies">
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Thought top section was for parents, not the child. Needed clarifying.</div>
+        <div class="s-src">TP02 ET GG</div>
+      </div>
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Invasion of privacy — I wouldn't want parents knowing I'm feeling sad."</div>
+        <div class="s-src">TY04 Xi En</div>
+      </div>
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Felt children would control parent column. Role not clearly signalled.</div>
+        <div class="s-src">TP09 Lee Ee Cheng</div>
+      </div>
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Confused that he needed to fill in magnets for his own routine, not his son's.</div>
+        <div class="s-src">TP03 Hakim</div>
+      </div>
+      <div class="sticky green new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Saw the parent column as a reminder, not a monitor. "Helps me remember what I need to do." <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P3</div>
+      <div class="insight-text">The parent column reads as monitoring, not commitment — for most. TY06 is the exception: she read it as a reminder, not a surveillance tool. Shared accountability is not coming through in the current design for most participants.</div>
+      <div class="insight-impl">→ Redesign as parent pledge, not observation slot. Make both sides visually equal.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P4 — Always there, not a screen</div>
+    <div class="stickies">
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Started dragging magnets immediately. No instruction needed.</div>
+        <div class="s-src">TP01 Sureena</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Helps me stop procrastinating — it's always there."</div>
+        <div class="s-src">TY01 Evangeline</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Phone in bedroom is the problem. Solving sleep with an app defeats the purpose.</div>
+        <div class="s-src">TP05 Joseph</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"He never thought of magnet as an open communication tool. It's an interesting idea." The feelings magnets let kids signal their state without needing a conversation.</div>
+        <div class="s-src">TP03 Hakim (observer note)</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"It's a good way for the kids to communicate to the parents. Kids nowadays don't know how to communicate."</div>
+        <div class="s-src">TP12 Bhavani</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Online is difficult due to eyesight. Physical board removes that barrier entirely.</div>
+        <div class="s-src">TP12 Bhavani</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">If placed beside her bed she would use it. If on the fridge she would forget. Location of the prompt determines whether it works. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Asked for a "sleepy" face magnet. "Today and yesterday I mainly feel tired." Current emotion set does not cover her most common state. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY03</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P4</div>
+      <div class="insight-text">The persistent physical cue is the concept's core behavioural advantage. The board also surfaced an unexpected function: the feelings magnets let youth signal their state to parents without needing a conversation. Location matters — beside the bed outperformed on the fridge for youth who described themselves as forgetful at night.</div>
+      <div class="insight-impl">→ Keep physical-first. No app in the bedroom. Explore the communication function of the feelings magnets. Add a "tired" emotion to the current set.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================================================== -->
+<!-- C2 — HOOK U UP                                          -->
+<!-- ====================================================== -->
+<div class="concept c2">
+  <div class="concept-header">
+    <span class="code">Concept 02</span>
+    <h2>Hook U Up</h2>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P1 — 4 of 5 original youth ranked C2 first</div>
+    <div class="stickies">
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Asked mid-session how to buy it. No prompting at all.</div>
+        <div class="s-src">TY04 Xi En</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Would keep me occupied for hours." 7/7. Said she would pay for it.</div>
+        <div class="s-src">TY01 Evangeline</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Would probably buy the physical deck. Invented her own bet mechanic on the spot.</div>
+        <div class="s-src">TY11 Zillia</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Ranked C2 first. "I would not mind doing this with my friends." Drawn to Recharge — matched her actual sleep issue.</div>
+        <div class="s-src">TY10 Naura</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Very smart and applicable to adults too!" Instantly imagined use cases.</div>
+        <div class="s-src">TP01 Sureena</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Ranked C2 last. "Might give stress to those who overthink." Under O-level pressure. Most cautious youth. Admits he usually overthinks.</div>
+        <div class="s-src">TY08 Josh</div>
+      </div>
+      <div class="sticky green new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"It's kind of like Snapchat or TikTok streaks. You don't want to break the streak." Drew the comparison herself without prompting. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+      <div class="sticky green new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Wow." Initial reaction before reading. "Both parties not only make happy memories but also gain healthy relationships." <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY02 Jia Le</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P1</div>
+      <div class="insight-text">The peer mechanic makes health feel social and identity-relevant. Youth respond to belonging, not health messaging. TY08 is the exception, not the rule — and his hesitation is specifically about exam pressure and a tendency to overthink, not about the concept itself.</div>
+      <div class="insight-impl">→ Keep peer-first. Route distribution through youth, not parents.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P2 — QR proof has too many blockers</div>
+    <div class="stickies">
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">CRITICAL: Students not allowed phones at school 2026. Phone hotel policy. QR cannot be scanned in school hours.</div>
+        <div class="s-src">TP07 Julie</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Scan, log in, post, share URL." Too many steps. Ease 3/7.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Wants Duolingo streak instead of QR logging. The streak is the motivation, not the upload.</div>
+        <div class="s-src">TY04 Xi En</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Skeptical about sending a selfie to card producers without consent. Privacy concern.</div>
+        <div class="s-src">TY08 Josh</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Privacy concerns about the kids uploading. Asked if they need an app.</div>
+        <div class="s-src">TP11 Nur Aishah</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">1/7 overall for C2. Daughter has no time. "Control rated 6 if it involves online."</div>
+        <div class="s-src">TP12 Bhavani</div>
+      </div>
+      <div class="sticky red new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Confirmed 2026 phone ban at school. Kids need to surrender phones at a check-in area. Bringing a physical card deck is also tricky in this context. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TP08</div>
+      </div>
+      <div class="sticky purple new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Maybe if the website could send a notification, they're more likely to remember. Phones are on them a lot so a notification would work. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+      <div class="sticky red new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Suggested each day youth should be able to choose what they want to do, not follow the fixed order. Kids like streaks. Asked about the photo requirement. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY12 Augustine</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P2</div>
+      <div class="insight-text">The QR proof does not work. Too many steps, a school phone ban in 2026, and privacy concerns from both youth and parents. The buddy seeing it happen is enough.</div>
+      <div class="insight-impl">→ Replace QR with a physical tick, streak sticker, or shared chat photo. If digital proof is needed, link to HPB's existing platforms, not a new QR system.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P3 — One fixed buddy for 14 days is too rigid</div>
+    <div class="stickies">
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Wanted to challenge a different person each day — friend, cousin, parent.</div>
+        <div class="s-src">TP01 Sureena</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"If I'm the buddy it fails — child sees me as parent, not friend."</div>
+        <div class="s-src">TP02 ET GG</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Sees it as a group thing, not a pair. Would involve whoever is around. Up to 5 people.</div>
+        <div class="s-src">TY11 Zillia</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"I would not mind taking turns with friends." Saw it as a group activity, not a fixed pair.</div>
+        <div class="s-src">TY10 Naura</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Some people just cannot be bothered, or they would rather manage it themselves than have a deck of cards telling them what to do. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P3</div>
+      <div class="insight-text">Buddy system works. One fixed person for 14 days does not. Youth friendships are too fluid for that rule.</div>
+      <div class="insight-impl">→ Allow 2–4 people to rotate. Keep Shield mechanic.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P4 — "Bulk Up" label does not fit</div>
+    <div class="stickies">
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Bulk Up" puts female participants off. Feels male-coded, gym-oriented.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Daughters would respond to a skincare or makeup deck. Not in current set.</div>
+        <div class="s-src">TP04 Sabri</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">ACL injury — cannot do physical challenges as written. Needs a skip or swap option.</div>
+        <div class="s-src">TY04 Xi En</div>
+      </div>
+      <div class="sticky purple new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Missing what benefits the body gets. Wants cards to explain what will actually happen if you do the challenge. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY02 Jia Le</div>
+      </div>
+      <div class="sticky purple new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Hoped for 10 decks across different topics. The range feels interesting but not wide enough yet. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY02 Jia Le</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P4</div>
+      <div class="insight-text">"Bulk Up" uses effort language when every other deck uses aspiration language. It does not belong in the same set. Youth also want to know what the challenge will actually do for them — the benefit needs to be on the card, not assumed.</div>
+      <div class="insight-impl">→ Rename Bulk Up. Add benefit summary to each card. Test: Level Up, Stronger, Build. Add skip or swap for physical challenges.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================================================== -->
+<!-- C3 — WE OPEN UP                                         -->
+<!-- ====================================================== -->
+<div class="concept c3">
+  <div class="concept-header">
+    <span class="code">Concept 03</span>
+    <h2>We Open Up</h2>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P1 — Mechanic confusion is a medium problem, not a concept problem</div>
+    <div class="stickies">
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Swap and Spark confused everyone. Needed researcher to step in twice.</div>
+        <div class="s-src">TP02 ET GG</div>
+      </div>
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Paused on Swap and Spark. Could not tell what the blue cards were for without a worked example.</div>
+        <div class="s-src">TP05 Joseph</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Caught design flaw: "Spark question doesn't link to the category card." Found it herself.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Thought the swap card was for swapping questions." Confused about the mechanic.</div>
+        <div class="s-src">TP11 Nur Aishah</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Less confused. Enjoyed mimicking his son during Swap. Spark felt like "a way to open up and express themselves."</div>
+        <div class="s-src">TP03 Hakim</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">No participant reached the simultaneous reveal in any session. The core mechanic was never actually tested.</div>
+        <div class="s-src">Observation — all sessions</div>
+      </div>
+      <div class="sticky blue new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Swap and Spark confused her. Thought swap meant skipping the question. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TP11 Nur Aishah (transcript)</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P1</div>
+      <div class="insight-text">The simultaneous reveal needs to be felt physically. Online testing could not test the concept — only the instructions. Run a physical session before changing this mechanic.</div>
+      <div class="insight-impl">→ Physical pilot before any mechanic changes. Link Spark card to its category.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P2 — Needs lighter entry before deeper questions</div>
+    <div class="stickies">
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Level 2–3 questions — need simpler daily-life set first."</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Would feel suspicious if parents initiated." Trust not high enough yet.</div>
+        <div class="s-src">TY04 Xi En</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Introverted child shuts down with emotional questions. "Too close to their heart."</div>
+        <div class="s-src">TP09 Lee Ee Cheng</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">If she played with parents, most answers she would have to lie. Worried about lectures.</div>
+        <div class="s-src">TY10 Naura</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Questions are a bit personal. She thinks teenagers might not want to open up."</div>
+        <div class="s-src">TP11 Nur Aishah</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">After dinner she would stay. But if really busy with homework, no time. Weekends or holidays would be more realistic. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+      <div class="sticky purple new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">TP11 suggested color-coding and voting for the best answer. Wants gamification to make teenagers give proper answers instead of "don't know don't know." <span class="new-tag">NEW</span></div>
+        <div class="s-src">TP11 Nur Aishah (transcript)</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P2</div>
+      <div class="insight-text">The concept cannot build trust that does not already exist. It needs a lighter entry before the deep questions. Timing also matters — weekday evenings are too busy for most families to make this feel genuinely playful rather than pressured.</div>
+      <div class="insight-impl">→ Add a Level 1 starter set. Make question depth visible and tiered. Flag weekends as the primary use window.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P3 — Parents who felt distance from their child responded most strongly</div>
+    <div class="stickies">
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Ranked C3 first. Son grew distant since secondary school. This gave him something different to try.</div>
+        <div class="s-src">TP06 Han Tien</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Game lets me ask questions TO my parents — unusual." Excited by the reversed dynamic.</div>
+        <div class="s-src">TY01 Evangeline</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Ranked C3 first. "Harmless looking segway to deeper conversations." Kids are older now, harder to connect.</div>
+        <div class="s-src">TP03 Hakim</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Ranked C3 first. 7/7 overall. "This is something more interesting." Relationship with daughter strained around sleep.</div>
+        <div class="s-src">TP12 Bhavani</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">1/7 all dimensions. Communication already working well. Concept felt redundant.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Some of my friends don't have a very close relationship with their parents. I thought this might help a bit." Would refer it to friends, not necessarily use it herself. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P3</div>
+      <div class="insight-text">Resonated most where the relationship had already gone quieter. Participants described this shift themselves — we did not ask them to compare then and now. The reversed dynamic, youth asking parents questions, was also an unexpected strength that no participant had anticipated before playing.</div>
+      <div class="insight-impl">→ Target Sec 1–2 families where drift has started. Amplify the youth-questioning-parent dynamic in the framing.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">P4 — Nobody is likely to start it on their own</div>
+    <div class="stickies">
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">He would have to start it. His son would not. No natural trigger for either side.</div>
+        <div class="s-src">TP06 Han Tien</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Very adult, not my age group." No reason for a Sec 1 to pick this up themselves.</div>
+        <div class="s-src">TY11 Zillia</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Showed a lack of confidence about initiating. Wants to connect but does not know how to open the door.</div>
+        <div class="s-src">TP03 Hakim</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Parent is the one who initiates the game." Framed as parent-led by default.</div>
+        <div class="s-src">TP11 Nur Aishah</div>
+      </div>
+      <div class="sticky purple">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Suggested replacing Never Have I Ever — a fun entry point before emotional depth.</div>
+        <div class="s-src">TY11 Zillia</div>
+      </div>
+      <div class="sticky yellow new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"I won't mind trying it to be honest. Just a good way for me to learn how to bond another way. We've always just been playing board games." — willing but would not initiate. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+      <div class="sticky purple new">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Suggested voting for the best answer so teenagers have a reason to answer properly. "Otherwise they just say don't know." Gamification as the trigger. <span class="new-tag">NEW</span></div>
+        <div class="s-src">TP11 Nur Aishah (transcript)</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — P4</div>
+      <div class="insight-text">Unlike C1 where the board is always visible and C2 where a friend nudges you, C3 sits in a drawer until someone decides to take it out. Neither side is likely to start on their own.</div>
+      <div class="insight-impl">→ Build in a low-stakes trigger. Make starting feel incidental, not deliberate.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ====================================================== -->
+<!-- CROSS-CONCEPT                                            -->
+<!-- ====================================================== -->
+<div class="concept cx">
+  <div class="concept-header">
+    <span class="code">Cross-concept</span>
+    <h2>All three concepts</h2>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">XP1 — Online testing could not test the physical experience</div>
+    <div class="stickies">
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">C1: Magnet interaction not testable on screen. Several participants could not engage at all.</div>
+        <div class="s-src">Observation — C1</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">C3: Simultaneous reveal never happened in any session. Participants clicked through individually.</div>
+        <div class="s-src">Observation — C3</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">All 3 prototypes navigated by facilitator due to laptop issues. No first-hand interaction at all.</div>
+        <div class="s-src">TY10 Naura</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — XP1</div>
+      <div class="insight-text">Every concept has features that depend on holding or placing a physical object. Ratings here reflect screen interactions, not product interactions.</div>
+      <div class="insight-impl">→ Run physical pilots for all three. Prioritise C3 before changing the Swap mechanic.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">XP2 — Youth are more willing than parents predict</div>
+    <div class="stickies">
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">TP01 gave C2 5/7 for youth likelihood. TY01 gave 7/7 and said she would pay for it.</div>
+        <div class="s-src">Observation</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">TY04, TY11, TY10 all ranked C2 first. TY04 asked how to buy it mid-session, no prompting.</div>
+        <div class="s-src">Observation</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Youth gave detailed, specific, constructive feedback. Parent proxy estimates were consistently lower.</div>
+        <div class="s-src">Observation</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — XP2</div>
+      <div class="insight-text">Parent proxy ratings systematically underpredict youth engagement. Youth feedback is the primary signal for concept appetite. Parent feedback tells you about adoption barriers at home.</div>
+      <div class="insight-impl">→ Weight youth and parent scores separately. Do not average them.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">XP3 — All three more useful at the start of a transition</div>
+    <div class="stickies">
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">C1 works before P6–Sec 1 bedtime structure collapses. Once gone, the board cannot rebuild it alone.</div>
+        <div class="s-src">Observation — C1</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">C2 works before after-school time becomes fully unstructured. The peer mechanic needs a routine to hook into.</div>
+        <div class="s-src">Observation — C2</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Participants who found each concept least useful were those whose transition had already settled, one way or another.</div>
+        <div class="s-src">Observation</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — XP3</div>
+      <div class="insight-text">The intervention timing matters as much as the concept itself. A well-designed concept introduced too late will not reverse an established pattern.</div>
+      <div class="insight-impl">→ Target distribution at P6–Sec 1 and Sec 2–Sec 3 transition windows.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">XP4 — Rating scores do not always match what participants said out loud</div>
+    <div class="stickies">
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Observer note: "Votes feel like she is trying to be nice. It is always caveated."</div>
+        <div class="s-src">TY04 Xi En</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">"Ranking 1–7 feels like it contradicts. She just picks the nicer answer." Observer note.</div>
+        <div class="s-src">TY11 Zillia</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">C1 score recorded as "3 (seems to have increased to please)."</div>
+        <div class="s-src">TP03 Hakim</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Could not interact with prototypes due to tech issues, yet still gave numeric ratings for all three.</div>
+        <div class="s-src">TY10 Naura</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — XP4</div>
+      <div class="insight-text">At least 4 of 16 participants gave ratings that did not match their verbal feedback. This is a methodological pattern, not an individual one.</div>
+      <div class="insight-impl">→ Read scores alongside observer notes. Numeric ratings are directional only.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+  <div class="pattern">
+    <div class="pattern-label">XP5 — Participants sit at different stages of readiness to change <span class="new-tag">NEW</span></div>
+    <div class="stickies">
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Stage 2 — Contemplation. Knows he should sleep earlier. "I keep trying to change but it never really happens." Aware of the problem, not yet acting on it.</div>
+        <div class="s-src">TY08 Josh</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Stage 2 — Contemplation. Sleep and screen time are "not okay." Has screen time limits. "It helps a bit." Knows the problem, partial action attempted.</div>
+        <div class="s-src">TY06 Kayna</div>
+      </div>
+      <div class="sticky green">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Stage 3 — Preparation. "This is something we have been looking for a long time." Actively seeking a solution. Ready to act if the right tool arrives.</div>
+        <div class="s-src">TP12 Bhavani</div>
+      </div>
+      <div class="sticky red">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Stage 5 — Maintenance. Existing structure is working. Communication with children is strong. No gap to fill. Concepts felt redundant.</div>
+        <div class="s-src">TP10 Ling</div>
+      </div>
+      <div class="sticky yellow">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Stage 4 — Action. Has screen time rules in place. Kids can negotiate for more time. Some habits are actively being managed.</div>
+        <div class="s-src">TP06 Han Tien</div>
+      </div>
+      <div class="sticky blue">
+        <button class="copy-btn" onclick="copyStickyText(this)">Copy</button>
+        <div class="s-text">Stage 1 — Precontemplation. He does not actively track sleep. Not aware of bags under eyes as a signal. No current concern.</div>
+        <div class="s-src">TP03 Hakim (sleep)</div>
+      </div>
+    </div>
+    <div class="insight">
+      <div class="insight-label">Insight — XP5</div>
+      <div class="insight-text">The concepts are not landing differently because of design alone. Participants at Stage 1 or 5 do not need any of the three concepts — they are either not yet aware or already sorted. The concepts are most relevant for Stages 2 to 4, and each concept may suit a different stage. C1 and C3 suit Contemplation and Preparation. C2 suits Preparation and Action. This has implications for how and when the concepts are distributed.</div>
+      <div class="insight-impl">→ Distribution timing and entry point matter as much as the concept design. Consider staging the offer by readiness signal, not just by age.</div>
+      <button class="insight-copy" onclick="copyInsightText(this)">Copy insight + implication</button>
+    </div>
+  </div>
+
+</div>
+
+</div><!-- /page -->
+
+<script>
+function copyStickyText(btn) {
+  const sticky = btn.closest('.sticky');
+  const text = sticky.querySelector('.s-text').textContent.replace('NEW','').trim();
+  const src = sticky.querySelector('.s-src').textContent.trim();
+  navigator.clipboard.writeText(text + '\n— ' + src).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+
+function copyInsightText(btn) {
+  const card = btn.closest('.insight');
+  const text = card.querySelector('.insight-text').textContent.trim();
+  const impl = card.querySelector('.insight-impl').textContent.trim();
+  navigator.clipboard.writeText(text + '\n\n' + impl).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy insight + implication'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
