@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Well Performance Across Stages</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#ffffff;--bg2:#f7f8fa;--bg3:#f0f2f5;
+  --bdr:#dfe2e8;--bdr2:#eceef2;
+  --tx:#2d3440;--tx2:#6b7685;--tx3:#9ba5b3;--txb:#1a1f28;
+  --w-sleep:#7c6bc4;--w-sleep-l:#f3f0ff;--w-sleep-b:#c4b5fd;
+  --w-screen:#e67e22;--w-screen-l:#fef7e8;--w-screen-b:#f0d48a;
+  --w-eat:#27ae60;--w-eat-l:#edf9f0;--w-eat-b:#a3d9b1;
+  --w-exercise:#2980b9;--w-exercise-l:#ebf5fb;--w-exercise-b:#85c1e9;
+  --w-oral:#e84393;--w-oral-l:#fef0f5;--w-oral-b:#f5a3c7;
+  --w-bond:#9b59b6;--w-bond-l:#f5f0ff;--w-bond-b:#c4b5fd;
+  --red:#c0504d;--red-l:#fef2f2;
+  --amber:#d4880c;--amber-l:#fef7e8;
+  --green:#27ae60;--green-l:#edf9f0;
+  --font:'DM Sans',-apple-system,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--font);line-height:1.5;}
+
+@media print {
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  @page{size:landscape;margin:12mm;}
+}
+
+.page{max-width:1600px;margin:0 auto;padding:24px 32px;}
+
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:16px;border-bottom:2px solid var(--txb);margin-bottom:16px;}
+.hdr .badge{font-family:var(--mono);font-size:9px;font-weight:500;letter-spacing:1.5px;text-transform:uppercase;color:var(--tx3);margin-bottom:4px;}
+.hdr h1{font-size:24px;font-weight:700;color:var(--txb);line-height:1.2;}
+.hdr .sub{font-size:12px;color:var(--tx2);margin-top:4px;max-width:720px;}
+.hdr-right{text-align:right;font-family:var(--mono);font-size:10px;color:var(--tx3);}
+
+/* Reading guide */
+.rg{display:flex;gap:20px;padding:8px 16px;background:var(--bg2);border:1px solid var(--bdr);border-radius:6px;margin-bottom:16px;align-items:center;flex-wrap:wrap;}
+.rg-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);}
+.rg-items{display:flex;gap:12px;flex-wrap:wrap;}
+.rg-item{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--tx2);}
+.rg-swatch{width:28px;height:8px;border-radius:2px;}
+
+/* Main grid */
+.matrix{display:grid;grid-template-columns:180px 1fr 1fr 1fr;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;background:var(--bg);}
+
+/* Column headers */
+.m-corner{background:var(--bg3);padding:10px 14px;border-bottom:2px solid var(--bdr);border-right:1px solid var(--bdr);display:flex;flex-direction:column;justify-content:flex-end;}
+.m-corner-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--tx3);}
+
+.m-col-hdr{background:var(--bg3);padding:10px 14px;border-bottom:2px solid var(--bdr);border-right:1px solid var(--bdr2);text-align:center;}
+.m-col-hdr:last-child{border-right:none;}
+.m-stage{font-size:13px;font-weight:700;color:var(--txb);}
+.m-age{font-size:10px;color:var(--tx2);margin-top:2px;}
+.m-desc{font-size:9px;color:var(--tx3);margin-top:3px;font-style:italic;}
+
+/* Well rows */
+.m-well-label{padding:10px 14px;border-bottom:1px solid var(--bdr);border-right:1px solid var(--bdr);display:flex;flex-direction:column;gap:4px;}
+.m-well-label:last-child,.m-well-label.last-row{border-bottom:none;}
+.m-well-name{font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.m-well-dot{width:10px;height:10px;border-radius:3px;flex-shrink:0;}
+.m-well-stat{font-family:var(--mono);font-size:9px;color:var(--tx3);line-height:1.3;}
+
+.m-cell{padding:8px 12px;border-bottom:1px solid var(--bdr2);border-right:1px solid var(--bdr2);position:relative;}
+.m-cell:last-child{border-right:none;}
+.m-cell.last-row{border-bottom:none;}
+
+/* Cell status indicators */
+.m-status{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:3px;font-size:9px;font-weight:600;margin-bottom:5px;}
+.m-status.critical{background:var(--red-l);color:var(--red);}
+.m-status.declining{background:var(--amber-l);color:var(--amber);}
+.m-status.stable{background:var(--green-l);color:var(--green);}
+
+.m-finding{font-size:10px;color:var(--tx);line-height:1.45;margin-bottom:4px;}
+.m-finding:last-child{margin-bottom:0;}
+.m-finding strong{font-weight:600;color:var(--txb);}
+.m-src{font-family:var(--mono);font-size:8px;color:var(--tx3);}
+
+/* Driver/Handover callouts */
+.m-driver{display:flex;align-items:flex-start;gap:5px;padding:4px 8px;border-radius:4px;margin-top:4px;font-size:9px;line-height:1.35;}
+.m-driver.parent-driven{background:rgba(194,85,42,0.08);border-left:2px solid var(--red);color:var(--tx);}
+.m-driver.peer-driven{background:rgba(230,138,46,0.08);border-left:2px solid var(--amber);color:var(--tx);}
+.m-driver.self-driven{background:rgba(59,91,219,0.08);border-left:2px solid #3b5bdb;color:var(--tx);}
+.m-driver.gap{background:rgba(192,80,77,0.08);border-left:2px solid var(--red);color:var(--red);}
+.m-driver-label{font-weight:700;flex-shrink:0;font-size:8px;text-transform:uppercase;letter-spacing:0.5px;margin-top:1px;}
+
+/* Transition arrow column */
+.m-transition{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:9px;color:var(--tx3);padding:6px 8px;border-bottom:1px solid var(--bdr2);border-right:1px solid var(--bdr2);background:var(--bg2);}
+.m-transition.last-row{border-bottom:none;}
+.m-t-arrow{font-size:16px;color:var(--red);margin-bottom:2px;}
+.m-t-label{font-size:8px;text-align:center;color:var(--tx3);font-style:italic;}
+
+/* Bottom insight strip */
+.insight-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.is-card{padding:10px 14px;border-radius:6px;border:1px solid var(--bdr);background:var(--bg2);}
+.is-card h4{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.6px;color:var(--txb);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.is-card h4::before{content:'';width:3px;height:12px;border-radius:1px;}
+.is-card.vulnerability h4::before{background:var(--red);}
+.is-card.leverage h4::before{background:var(--green);}
+.is-card.handover h4::before{background:var(--amber);}
+.is-body{font-size:10px;color:var(--tx);line-height:1.5;}
+.is-body strong{color:var(--txb);font-weight:600;}
+
+/* Cross-well interactions sidebar */
+.xw{border:2px solid var(--txb);border-radius:8px;padding:14px 18px;margin-top:14px;}
+.xw-title{font-size:12px;font-weight:700;color:var(--txb);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.xw-title::before{content:'';width:4px;height:14px;background:var(--txb);border-radius:2px;}
+.xw-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+.xw-item{display:flex;gap:8px;align-items:flex-start;font-size:10px;color:var(--tx);line-height:1.4;}
+.xw-num{font-family:var(--mono);font-size:18px;font-weight:700;color:var(--txb);line-height:1;flex-shrink:0;width:24px;}
+.xw-text strong{font-weight:600;color:var(--txb);}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hdr">
+    <div>
+      <div class="badge">Gallery Walk · Print 4 of 4</div>
+      <h1>Well Performance Across Stages</h1>
+      <div class="sub">How each of the 5 Wells tracks from late primary through upper secondary — showing where performance holds, where it drops, and what's driving the change at each stage.</div>
+    </div>
+    <div class="hdr-right">Youth HCD · HPB × Zühlke<br>Youth: Y01–Y11 · Parents: P01–P10<br>Feb 2026</div>
+  </div>
+
+  <div class="rg">
+    <div class="rg-label">Status</div>
+    <div class="rg-items">
+      <div class="rg-item"><div class="rg-swatch" style="background:var(--red-l);border:1px solid var(--red);"></div>Critical</div>
+      <div class="rg-item"><div class="rg-swatch" style="background:var(--amber-l);border:1px solid var(--amber);"></div>Declining</div>
+      <div class="rg-item"><div class="rg-swatch" style="background:var(--green-l);border:1px solid var(--green);"></div>Stable / Protected</div>
+    </div>
+    <div style="width:1px;height:18px;background:var(--bdr);"></div>
+    <div class="rg-label">Driver Key</div>
+    <div class="rg-items">
+      <div class="rg-item" style="font-size:9px;">🔴 Parent-driven &nbsp; 🟠 Peer-driven &nbsp; 🔵 Self-driven &nbsp; ⚠️ Gap (no clear driver)</div>
+    </div>
+  </div>
+
+  <!-- Matrix -->
+  <div class="matrix">
+    <!-- Header Row -->
+    <div class="m-corner">
+      <div class="m-corner-label">Well</div>
+    </div>
+    <div class="m-col-hdr">
+      <div class="m-stage">Late Primary</div>
+      <div class="m-age">P5–P6 · 11–12yo</div>
+      <div class="m-desc">Baseline — parent-structured</div>
+    </div>
+    <div class="m-col-hdr">
+      <div class="m-stage">Lower Secondary</div>
+      <div class="m-age">Sec 1–2 · 13–14yo</div>
+      <div class="m-desc">Transition — structure eroding</div>
+    </div>
+    <div class="m-col-hdr" style="border-right:none;">
+      <div class="m-stage">Upper Secondary</div>
+      <div class="m-age">Sec 3–4 · 15–16yo</div>
+      <div class="m-desc">Entrenchment — habits solidify</div>
+    </div>
+
+    <!-- SLEEP WELL -->
+    <div class="m-well-label">
+      <div class="m-well-name"><div class="m-well-dot" style="background:var(--w-sleep)"></div>Sleep Well</div>
+      <div class="m-well-stat">69% insufficient sleep<br>Avg 7.12h (lowest in Asia-Pacific)</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status stable">● Stable</div>
+      <div class="m-finding"><strong>Parent-enforced bedtimes</strong> set the rhythm. Sleep quality generally adequate when routines hold.</div>
+      <div class="m-driver parent-driven"><div class="m-driver-label">Parent</div>Bedtime rules slow trend towards delayed sleep</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>Bedtimes shift later</strong> as parental enforcement eases. Phone use before bed begins — initially manageable.</div>
+      <div class="m-finding m-src">Y01, Y03, Y08, Y09</div>
+      <div class="m-driver parent-driven"><div class="m-driver-label">Parent</div>Still checking — but less effective</div>
+    </div>
+    <div class="m-cell" style="border-right:none;">
+      <div class="m-status critical">▼ Critical</div>
+      <div class="m-finding"><strong>Phone required to fall asleep.</strong> Academic pressure drives late nights. Sleep has no clear driver after parents withdraw enforcement.</div>
+      <div class="m-finding m-src">Y03, Y04, Y06, Y09, Y10</div>
+      <div class="m-driver gap"><div class="m-driver-label">⚠️ Gap</div>No one owns this — the handover gap</div>
+    </div>
+
+    <!-- SCREEN / LEARN WELL -->
+    <div class="m-well-label">
+      <div class="m-well-name"><div class="m-well-dot" style="background:var(--w-screen)"></div>Screen / Learn</div>
+      <div class="m-well-stat">44% >3h weekday<br>64% >3h weekend<br>~8.5h daily avg</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status stable">● Stable</div>
+      <div class="m-finding"><strong>Device use monitored.</strong> Many don't have own phone yet. Screen time bounded by parental rules and limited independent access.</div>
+      <div class="m-driver parent-driven"><div class="m-driver-label">Parent</div>Controls work — child doesn't resist yet</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>Own phone acquired.</strong> Screen time rises. Phone needed for school creates legitimacy. Parents start losing oversight as controls get circumvented.</div>
+      <div class="m-finding m-src">Y03, Y05, P03, P07, P10</div>
+      <div class="m-driver peer-driven"><div class="m-driver-label">Peer</div>Social media + messaging become central</div>
+    </div>
+    <div class="m-cell" style="border-right:none;">
+      <div class="m-status critical">▼ Critical</div>
+      <div class="m-finding"><strong>Phone feels addictive.</strong> Used for coping, social connection, entertainment. Embedded in daily routine from wake to sleep. Parents feel outsmarted.</div>
+      <div class="m-finding m-src">Y03, Y05, Y06, P07, P10</div>
+      <div class="m-driver self-driven"><div class="m-driver-label">Self</div>Emotional regulation function — hard to replace</div>
+    </div>
+
+    <!-- EAT WELL -->
+    <div class="m-well-label">
+      <div class="m-well-name"><div class="m-well-dot" style="background:var(--w-eat)"></div>Eat Well</div>
+      <div class="m-well-stat">40.3% ↑ SSB intake<br>40.6% insufficient fruit & veg</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status stable">● Stable</div>
+      <div class="m-finding"><strong>Family meals dominate.</strong> Parent controls food environment. Choices largely made for child. Diet quality adequate.</div>
+      <div class="m-driver parent-driven"><div class="m-driver-label">Parent</div>Home meals, packed lunches, supervised eating</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>Eating out with friends begins.</strong> Shift from family meals to canteen/hawker choices. Sugar-sweetened beverages become social norm.</div>
+      <div class="m-finding m-src">Y01, Y03, Y05, Y06, P06</div>
+      <div class="m-driver peer-driven"><div class="m-driver-label">Peer</div>Social eating — choices driven by group, cost, taste</div>
+    </div>
+    <div class="m-cell" style="border-right:none;">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>Unsupervised food choices entrenched.</strong> Evening eating defaults to convenience. Parents have little visibility over out-of-home meals.</div>
+      <div class="m-finding m-src">Y01, Y06, Y10, P06, P10</div>
+      <div class="m-driver self-driven"><div class="m-driver-label">Self</div>Comfort eating + convenience → new defaults form</div>
+    </div>
+
+    <!-- EXERCISE WELL -->
+    <div class="m-well-label">
+      <div class="m-well-name"><div class="m-well-dot" style="background:var(--w-exercise)"></div>Exercise Well</div>
+      <div class="m-well-stat">45% not meeting 60min/day</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status stable">● Stable</div>
+      <div class="m-finding"><strong>Structured PE + play.</strong> Recess is active. Family outings include physical activity. Movement is default, not effort.</div>
+      <div class="m-driver parent-driven"><div class="m-driver-label">Parent</div>Family cycling, park visits, structured activities</div>
+    </div>
+    <div class="m-cell">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>CCA partially sustains exercise</strong> for some. But unstructured time → screen time, not movement. Parents offload responsibility to school.</div>
+      <div class="m-finding m-src">Y01, Y05, P01, P04</div>
+      <div class="m-driver peer-driven"><div class="m-driver-label">School</div>CCA/PE carries it — but only 2-3x/week</div>
+    </div>
+    <div class="m-cell" style="border-right:none;">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>Exercise becomes a chore.</strong> Academic pressure crowds out time. Low intrinsic motivation. Fatigue from poor sleep further suppresses activity.</div>
+      <div class="m-finding m-src">Y01, Y04, Y05, Y10</div>
+      <div class="m-driver gap"><div class="m-driver-label">⚠️ Gap</div>No one pushing — needs identity connection</div>
+    </div>
+
+    <!-- BOND WELL -->
+    <div class="m-well-label last-row">
+      <div class="m-well-name"><div class="m-well-dot" style="background:var(--w-bond)"></div>Bond Well</div>
+      <div class="m-well-stat">Youth share less<br>Parents desire quality time</div>
+    </div>
+    <div class="m-cell last-row">
+      <div class="m-status stable">● Stable</div>
+      <div class="m-finding"><strong>Close connection.</strong> Child shares openly. Family time natural. Parent is primary confidant and rule-setter.</div>
+      <div class="m-driver parent-driven"><div class="m-driver-label">Parent</div>Natural closeness; child hasn't pushed away yet</div>
+    </div>
+    <div class="m-cell last-row">
+      <div class="m-status declining">▼ Declining</div>
+      <div class="m-finding"><strong>Sharing decreases.</strong> Youth begins to handle stress independently. Monitoring triggers resistance. Mixed views on shared activities.</div>
+      <div class="m-finding m-src">Y01, Y03, P04, P06, P07</div>
+      <div class="m-driver self-driven"><div class="m-driver-label">Self</div>Autonomy-seeking — developmentally normal</div>
+    </div>
+    <div class="m-cell last-row" style="border-right:none;">
+      <div class="m-status critical">▼ Critical</div>
+      <div class="m-finding"><strong>Communication channel breaks down.</strong> Youth doesn't turn to parents when stressed. Parent uncertain whether to push or pull back. Both want connection — neither knows how.</div>
+      <div class="m-finding m-src">Y01, Y06, Y08, Y09, Y11, P03, P06</div>
+      <div class="m-driver gap"><div class="m-driver-label">⚠️ Gap</div>Both sides want closeness — approach misaligned</div>
+    </div>
+  </div>
+
+  <!-- Insight strip -->
+  <div class="insight-strip">
+    <div class="is-card vulnerability">
+      <h4>Most Vulnerable Wells</h4>
+      <div class="is-body"><strong>Sleep</strong> and <strong>Bond</strong> reach critical status by Upper Sec because they have no clear driver after parental enforcement ends. Screen drives both declines but is itself driven by emotional function — creating a reinforcing loop with no natural exit point.</div>
+    </div>
+    <div class="is-card leverage">
+      <h4>Highest Leverage Points</h4>
+      <div class="is-body">The <strong>Sec 2→3 transition</strong> (14–15yo) is where parental influence dips below peer influence and habits entrench. Interventions at this window have the best chance of shifting trajectories before patterns lock in.</div>
+    </div>
+    <div class="is-card handover">
+      <h4>The Handover Problem</h4>
+      <div class="is-body">Every well follows the same arc: <strong>parent-structured → eroding → no one owns it.</strong> The gap isn't just parental withdrawal — it's that no alternative driver replaces parental structure. Youth need skills and systems, not just reminders.</div>
+    </div>
+  </div>
+
+  <!-- Cross-well interactions -->
+  <div class="xw">
+    <div class="xw-title">Cross-Well Interactions That Accelerate Decline</div>
+    <div class="xw-grid">
+      <div class="xw-item">
+        <div class="xw-num">1</div>
+        <div class="xw-text"><strong>Screen → Sleep → Everything.</strong> The dominant cascade. Screen displaces sleep, poor sleep disrupts eating (skip breakfast, snack late), fatigue suppresses exercise. One slip pulls three others. Appears in 8/11 youth interviews.</div>
+      </div>
+      <div class="xw-item">
+        <div class="xw-num">2</div>
+        <div class="xw-text"><strong>Bond erosion removes the last check on Sleep.</strong> When parent-youth communication breaks down, the last external prompt for bedtimes disappears. Sleep becomes entirely self-managed — but no one taught self-management.</div>
+      </div>
+      <div class="xw-item">
+        <div class="xw-num">3</div>
+        <div class="xw-text"><strong>Screen replaces Bond as coping mechanism.</strong> Youth who don't turn to parents when stressed use phones instead. This reinforces screen dependency while further weakening the relationship that could help break the cycle.</div>
+      </div>
+      <div class="xw-item">
+        <div class="xw-num">4</div>
+        <div class="xw-text"><strong>Academic pressure is the invisible multiplier.</strong> It doesn't directly damage any single well — it compresses the time and energy available for all of them, making every healthy choice harder and every unhealthy default more likely.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
