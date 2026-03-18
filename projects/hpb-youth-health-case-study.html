@@ -7,23 +7,31 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #faf9f8;
-  --bg2: #f3f1ef;
-  --bg3: #eceae7;
-  --surface: #ffffff;
-  --bdr: #ddd9d5;
-  --bdr2: #ebe8e5;
-  --tx: #2a2035;
-  --tx2: #4d4358;
-  --tx3: #7a7086;
-  --txb: #1e1628;
-  --deep: #2f243a;
-  --salmon: #c97a62;
-  --salmon-light: rgba(219,138,116,0.1);
-  --almond: #fac9b8;
-  --silver: #bebbbb;
-  --grape: #444054;
-  --violet: #2f243a;
+  --bg: #FFF8F0;
+  --bg2: #FEF3E8;
+  --bg3: #F8EBD8;
+  --surface: #FFFFFF;
+  --bdr: #E8DDD0;
+  --bdr2: #F0E8DD;
+  --tx: #2C3E50;
+  --tx2: #4A5568;
+  --tx3: #6B7B8D;
+  --txb: #1B2A4A;
+  --deep: #1B2A4A;
+  --salmon: #F4A261;
+  --salmon-light: rgba(244,162,97,0.1);
+  --almond: #FDDCB5;
+  --silver: #B8A9C9;
+  --grape: #2D4470;
+  --violet: #1B2A4A;
+  --sage: #8CB89F;
+  --sage-light: #D4EDDA;
+  --coral: #E07A5F;
+  --coral-light: #F8D5CB;
+  --sky: #89B4D4;
+  --sky-light: #D0E4F0;
+  --lavender: #B8A9C9;
+  --lavender-light: #E8DFF0;
   --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --serif: 'DM Serif Display', Georgia, serif;
   --mono: 'JetBrains Mono', monospace;
@@ -388,8 +396,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   border-radius: 4px;
   letter-spacing: 0.5px;
 }
-.tag-best { background: rgba(219,138,116,0.15); color: var(--salmon); }
-.tag-leverage { background: rgba(68,64,84,0.15); color: var(--grape); }
+.tag-best { background: rgba(244,162,97,0.15); color: var(--salmon); }
+.tag-leverage { background: rgba(45,68,112,0.15); color: var(--grape); }
 .tag-fork { background: rgba(190,187,187,0.25); color: #666; }
 .transition-card-body {
   padding: 16px 22px;
@@ -486,11 +494,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   border-top: 1px solid var(--bdr2);
 }
 .c1 .concept-hdr { border-top: 4px solid var(--grape); }
-.c1 .score { background: rgba(68,64,84,0.1); color: var(--grape); }
+.c1 .score { background: rgba(45,68,112,0.1); color: var(--grape); }
 .c2 .concept-hdr { border-top: 4px solid var(--salmon); }
-.c2 .score { background: rgba(219,138,116,0.12); color: var(--salmon); }
+.c2 .score { background: rgba(244,162,97,0.12); color: var(--salmon); }
 .c3 .concept-hdr { border-top: 4px solid var(--deep); }
-.c3 .score { background: rgba(47,36,58,0.1); color: var(--deep); }
+.c3 .score { background: rgba(27,42,74,0.1); color: var(--deep); }
 
 /* ── WELL TAGS ── */
 .well-tag {
@@ -501,11 +509,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   letter-spacing: 0.3px;
   text-transform: uppercase;
 }
-.wt-sleep { background: rgba(68,64,84,0.12); color: var(--grape); }
-.wt-screen { background: rgba(219,138,116,0.12); color: var(--salmon); }
-.wt-eat { background: rgba(47,36,58,0.12); color: var(--deep); }
+.wt-sleep { background: rgba(45,68,112,0.12); color: var(--grape); }
+.wt-screen { background: rgba(244,162,97,0.12); color: var(--salmon); }
+.wt-eat { background: rgba(27,42,74,0.12); color: var(--deep); }
 .wt-exercise { background: rgba(190,187,187,0.3); color: #555; }
-.wt-bond { background: rgba(250,201,184,0.3); color: #a0604c; }
+.wt-bond { background: rgba(253,220,181,0.3); color: #8B5E3C; }
 
 /* ── DESIGN PRINCIPLES ── */
 .principles {
@@ -604,11 +612,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   border: 1px solid var(--bdr);
 }
 .cycle-box.vicious {
-  background: linear-gradient(135deg, #fdf0eb, #fef7f4);
+  background: linear-gradient(135deg, #FDDCB5, #FEF3E8);
   border-color: var(--salmon);
 }
 .cycle-box.virtuous {
-  background: linear-gradient(135deg, #f3f2f6, #f8f7fa);
+  background: linear-gradient(135deg, #D0E4F0, #f8f7fa);
   border-color: var(--grape);
 }
 .cycle-box h4 {
@@ -662,8 +670,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   color: var(--tx3);
   margin-bottom: 8px;
 }
-.window-block.structured { background: #f3f2f6; }
-.window-block.gap { background: rgba(219,138,116,0.08); }
+.window-block.structured { background: #D0E4F0; }
+.window-block.gap { background: rgba(244,162,97,0.08); }
 .window-block.partial { background: var(--bg2); }
 
 /* ── FILTER FLOW ── */
@@ -765,8 +773,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   padding: 4px 12px;
   border-radius: 5px;
 }
-.verdict-pilot { background: rgba(68,64,84,0.12); color: var(--grape); }
-.verdict-refine { background: rgba(219,138,116,0.15); color: var(--salmon); }
+.verdict-pilot { background: rgba(45,68,112,0.12); color: var(--grape); }
+.verdict-refine { background: rgba(244,162,97,0.15); color: var(--salmon); }
 
 /* ── LEARNINGS ── */
 .learning-grid {
@@ -854,7 +862,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 a.viz-link {
   color: var(--grape);
   text-decoration: underline;
-  text-decoration-color: rgba(68,64,84,0.3);
+  text-decoration-color: rgba(45,68,112,0.3);
   text-underline-offset: 3px;
   font-weight: 600;
   transition: text-decoration-color 0.2s;
@@ -870,7 +878,7 @@ a.viz-link::after {
 /* White links inside dark role-block */
 .role-block a.viz-link {
   color: var(--almond);
-  text-decoration-color: rgba(250,201,184,0.4);
+  text-decoration-color: rgba(253,220,181,0.4);
 }
 .role-block a.viz-link:hover {
   text-decoration-color: var(--almond);
@@ -1045,9 +1053,9 @@ a.viz-link::after {
   <div class="flow">
     <div class="flow-node" style="background: var(--almond); color: var(--deep);">Phase 1<small>Discover</small></div>
     <div class="flow-arrow">&rarr;</div>
-    <div class="flow-node" style="background: rgba(68,64,84,0.12); color: var(--grape);">Phase 2<small>Define</small></div>
+    <div class="flow-node" style="background: rgba(45,68,112,0.12); color: var(--grape);">Phase 2<small>Define</small></div>
     <div class="flow-arrow">&rarr;</div>
-    <div class="flow-node" style="background: rgba(219,138,116,0.2); color: var(--deep);">Phase 3<small>Design</small></div>
+    <div class="flow-node" style="background: rgba(244,162,97,0.2); color: var(--deep);">Phase 3<small>Design</small></div>
     <div class="flow-arrow">&rarr;</div>
     <div class="flow-node" style="background: var(--deep); color: var(--almond);">Phase 4<small>Deliver</small></div>
   </div>
@@ -1064,6 +1072,17 @@ a.viz-link::after {
   <div class="section-label">Phase 1 &mdash; Discover</div>
   <h2>The drift</h2>
   <p>The research identified a pattern I called <strong>"the drift"</strong> &mdash; the unintentional slide away from healthy habits, not because youth choose to stop, but because they haven't yet developed the skills to manage it themselves. The structures that held their habits in place simply disappear. I mapped this through a <a class="viz-link" href="visualisations/behavioural_ecosystem.html" target="_blank">behavioural ecosystem</a> that visualises the full landscape of <a class="viz-link" href="visualisations/comb_gallery_why_behind_drift.html" target="_blank">why the drift happens</a> and an <a class="viz-link" href="visualisations/influence_landscape.html" target="_blank">influence landscape</a> showing who shapes youth behaviour at each stage.</p>
+
+  <div class="img-pair" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0;">
+    <div>
+      <img class="img-full" src="images/hpb-discover-stakeholder-workshop.jpg" alt="Stakeholder alignment workshop — team reviewing synthesis board with research findings projected on screen">
+      <p class="img-caption">Stakeholder alignment workshop — reviewing synthesis across the five health domains</p>
+    </div>
+    <div>
+      <img class="img-full" src="images/hpb-discover-synthesis-session.jpg" alt="Research synthesis session — two team members reviewing behavioural data on projected board">
+      <p class="img-caption">Rolling synthesis session — adjusting hypotheses as patterns emerged from interviews</p>
+    </div>
+  </div>
 
   <div class="thinking-block">
     <div class="label">My thinking</div>
@@ -1121,22 +1140,22 @@ a.viz-link::after {
     <div class="diagram-sub">X-axis: Know, Not Do &rarr; Know, And Do&emsp;|&emsp;Y-axis: Structure Present &rarr; Structure Absent</div>
     <div class="matrix-wrap">
       <div class="matrix-2x2">
-        <div class="matrix-cell" style="background: rgba(219,138,116,0.06);">
+        <div class="matrix-cell" style="background: rgba(244,162,97,0.06);">
           <h4 style="color: var(--salmon);">Structured but Resistant</h4>
           <p>Youth follow rules to avoid trouble, not because they agree. They behave when forced but revert when structure lifts.</p>
           <p class="action" style="color: var(--salmon);">&rarr; Help youth buy into the routine, not just follow it.</p>
         </div>
-        <div class="matrix-cell" style="background: rgba(68,64,84,0.04);">
+        <div class="matrix-cell" style="background: rgba(45,68,112,0.04);">
           <h4 style="color: var(--grape);">Supported &amp; Functioning</h4>
           <p>Habits seem formed, but they're held up by people around them, not by the youth themselves.</p>
           <p class="action" style="color: var(--grape);">&rarr; Help youth take over before the support disappears.</p>
         </div>
-        <div class="matrix-cell" style="background: rgba(219,138,116,0.1);">
+        <div class="matrix-cell" style="background: rgba(244,162,97,0.1);">
           <h4 style="color: var(--salmon);">The Drift</h4>
           <p>Most youth spend after-school time with friends and little guidance. They know what's healthy, but the easier choice still wins.</p>
           <p class="action" style="color: var(--salmon);">&rarr; Help youth build strategies for when easy beats healthy.</p>
         </div>
-        <div class="matrix-cell" style="background: rgba(68,64,84,0.08);">
+        <div class="matrix-cell" style="background: rgba(45,68,112,0.08);">
           <h4 style="color: var(--grape);">Self-Managing &ensp;&#9733;</h4>
           <p>Youth do healthy things without someone making them. Own routines, strategies, and reasons. <strong>The north star.</strong></p>
           <p class="action" style="color: var(--grape);">&rarr; Keep it going. Reinforce and celebrate.</p>
@@ -1213,6 +1232,28 @@ a.viz-link::after {
   <h2>Strategic frame</h2>
   <p>Research shaped three connected pieces: the question we're solving, the destination we're designing toward, and the guardrails that keep us honest.</p>
 
+  <div class="img-pair" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 32px 0;">
+    <div>
+      <img class="img-full" src="images/hpb-define-gallery-walk.jpg" alt="Youth participants during gallery walk — reviewing research findings pinned to wall">
+      <p class="img-caption">Gallery walk — participants reviewing research findings before the define session</p>
+    </div>
+    <div>
+      <img class="img-full" src="images/hpb-define-workshop-groups.jpg" alt="Workshop groups seated at tables during the define phase working session">
+      <p class="img-caption">Define workshop — cross-functional groups working through opportunity areas</p>
+    </div>
+  </div>
+
+  <div class="img-pair" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 0 0 32px;">
+    <div>
+      <img class="img-full" src="images/hpb-define-wall-review.jpg" alt="Participants reviewing research wall with sticky notes and printed frameworks">
+      <p class="img-caption">Participants adding to the research wall — mapping connections across health domains</p>
+    </div>
+    <div>
+      <img class="img-full" src="images/hpb-define-wall-review-2.jpg" alt="Close-up of participants engaging with wall-mounted frameworks during define phase">
+      <p class="img-caption">Close-up — reacting to mapped findings and voting on priority opportunity areas</p>
+    </div>
+  </div>
+
   <div class="north-star" style="margin-top: 28px;">
     <h3>The HMW</h3>
     <p>"How might we motivate youth (aged 13&ndash;16) and their key supporters to build their confidence to start and sustain healthy habits across the 6 Wells, so that healthier choices become natural, even as routines change and independence grows?"</p>
@@ -1265,12 +1306,17 @@ a.viz-link::after {
   <h2>From 25+ ideas to 3 concepts</h2>
   <p>I ran co-creation workshops with 6 youth and 6 parents. Using the opportunity areas as prompts, I presented scenarios and let participants ideate what would help them in those moments. Two clear takeaways emerged:</p>
 
+  <div style="margin: 32px 0;">
+    <img class="img-full" src="images/hpb-cocreation-parents-table.jpg" alt="Parents during co-creation workshop — writing on sticky notes with scenario cards and illustrations spread on table">
+    <p class="img-caption">Parent co-creation session — generating ideas from scenario prompts grounded in real daily moments</p>
+  </div>
+
   <div class="cycle-diagram">
-    <div class="cycle-box" style="background: linear-gradient(135deg, #fdf0eb, #fef7f4); border-color: var(--salmon);">
+    <div class="cycle-box" style="background: linear-gradient(135deg, #FEF3E8, #FFF8F0); border-color: var(--salmon);">
       <h4 style="color: var(--salmon);">Takeaway 1 &mdash; Parents</h4>
       <p style="font-size: 15px; line-height: 1.75; color: var(--tx);">Parents came in with real self-awareness. But their strategies were built for primary school and haven't evolved. <em>"I need to change myself too."</em> They're not the problem &mdash; they just need tools that match where their child is now.</p>
     </div>
-    <div class="cycle-box" style="background: linear-gradient(135deg, #f3f2f6, #f8f7fa); border-color: var(--grape);">
+    <div class="cycle-box" style="background: linear-gradient(135deg, #D0E4F0, #E8F0F8); border-color: var(--grape);">
       <h4 style="color: var(--grape);">Takeaway 2 &mdash; Youth</h4>
       <p style="font-size: 15px; line-height: 1.75; color: var(--tx);">Youth already know what's healthy. What they need is the <em>how</em>. When asked to design solutions, every idea changed something <em>around</em> them (the room, the routine) &mdash; not something inside them. Not one idea was "try harder."</p>
     </div>
