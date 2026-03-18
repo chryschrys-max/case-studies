@@ -965,6 +965,32 @@ a.viz-link::after {
 .top-nav a::before {
   content: '\2190\00a0\00a0';
 }
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(255, 248, 240, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--bdr);
+  padding: 14px 0;
+  text-align: center;
+}
+.bottom-bar a {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grape);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.bottom-bar a:hover {
+  color: var(--salmon);
+}
 </style>
 </head>
 <body>
@@ -1515,6 +1541,11 @@ a.viz-link::after {
 </footer>
 
 </div>
+
+<nav class="bottom-bar">
+  <a href="index.html#case-studies">&larr;&nbsp;&nbsp;Back to projects</a>
+</nav>
+
 <script src="gate.js"></script>
 <script src="contact.js"></script>
 </body>
