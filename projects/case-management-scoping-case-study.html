@@ -262,11 +262,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <div class="section-label">Context</div>
   <h2>Why this organisation needed a scoping phase</h2>
   <p>The four platforms had been built independently over more than a decade. Each served a distinct domain of case proceedings, had its own vendor, its own users, and its own technical architecture. Some had been migrated to modern cloud infrastructure; others still ran on legacy environments. Together they handled hundreds of cases daily across a wide range of proceedings types.</p>
-  <p>A modernisation programme of this scale &mdash; one that would eventually touch all four platforms, their users, and the integrations between them &mdash; could not begin with discovery alone. Going into user research without understanding the systems those users worked in would have meant spending weeks building context that a scoping phase could deliver in days. The scoping phase was not overhead. It was preparation.</p>
+  <p>A modernisation programme of this scale &mdash; one that would eventually touch all four platforms, their users, and the integrations between them &mdash; could not begin with discovery alone. Going into user research without understanding the systems those users worked in would have meant spending the first few weeks of discovery just getting oriented. A focused scoping phase could compress that orientation into days and free up discovery to do what it does best: talk to users about their actual experience.</p>
 
   <div class="thinking-block">
     <div class="label">My framing for the scoping phase</div>
-    <p>The goal was not to find problems. That was discovery&rsquo;s job. The goal was to make sure discovery was looking in the right places &mdash; and that when users described friction, the research team already had enough context to understand why it existed and where it sat in the broader system. We were building the map so discovery could navigate, not just explore.</p>
+    <p>We weren&rsquo;t there to find problems &mdash; that was discovery&rsquo;s job. What we were trying to do was make sure the discovery team would already have enough systems context that when a user described something frustrating, the researchers could immediately place it: which system, which capability, which integration point. Instead of spending interview time asking &ldquo;walk me through what happens when you file a case,&rdquo; they could ask sharper questions because they already understood the mechanics. We were giving them a head start.</p>
   </div>
 </section>
 
@@ -276,7 +276,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 <section class="section">
   <div class="section-label">Scoping Phase &mdash; The Four Systems</div>
   <h2>Four platforms, four domains, one organisation</h2>
-  <p>Each platform served a distinct segment of the case management lifecycle. Understanding each one on its own terms was the starting point. Understanding how they related to each other was the harder and more important work.</p>
+  <p>Each platform served a distinct segment of the case management lifecycle. We started by understanding each one on its own terms &mdash; what it did, who used it, how it was built. But the more interesting (and harder) work was figuring out how they related to each other, because that&rsquo;s where most of the operational pain actually lived.</p>
 
   <div class="systems-grid">
     <div class="system-card">
@@ -325,7 +325,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="thinking-block">
     <div class="label">What struck me about the four-system landscape</div>
-    <p>Each platform had been built with a clear domain in mind. But over time, the organisation&rsquo;s operational needs had grown sideways &mdash; cases that started in one domain routinely crossed into another. A criminal matter could generate a family proceeding. An appeal from the criminal platform routed to the civil platform. Family cases touched external agencies that had no presence in any of the four systems. The formal integrations were documented. The informal bridges &mdash; the manual handoffs, the duplicate data entry, the workarounds that had calcified into standard practice &mdash; were not. That&rsquo;s what the scoping phase was really there to uncover.</p>
+    <p>Each platform had been built with a clear domain in mind. But the organisation&rsquo;s reality had grown sideways &mdash; cases that started in one domain routinely crossed into another. A criminal matter could generate a family proceeding. An appeal from the criminal platform ended up in the civil platform. Family cases involved external agencies that had no presence in any of the four systems. The formal integrations between systems were documented well enough. What wasn&rsquo;t documented were the informal bridges &mdash; the manual handoffs, the duplicate data entry, the workarounds that staff had been doing for so long they&rsquo;d become invisible. Those were the things we were really trying to surface.</p>
   </div>
 </section>
 
@@ -411,7 +411,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="thinking-block">
     <div class="label">The pattern that kept appearing</div>
-    <p>Across almost every capability, the same pattern emerged: each system had done a reasonable job solving the problem within its own domain. What no system had done &mdash; because none of them had been designed with the others in mind &mdash; was account for the user who worked across all four. Templates not standardised. Shared data manually re-entered. Role matrices defined independently. The pain wasn&rsquo;t inside any single system. It was the accumulated cost of four separate solutions that were never meant to form a coherent whole.</p>
+    <p>The same pattern kept showing up: each system had done a reasonable job solving these problems within its own domain. But none of them had been designed with the other three in mind, so nobody had really accounted for the user who works across all four &mdash; and there were a lot of those users. Templates weren&rsquo;t standardised because each system managed its own. Shared data like room bookings was manually re-entered because no one system owned it. Role matrices were defined independently because each vendor had built their own. The pain wasn&rsquo;t really inside any single system. It was the accumulated cost of four separate solutions that were never meant to work together.</p>
   </div>
 </section>
 
@@ -480,7 +480,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="thinking-block">
     <div class="label">What the handshake map told us about the modernisation</div>
-    <p>The integrations between systems were not the problem. Most of them worked. What the handshake map surfaced was something more useful for the programme: the dependencies that would shape the sequencing of modernisation, the shared data that no single system owned but all four depended on, and the manual workarounds that had grown to such a scale they would need to be designed out, not just eliminated. That intelligence &mdash; before discovery had spoken to a single user &mdash; was already reshaping how the programme was thinking about what to do first.</p>
+    <p>Most of the integrations actually worked fine on a technical level. What the handshake map gave the programme was something different: a picture of the dependencies that would shape what order things could be modernised in. Which systems were coupled in ways that meant you couldn&rsquo;t change one without affecting the other. Which shared data had no owner. Which manual workarounds had grown so large they&rsquo;d need to be deliberately designed out rather than just switched off. That kind of intelligence &mdash; before the discovery team had even spoken to a user &mdash; was already changing how leadership was thinking about sequencing.</p>
   </div>
 </section>
 
@@ -515,7 +515,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="thinking-block">
     <div class="label">Why the model mattered</div>
-    <p>Without this framing, a modernisation programme of this scale tends to collapse into a long list of feature requests, each prioritised by whoever is most vocal. The model gave the programme leadership a structure for thinking about where decisions needed to be made first, which workstreams were dependencies for others, and what &ldquo;done&rdquo; meant at each level. That&rsquo;s not a design output in the traditional sense. But it&rsquo;s exactly the kind of framing work that determines whether a complex programme has a coherent direction or just a backlog.</p>
+    <p>Without something like this, a modernisation programme of this scale tends to collapse into a long list of feature requests, each prioritised by whoever is most vocal. The model gave leadership a way to think about where decisions needed to be made first &mdash; and critically, which workstreams were actually blocking other workstreams. It also made &ldquo;done&rdquo; mean something concrete at each level, rather than a vague sense of progress. It&rsquo;s not the kind of thing you&rsquo;d normally think of as a design output, but in a programme this complex, the framing is often more valuable than any individual artefact.</p>
   </div>
 </section>
 
@@ -589,7 +589,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="thinking-block">
     <div class="label">What the cross-functional model gave us</div>
-    <p>The most useful findings came from the intersections. When the BA documented a process and the Solutions Architect assessed the system supporting it, I could sit across both and ask: does this platform actually enable the process it&rsquo;s supposed to support? The answer was frequently &ldquo;partly.&rdquo; Sometimes the gap was technical: the system couldn&rsquo;t do what the process required. Sometimes it was operational: the process had evolved but the system hadn&rsquo;t followed. In both cases, the gap only became visible when you had someone looking at both layers at the same time. That&rsquo;s what the three-person team made possible.</p>
+    <p>The most useful findings came from the intersections between what each of us was looking at. The BA would document a business process. The Solutions Architect would assess the system underpinning it. And I could sit across both and ask: does this platform actually support the process it&rsquo;s supposed to? The answer was frequently &ldquo;partly&rdquo; &mdash; sometimes because the system technically couldn&rsquo;t do what was needed, sometimes because the process had evolved and the system hadn&rsquo;t kept up. Either way, you only see those mismatches when someone is deliberately looking at both layers at the same time. That was essentially my job on this team.</p>
   </div>
 </section>
 
@@ -640,22 +640,22 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     <div class="learning-card">
       <div class="num">01</div>
       <h4>The gaps between systems are more complex than the systems themselves</h4>
-      <p>Each platform, taken individually, was understandable. The complexity was in the relationships between them &mdash; the data that crossed boundaries, the users who worked across multiple platforms, the integrations that had been built one at a time without a coherent picture of the whole. Understanding a multi-system environment means specifically going looking for what the systems don&rsquo;t document: the handshakes.</p>
+      <p>Each platform, taken individually, was pretty understandable. The complexity lived in the spaces between them &mdash; the data crossing boundaries, the users navigating multiple platforms, the integrations cobbled together one at a time over the years. If you only look at what each system documents about itself, you miss the interesting stuff. You have to deliberately go looking for what happens at the seams.</p>
     </div>
     <div class="learning-card">
       <div class="num">02</div>
       <h4>What a system is designed to do and what it&rsquo;s actually used for are rarely the same</h4>
-      <p>Every system had documentation. Every system had also evolved significantly beyond what that documentation described. Users had built workarounds into their daily practice. Capabilities that existed were rarely used. Capabilities that were needed didn&rsquo;t exist. Documenting only what a system was designed to do would have produced an artefact that was accurate and useless. The job was to document both: intent and reality.</p>
+      <p>Every system had documentation, and every system had also evolved well beyond what that documentation described. Users had built workarounds into their daily routines that nobody thought to mention until you watched them work. Features that technically existed went unused. Things that were clearly needed hadn&rsquo;t been built. If we&rsquo;d only documented what each system was designed to do, we&rsquo;d have produced something that was technically accurate but practically useless. The real job was documenting both: what was intended and what was actually happening.</p>
     </div>
     <div class="learning-card">
       <div class="num">03</div>
       <h4>A cross-functional team sees what a single discipline misses</h4>
-      <p>Working alongside a Principal BA and Solutions Architect meant we could surface mismatches that neither discipline would have caught alone. The BA saw process. The architect saw constraints. I could ask whether the two were actually compatible &mdash; and often they weren&rsquo;t. The synthesis across disciplines is where the real insight lives, but it requires someone explicitly holding that synthesis role. That was my job.</p>
+      <p>Working alongside a Principal BA and Solutions Architect meant we could catch things none of us would have spotted individually. The BA understood how cases were supposed to move through a process. The architect understood what the system could and couldn&rsquo;t technically support. My role was to sit across both and ask whether the process and the system were actually compatible &mdash; and often they weren&rsquo;t, in ways that neither person had flagged because each was looking at their own layer. Someone has to hold that synthesis role explicitly, or the mismatches just sit there.</p>
     </div>
     <div class="learning-card">
       <div class="num">04</div>
       <h4>In complex programmes, framing is as important as findings</h4>
-      <p>The capability map and handshake documentation were valuable. But what shaped the programme&rsquo;s direction most was the 4-layer model &mdash; a framing that made explicit where decisions needed to be made before features could be designed. In environments this complex, the designer&rsquo;s most important contribution is often not the artefacts but the conceptual structure that helps a large team make sense of what it&rsquo;s dealing with.</p>
+      <p>The capability map and handshake documentation were useful, but what actually shaped the programme&rsquo;s direction most was the 4-layer model. It gave people a shared way to talk about where decisions needed to be made before features could be designed. In environments this complex, I&rsquo;ve found the designer&rsquo;s most important contribution is often not any single artefact but the conceptual structure that helps a large team make sense of what they&rsquo;re all looking at. If sixty people can&rsquo;t agree on how to think about the problem, the individual deliverables don&rsquo;t matter much.</p>
     </div>
   </div>
 </section>
@@ -666,12 +666,12 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 <section class="section">
   <div class="section-label">Outcome</div>
   <h2>What the scoping phase made possible</h2>
-  <p>We entered the scoping phase with four platforms, a modernisation mandate, and an incomplete picture of what the programme was actually dealing with. We came out of it with a full current-state view, a capability assessment across twelve categories, a map of every significant integration point between the four systems, a strategic framework for organising the modernisation work, and a register of the risks and dependencies that would shape the sequencing.</p>
-  <p>More than the artefacts, the scoping phase produced something harder to document: a shared understanding. The programme team &mdash; design, BA, architecture, and leadership &mdash; came out of it with a common picture of the landscape. When discovery began, that shared picture meant conversations could start at a higher level. Users described problems; the team could immediately locate those problems in the system architecture. That compression &mdash; from landscape orientation to problem-focused research &mdash; is what a well-run scoping phase delivers.</p>
+  <p>We went into the scoping phase with four platforms, a modernisation mandate, and an incomplete picture of what the programme was actually dealing with. We came out with a current-state view across all four systems, a capability assessment across twelve categories, a map of every significant integration point, a strategic framework for organising the work, and a register of the risks and dependencies that would shape sequencing.</p>
+  <p>But honestly, the artefacts were only part of it. The bigger thing the scoping phase produced was a shared understanding. The programme team &mdash; design, BA, architecture, and leadership &mdash; came out of it with a common picture of the landscape. When discovery kicked off, conversations could start at a much higher level. A user would describe a problem and the research team could immediately place it in the system architecture, rather than spending twenty minutes getting oriented. That kind of compression &mdash; getting from &ldquo;what are we looking at&rdquo; to &ldquo;what&rsquo;s actually going wrong&rdquo; in a fraction of the time &mdash; is what made the scoping phase worth doing.</p>
 
   <div class="thinking-block">
-    <div class="label">Why I&rsquo;d argue for a scoping phase on every programme of this complexity</div>
-    <p>Complex programmes fail in predictable ways: they discover constraints too late to account for them, they plan work that turns out to be sequenced incorrectly, they treat systems as independent when they&rsquo;re actually coupled. A scoping phase doesn&rsquo;t prevent all of that. But it surfaces the constraints early, when there&rsquo;s still room to adjust. In a programme that would eventually span multiple years and involve changes to four platforms and dozens of integrations, one month invested upfront was not overhead. It was the work that made everything else more likely to succeed.</p>
+    <div class="label">Why I&rsquo;d push for a scoping phase on any programme of this complexity</div>
+    <p>Complex programmes tend to fail in fairly predictable ways: they discover constraints too late, they plan work in the wrong order, they treat systems as independent when they&rsquo;re actually coupled. A scoping phase won&rsquo;t prevent all of that. But it surfaces the big constraints early, while there&rsquo;s still room to adjust the plan around them. For a programme that would eventually span multiple years and touch four platforms and dozens of integrations, spending one month upfront getting the lay of the land felt like a bargain.</p>
   </div>
 </section>
 
