@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transition Zone Day-in-Life — With Ecosystem Role Mapping</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#fff;--bg2:#f7f8fa;--bg3:#f0f2f5;--bdr:#dfe2e8;--bdr2:#eceef2;
+  --tx:#2d3440;--tx2:#6b7685;--tx3:#9ba5b3;--txb:#1a1f28;
+  --youth:#d4880c;--youth-l:#fef7e8;--youth-b:#f0d48a;
+  --parent:#c2552a;--parent-l:#fdf0eb;--parent-b:#e8b49c;
+  --peer:#1a8a74;--peer-l:#e8f6f3;--peer-b:#8dd4c4;
+  --school:#3670a8;--school-l:#ebf2fa;--school-b:#96bde0;
+  --hpb:#6b8c4e;--hpb-l:#f0f5eb;--hpb-b:#b4cea0;
+  --red:#c0504d;--red-l:#fef2f2;--red-b:#e8a5a3;
+  --acc:#d4880c;
+  --ux:#7c3aed;--ux-l:#f5f0ff;--ux-b:#c4b5fd;
+  --w-sleep:#7c6bc4;--w-screen:#e67e22;--w-eat:#27ae60;--w-exercise:#2980b9;--w-oral:#e84393;
+}
+body{background:var(--bg);color:var(--tx);font-family:'Roboto',sans-serif;line-height:1.55;min-height:100vh;}
+
+.hdr{padding:28px 36px 0;max-width:1560px;margin:0 auto;}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:500;letter-spacing:1.2px;text-transform:uppercase;color:var(--tx3);margin-bottom:6px;}
+.badge::before{content:'';width:5px;height:5px;background:var(--acc);border-radius:50%;}
+h1{font-weight:700;font-size:23px;color:var(--txb);line-height:1.2;}
+.sub{font-size:12.5px;color:var(--tx2);margin-top:5px;max-width:720px;}
+
+.ttabs{display:flex;gap:0;margin:18px 36px 0;max-width:1560px;border-bottom:2px solid var(--bdr);}
+.ttab{padding:9px 18px 11px;border:none;background:0;color:var(--tx3);font-family:inherit;font-size:12px;font-weight:500;cursor:pointer;position:relative;text-align:center;transition:color .2s;}
+.ttab:hover{color:var(--tx2);}
+.ttab.on{color:var(--acc);font-weight:700;}
+.ttab.on::after{content:'';position:absolute;bottom:-2px;left:8px;right:8px;height:3px;background:var(--acc);border-radius:3px 3px 0 0;}
+.ttab small{display:block;font-size:9.5px;color:var(--tx3);font-weight:400;margin-top:1px;}
+.ttab .arrow{color:var(--red);font-size:10px;margin:0 2px;}
+
+.ctx{margin:14px 36px 0;max-width:1560px;padding:12px 16px;border-left:4px solid var(--acc);border-radius:0 6px 6px 0;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.ctx b{display:block;font-size:14px;color:var(--txb);margin-bottom:2px;}
+.ctx span{font-size:11.5px;color:var(--tx2);line-height:1.6;}
+
+.swim-wrap{margin:16px 36px 12px;max-width:1560px;overflow-x:auto;padding-bottom:8px;}
+.swim{display:grid;min-width:960px;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;background:var(--bg);}
+
+.t-corner{background:var(--bg3);padding:8px 10px;font-size:9px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.5px;border-bottom:2px solid var(--bdr);border-right:1px solid var(--bdr);display:flex;align-items:flex-end;}
+.t-col{background:var(--bg3);padding:8px 6px;text-align:center;border-bottom:2px solid var(--bdr);border-right:1px solid var(--bdr2);}
+.t-col:last-child{border-right:none;}
+.t-col-t{font-size:10px;font-weight:700;color:var(--txb);}
+.t-col-s{font-size:8.5px;color:var(--tx3);margin-top:1px;}
+
+.lane-lbl{padding:10px 10px;border-right:1px solid var(--bdr);border-bottom:1px solid var(--bdr2);background:var(--bg);position:sticky;left:0;z-index:2;}
+.lane-d{width:8px;height:8px;border-radius:50%;margin-bottom:2px;}
+.lane-n{font-size:10.5px;font-weight:700;color:var(--txb);}
+.lane-r{font-size:8.5px;color:var(--tx3);line-height:1.25;}
+
+.cell{padding:5px 4px;border-right:1px solid var(--bdr2);border-bottom:1px solid var(--bdr2);min-height:58px;position:relative;vertical-align:top;}
+.cell:last-child{border-right:none;}
+.cell.empty{background:repeating-linear-gradient(45deg,transparent,transparent 4px,rgba(0,0,0,.015) 4px,rgba(0,0,0,.015) 5px);}
+
+/* Activity block — now clickable */
+.act{padding:5px 7px;border-radius:4px;border:1px solid var(--bdr2);background:var(--bg);margin-bottom:3px;font-size:9px;line-height:1.4;color:var(--tx2);transition:box-shadow .15s,border-color .15s;position:relative;}
+.act:last-child{margin-bottom:0;}
+.act.has-ev{cursor:pointer;}
+.act.has-ev:hover{box-shadow:0 2px 6px rgba(0,0,0,.1);border-color:var(--acc);}
+.act.has-ev.sel{border-color:var(--acc);box-shadow:0 0 0 2px rgba(212,136,12,.2);background:var(--youth-l);}
+.act strong{color:var(--tx);font-weight:500;}
+.act.changed{border-left:3px solid var(--acc);background:var(--bg);}
+.act.changed.sel{background:var(--youth-l);}
+.act.new{border-left:3px solid var(--peer);background:var(--bg);}
+.act.new.sel{background:var(--peer-l);}
+
+/* Evidence dot indicator */
+.ev-dot{position:absolute;top:4px;right:4px;width:6px;height:6px;border-radius:50%;background:var(--acc);}
+
+/* Under-explored marker */
+.act.ux-flag{border:1.5px dashed var(--ux);background:var(--ux-l);}
+.act.ux-flag.sel{box-shadow:0 0 0 2px rgba(124,58,237,.2);}
+.ux-tag{font-size:6.5px;font-weight:700;color:var(--ux);text-transform:uppercase;letter-spacing:.4px;margin-top:2px;display:flex;align-items:center;gap:2px;}
+.ux-tag::before{content:'🔍';font-size:7px;}
+
+.wells{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap;}
+.well{font-size:7px;font-weight:700;padding:1px 5px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px;color:#fff;}
+.well-sleep{background:var(--w-sleep);}
+.well-screen{background:var(--w-screen);}
+.well-eat{background:var(--w-eat);}
+.well-exercise{background:var(--w-exercise);}
+.well-oral{background:var(--w-oral);}
+
+/* Friction row */
+.fr-lbl{padding:0 10px;border-right:1px solid var(--bdr);border-bottom:1px solid var(--red-b);display:flex;align-items:center;position:sticky;left:0;z-index:2;background:var(--red-l);}
+.fr-lbl span{font-size:7.5px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.5px;}
+.fr-cell{border-right:1px solid var(--bdr2);border-bottom:1px solid var(--red-b);padding:0 4px;display:flex;align-items:center;justify-content:center;min-height:32px;background:var(--red-l);}
+.fr-cell:last-child{border-right:none;}
+.fr-cell.empty-fr{background:linear-gradient(90deg,var(--red-l) 0%,rgba(254,242,242,.3) 100%);}
+.fr-chip{display:flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;border:1.5px dashed var(--red);background:var(--bg);cursor:pointer;transition:all .15s;max-width:100%;}
+.fr-chip:hover{background:var(--red-l);box-shadow:0 2px 6px rgba(192,80,77,.15);}
+.fr-chip.sel{background:var(--red-l);border-style:solid;box-shadow:0 0 0 2px rgba(192,80,77,.2);}
+.fr-arr{font-size:11px;color:var(--red);flex-shrink:0;}
+.fr-txt{font-size:7.5px;font-weight:600;color:var(--red);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1;}
+
+/* DRAWER — enhanced for evidence */
+.drawer{max-width:1560px;margin:0 36px 40px;border:1px solid var(--bdr);border-radius:8px;overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .25s,padding .3s;padding:0 20px;}
+.drawer.open{max-height:600px;opacity:1;padding:18px 20px;overflow-y:auto;}
+.dr-x{float:right;border:none;background:0;font-size:15px;color:var(--tx3);cursor:pointer;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.dr-x:hover{background:var(--bg2);color:var(--tx);}
+.dr-hd{display:flex;align-items:center;gap:8px;margin-bottom:10px;clear:both;}
+.dr-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.dr-icon.fr-icon{background:var(--red-l);border:2px dashed var(--red);color:var(--red);}
+.dr-icon.ev-icon{background:var(--youth-l);border:2px solid var(--acc);color:var(--acc);}
+.dr-icon.ux-icon{background:var(--ux-l);border:2px dashed var(--ux);color:var(--ux);}
+.dr-title{font-size:14px;font-weight:700;color:var(--txb);}
+.dr-stage{font-size:9px;font-weight:600;color:var(--acc);background:var(--youth-l);padding:2px 8px;border-radius:8px;margin-left:auto;}
+.dr-body{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.dr-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--tx3);margin-bottom:4px;}
+.dr-desc{font-size:11.5px;color:var(--tx2);line-height:1.6;}
+.dr-desc strong{color:var(--tx);font-weight:500;}
+.dr-wells{display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;}
+.dr-well{font-size:8px;font-weight:600;padding:2px 7px;border-radius:8px;color:#fff;}
+.dr-before{padding:8px 10px;background:var(--bg2);border-radius:5px;border:1px solid var(--bdr2);font-size:11px;color:var(--tx2);line-height:1.55;}
+.dr-before strong{color:var(--tx);font-weight:500;}
+.dr-after{padding:8px 10px;background:var(--red-l);border-radius:5px;border:1px solid var(--red-b);font-size:11px;color:var(--red);line-height:1.55;font-weight:500;}
+
+/* Evidence cards */
+.bp-block{margin:10px 0 6px;padding:10px 12px;background:linear-gradient(135deg,#1a1a2e,#16213e);border-left:3px solid #e6a919;border-radius:0 6px 6px 0;}
+.bp-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#e6a919;margin-bottom:4px;}
+.bp-text{font-size:12px;color:#e0e0e0;line-height:1.65;}
+.wi-block{margin:0 0 10px;padding:8px 12px;background:rgba(74,144,226,.08);border-left:3px solid #4a90e2;border-radius:0 6px 6px 0;}
+.wi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:#4a90e2;margin-bottom:3px;}
+.wi-text{font-size:11.5px;color:#b0b8c8;line-height:1.6;}
+.ev-cards{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.ev-card{padding:10px 12px;border-radius:6px;border:1px solid var(--bdr2);background:var(--bg);position:relative;}
+.ev-card .ev-badge{display:inline-flex;align-items:center;gap:4px;font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 7px;border-radius:10px;margin-bottom:5px;}
+.ev-badge.idi-y{background:var(--youth-l);color:var(--youth);border:1px solid var(--youth-b);}
+.ev-badge.idi-p{background:var(--parent-l);color:var(--parent);border:1px solid var(--parent-b);}
+.ev-badge.lit{background:var(--school-l);color:var(--school);border:1px solid var(--school-b);}
+.ev-badge.stat{background:var(--peer-l);color:var(--peer);border:1px solid var(--peer-b);}
+.ev-badge.sys{background:var(--hpb-l);color:var(--hpb);border:1px solid var(--hpb-b);}
+.ev-quote{font-size:11px;color:var(--tx);line-height:1.6;font-style:italic;}
+.ev-quote::before{content:'"';font-size:16px;color:var(--tx3);font-style:normal;margin-right:2px;}
+.ev-quote::after{content:'"';font-size:16px;color:var(--tx3);font-style:normal;margin-left:2px;}
+.ev-src{font-size:9px;color:var(--tx3);margin-top:3px;}
+.ev-bond{font-size:7px;font-weight:700;color:#fff;padding:2px 7px;border-radius:8px;text-transform:uppercase;letter-spacing:.3px;}
+.ev-card.lit-card .ev-quote{font-style:normal;}
+.ev-card.lit-card .ev-quote::before,.ev-card.lit-card .ev-quote::after{content:'';}
+
+/* Under-explored banner */
+.ux-banner{padding:10px 12px;border-radius:6px;border:1.5px dashed var(--ux);background:var(--ux-l);margin-top:8px;}
+.ux-banner-h{font-size:10px;font-weight:700;color:var(--ux);margin-bottom:4px;display:flex;align-items:center;gap:4px;}
+.ux-banner-h::before{content:'🔍';}
+.ux-banner-t{font-size:11px;color:var(--tx2);line-height:1.55;}
+
+.legend{margin:0 36px 32px;max-width:1560px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid var(--bdr2);}
+.leg-g{display:flex;gap:10px;flex-wrap:wrap;}
+.leg-i{display:flex;align-items:center;gap:3px;font-size:9.5px;color:var(--tx2);}
+.leg-d{width:7px;height:7px;border-radius:50%;}
+.leg-fr{width:18px;height:0;border-top:1.5px dashed var(--red);}
+.leg-ch{width:12px;height:8px;border-left:3px solid var(--acc);background:var(--youth-l);border-radius:0 2px 2px 0;}
+.leg-nw{width:12px;height:8px;border-left:3px solid var(--peer);background:var(--peer-l);border-radius:0 2px 2px 0;}
+.leg-ux{width:12px;height:8px;border:1.5px dashed var(--ux);background:var(--ux-l);border-radius:2px;}
+.leg-evd{width:6px;height:6px;border-radius:50%;background:var(--acc);}
+.leg-note{font-size:9px;color:var(--tx3);}
+
+/* Ecosystem Role Annotations */
+.lane-role{margin-top:4px;padding:3px 0;border-top:1px solid var(--bdr2);}
+.lane-role-tag{font-size:6.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--tx3);margin-bottom:1px;}
+.lane-role-txt{font-size:8px;color:var(--tx2);line-height:1.3;font-weight:500;}
+.lane-role-txt em{font-style:normal;color:var(--red);font-weight:600;}
+.lane-role-arrow{color:var(--tx3);font-size:7px;margin:0 1px;}
+
+/* Shared Pathway Gap Row */
+.sp-lbl{padding:0 10px;border-right:1px solid var(--bdr);border-bottom:2px solid var(--ux-b);display:flex;align-items:center;position:sticky;left:0;z-index:2;background:var(--ux-l);}
+.sp-lbl span{font-size:7px;font-weight:700;color:var(--ux);text-transform:uppercase;letter-spacing:.5px;line-height:1.2;}
+.sp-cell{border-right:1px solid var(--bdr2);border-bottom:2px solid var(--ux-b);padding:4px 4px;min-height:36px;background:var(--ux-l);}
+.sp-cell:last-child{border-right:none;}
+.sp-own{display:flex;flex-direction:column;gap:2px;}
+.sp-actor{display:inline-flex;align-items:center;gap:3px;font-size:7px;font-weight:600;padding:2px 5px;border-radius:3px;line-height:1;}
+.sp-actor.owns{background:rgba(26,138,116,.12);color:var(--peer);border:1px solid rgba(26,138,116,.2);}
+.sp-actor.partial{background:rgba(212,136,12,.1);color:var(--youth);border:1px dashed rgba(212,136,12,.3);}
+.sp-actor.absent{background:rgba(192,80,77,.08);color:var(--red);border:1px dashed rgba(192,80,77,.25);text-decoration:line-through;text-decoration-color:var(--red);}
+.sp-actor.vacuum{background:rgba(192,80,77,.12);color:var(--red);border:1.5px dashed var(--red);font-weight:700;}
+.sp-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.dr-anim{animation:fadeIn .25s ease both;}
+.cross-link{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(212,136,12,0.08);border:1px solid rgba(212,136,12,0.2);border-radius:5px;font-size:10px;font-weight:600;color:var(--acc);text-decoration:none;margin-left:12px;transition:all .2s;}
+.cross-link:hover{background:rgba(212,136,12,0.16);border-color:var(--acc);}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="badge">YPS Youth HCD — Transition Zone Mapping</div>
+  <h1>Day-in-Life Across Transition Zones — With Ecosystem Role Mapping</h1>
+  <p class="sub">How daily routines restructure at each transition — and where handovers between actors create friction. Each actor's <strong>expected role</strong> and <strong>gap</strong> at that stage is annotated. The bottom row shows <strong>who owns health</strong> at each moment — and where no one does. Click any block with an <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);vertical-align:middle;margin:0 2px;"></span> dot to reveal supporting evidence.</p>
+</div>
+
+<div class="ttabs" id="tabs"></div>
+<div class="ctx" id="ctx"></div>
+<div class="swim-wrap"><div id="swim"></div></div>
+<div class="drawer" id="drawer"></div>
+<div class="legend">
+  <div class="leg-g">
+    <div class="leg-i"><div class="leg-d" style="background:var(--youth)"></div>Youth</div>
+    <div class="leg-i"><div class="leg-d" style="background:var(--parent)"></div>Parent</div>
+    <div class="leg-i"><div class="leg-d" style="background:var(--peer)"></div>Peers</div>
+    <div class="leg-i"><div class="leg-d" style="background:var(--school)"></div>School</div>
+    <div class="leg-i"><div class="leg-d" style="background:var(--hpb)"></div>HPB</div>
+    <div class="leg-i"><div class="leg-fr"></div>Friction handover</div>
+    <div class="leg-i"><div class="leg-ch"></div>Changed</div>
+    <div class="leg-i"><div class="leg-nw"></div>New dynamic</div>
+    <div class="leg-i"><div class="leg-ux"></div>Under-explored</div>
+    <div class="leg-i"><div class="leg-evd"></div>Has evidence</div>
+    <div class="leg-i"><span style="font-size:7px;font-weight:700;color:#fff;background:#27ae60;padding:1px 5px;border-radius:8px;">Bond</span>Parent bond quality</div>
+  </div>
+  <div class="leg-g">
+    <div class="leg-i" style="font-size:9px;font-weight:600;color:var(--tx3);margin-right:4px;">Pathway:</div>
+    <div class="leg-i"><span class="sp-actor owns" style="font-size:7.5px;padding:1px 6px;">Owns</span>Active role</div>
+    <div class="leg-i"><span class="sp-actor partial" style="font-size:7.5px;padding:1px 6px;">Partial</span>Limited role</div>
+    <div class="leg-i"><span class="sp-actor absent" style="font-size:7.5px;padding:1px 6px;">Absent</span>Stepped back</div>
+    <div class="leg-i"><span class="sp-actor vacuum" style="font-size:7.5px;padding:1px 6px;">VACUUM</span>No one owns</div>
+  </div>
+  <div class="leg-g">
+    <div class="leg-i"><span class="well well-sleep" style="font-size:7px">Sleep</span></div>
+    <div class="leg-i"><span class="well well-screen" style="font-size:7px">Screen</span></div>
+    <div class="leg-i"><span class="well well-eat" style="font-size:7px">Eat</span></div>
+    <div class="leg-i"><span class="well well-exercise" style="font-size:7px">Exercise</span></div>
+    <div class="leg-i"><span class="well well-oral" style="font-size:7px">Oral</span></div>
+  </div>
+</div>
+
+<script>
+const ACTORS=[
+  {id:'youth',l:'Youth',r:'Self-directed',h:'#d4880c',c:'var(--youth)',lt:'var(--youth-l)'},
+  {id:'parent',l:'Parent / Home',r:'Home influence · Bond Well',h:'#c2552a',c:'var(--parent)',lt:'var(--parent-l)'},
+  {id:'peer',l:'Peers',r:'Social norms',h:'#1a8a74',c:'var(--peer)',lt:'var(--peer-l)'},
+  {id:'school',l:'School',r:'Structured env.',h:'#3670a8',c:'var(--school)',lt:'var(--school-l)'},
+  {id:'hpb',l:'HPB / System',r:'Policy & tools',h:'#6b8c4e',c:'var(--hpb)',lt:'var(--hpb-l)'}
+];
+
+const TIMES=[
+  {id:'morning',l:'Morning',s:'6–7:30am'},
+  {id:'commute',l:'Commute',s:'7:30–8am'},
+  {id:'school_am',l:'School AM',s:'8am–12pm'},
+  {id:'lunch',l:'Lunch',s:'12–1pm'},
+  {id:'after',l:'After School',s:'2–6pm'},
+  {id:'evening',l:'Evening',s:'6–9pm'},
+  {id:'night',l:'Night',s:'9pm–12am'}
+];
+
+/* Evidence helper: ev = array of evidence objects
+   Types: idi (interview), lit (literature), stat (statistic), sys (system/policy)
+   ux = {flag:true, q:'research question'} for under-explored marker */
+
+const ZONES=[
+{
+  id:'p6sec1',
+  tab:'P6 <span class="arrow">→</span> Sec 1',
+  tabSub:'Age 12 → 13',
+  title:'The Great Handover',
+  roles:{
+    youth:{stage:'Adapting to independence',gap:'No self-management skills built before handover'},
+    parent:{stage:'Should be transitioning to Coach',gap:'Stepped back without replacement strategy'},
+    peer:{stage:'Becoming primary social influence',gap:'No mechanism to channel peer norms toward health'},
+    school:{stage:'Expected to continue structured support',gap:'No SCC equivalent; assumes parents still enforcing'},
+    hpb:{stage:'Should adapt for transition',gap:'Same annual touchpoint; no transition-specific design'}
+  },
+  pathway:[
+    {time:'morning',owners:[{a:'parent',st:'absent',n:'Parent withdrew'},{a:'youth',st:'partial',n:'Youth self-managing (no skills)'}]},
+    {time:'commute',owners:[{a:'youth',st:'partial',n:'Youth alone'},{a:'peer',st:'partial',n:'Peer norms forming'}]},
+    {time:'school_am',owners:[{a:'school',st:'owns',n:'School structured'},{a:'hpb',st:'partial',n:'HPB annual only'}]},
+    {time:'lunch',owners:[{a:'peer',st:'owns',n:'Peers drive food choice'},{a:'parent',st:'absent',n:'Parent absent'}]},
+    {time:'after',owners:[{a:'youth',st:'vacuum',n:'NO ONE OWNS THIS'},{a:'school',st:'absent',n:'No SCC'}]},
+    {time:'evening',owners:[{a:'parent',st:'partial',n:'Parent present, uncertain'},{a:'peer',st:'owns',n:'Online peers dominate'}]},
+    {time:'night',owners:[{a:'youth',st:'vacuum',n:'NO ONE OWNS SLEEP'},{a:'parent',st:'absent',n:'Often asleep first'}]}
+  ],
+  desc:'The most disruptive transition. Routines transfer from parent-managed to self-managed — but youth gain autonomy before they\'ve built self-regulation skills. Sleep and eating are most vulnerable.',
+  grid:{
+    youth:{
+      morning:{acts:[{t:'Wakes to <strong>phone alarm</strong>, checks social media & messages immediately',w:['screen','sleep'],st:'changed',
+        
+        bp:'Screen use has become the first act of the day — not a choice but an automatic habit. The phone alarm creates a gateway: waking and scrolling are now fused into one action.',
+        wi:'Screen → Sleep: Late-night phone use causes insufficient sleep; morning phone check perpetuates the cycle by displacing breakfast and physical preparation.',
+        ev:[{id:'Y03',age:14,g:'M',type:'idi',q:'First thing I do is check Instagram. Even before I get out of bed.'},
+            {id:null,type:'lit',q:'Adolescents\' first device contact occurs within minutes of waking, establishing a screen-first morning routine that displaces physical activity. (Toh et al., BMC Pediatrics 2019)'}]}]},
+      commute:{acts:[{t:'Phone throughout commute — <strong>social media, YouTube, games</strong>',w:['screen'],st:'changed',
+        
+        bp:'Commute time has been fully captured by screen — passive consumption driven by boredom and social norms ("everyone does"). No competing activity exists in this window.',
+        wi:'Screen: ~30 min of daily screen accumulation that didn\'t exist before independent commuting. Compounds across the day.',
+        ev:[{id:'Y05',age:13,g:'F',type:'idi',q:'On the bus I watch TikTok or YouTube. Everyone does. It\'s like 30 minutes of just scrolling.'}]}]},
+      school_am:{acts:[{t:'Lessons. Phone used before class & at breaks when permitted',w:['screen'],st:'',
+        ux:{flag:true,q:'How do different school phone policies (phone-free vs permitted) affect daily screen accumulation and social dynamics?'}}]},
+      lunch:{acts:[{t:'<strong>Chooses own food</strong> at canteen. Bubble tea, fried food with friends',w:['eat'],st:'changed',
+        
+        bp:'Food choice has shifted from nutrition-driven (parent-packed) to socially-driven. Bubble tea and fried food function as social currency — eating together is bonding, not just eating.',
+        wi:'Eat → Oral: Sugar-sweetened beverages between meals increase caries risk. Parent loses visibility over what youth consumes daily.',
+        ev:[{id:'Y02',age:13,g:'F',type:'idi',q:'After school, we always go buy bubble tea. It\'s like a thing we do together.'},
+            {id:'P04',age:44,g:'F',role:'Sec 1 daughter',bond:'moderate',type:'idi',q:'I used to pack her lunch. Now she buys her own... I don\'t even know what she eats.'},
+            {id:null,type:'stat',q:'40.3% of youths have doubled their intake of sugar-sweetened beverages from 2015 to 2024. (YHS 2023)'}]}]},
+      after:{acts:[{t:'With peers — food court, <strong>convenience store snacks</strong>, extended screen',w:['eat','screen'],st:'changed',
+        
+        bp:'The 2–6pm window is the single largest unstructured period. Without Student Care, youth default to peer-led choices — convenience stores and malls fill the supervision vacuum.',
+        wi:'Eat + Screen: Snack purchasing and phone use become the default after-school activity. No adult-guided alternative exists for working parents.',
+        ev:[{id:'Y01',age:13,g:'M',type:'idi',q:'After school we go 7-Eleven first, then maybe the mall. Just hang around until have to go home.'},
+            {id:'P08',age:47,g:'F',role:'Sec 1 son',bond:'moderate',type:'idi',q:'Student Care was such a big help... Now in Sec 1, I feel like I lost all that support overnight.'},
+            {id:'P03',age:41,g:'F',role:'Sec 1 daughter',bond:'moderate',type:'idi',q:'I asked the school if there\'s anything like Student Care for Sec 1. They said no. I was shocked.'}],
+        ux:{flag:true,q:'What are the after-school decision chains (2-6pm)? Who initiates, where do they go, what triggers food/screen choices?'}}]},
+      evening:{acts:[{t:'In room. Homework mixed with <strong>screen multitasking</strong>',w:['screen'],st:'changed',
+        
+        bp:'Screen has embedded itself into study time — youth can\'t separate productive and recreational use. Background YouTube during homework is now standard, not exceptional.',
+        wi:'Screen: Effective screen time is double what it appears — study sessions include hidden recreational use that neither parent nor youth tracks.',
+        ev:[{id:'Y04',age:14,g:'F',type:'idi',q:'I do homework but I have YouTube playing. Sometimes I get distracted for like an hour.'},
+            {id:'P02',age:42,g:'M',role:'Sec 1 daughter',bond:'moderate',type:'idi',q:'I can see her screen from outside the room sometimes. She says she\'s studying but it\'s always something else open.'}]}]},
+      night:{acts:[{t:'Phone in bed. <strong>Gaming, social media, group chats</strong> past "bedtime"',w:['screen','sleep'],st:'changed',
+        
+        bp:'Sleep has no enforcer after parents withdraw. Phone in bed is self-soothing, not a conscious choice — FOMO and group chat obligations keep youth awake past the point of parental awareness.',
+        wi:'Screen → Sleep: This is the most damaging reinforcing loop. Late screen → less sleep → morning fatigue → more screen dependence next day.',
+        ev:[{id:'Y06',age:13,g:'M',type:'idi',q:'I play until like 1am sometimes. My parents don\'t know because they\'re already asleep.'},
+            {id:'Y09',age:14,g:'F',type:'idi',q:'The group chat is always going. If I put my phone down, I miss everything. It\'s like FOMO.'},
+            {id:null,type:'stat',q:'69% of youths have insufficient sleep, up from 63.1% in 2015. Singapore youths average only 7.12 hours. (YHS 2023, Quah et al. 2023)'}],
+        ux:{flag:true,q:'What drives peer group chat dynamics that keep youth awake — FOMO, obligation, entertainment, or something else?'}}]}
+    },
+    parent:{
+      morning:{acts:[{t:'May check if youth is up. <strong>Less visibility</strong> than primary school',w:[],st:'changed',
+        
+        bp:'Morning routine shifted from supervised preparation to remote checking. Parent\'s role went from \'ensuring ready\' to \'hoping they\'re up\' — a structural downgrade in oversight.',
+        wi:'Sleep + Eat: Parent can no longer verify sleep quality or whether breakfast was consumed. Both behaviours become invisible.',
+        ev:[{id:'P05',age:48,g:'F',role:'Sec 1 son',bond:'moderate',type:'idi',q:'In primary school I would make sure he was dressed and had breakfast. Now I just shout from outside.'}]}]},
+      commute:{acts:[]},
+      school_am:{acts:[]},
+      lunch:{acts:[]},
+      after:{acts:[{t:'<strong>Unaware</strong> of what youth eats after school or who they\'re with',w:[],st:'changed',
+        
+        bp:'Working parents face a 4+ hour daily blind spot. This isn\'t disengagement — it\'s structural: no system replaced Student Care\'s oversight function at secondary level.',
+        wi:'Eat + Screen + Exercise: All three drift during unsupervised hours with no corrective mechanism. The gap is systemic, not parental failure.',
+        ev:[{id:'P08',age:47,g:'F',role:'Sec 1 son',bond:'moderate',type:'idi',q:'In primary school, Student Care covered him until 7pm — homework done, activities, even meals. Now he\'s on his own from 1:30pm.'},
+            {id:'P03',age:41,g:'F',role:'Sec 1 daughter',bond:'moderate',type:'idi',q:'I work until 6. That\'s more than 4 hours where I have no idea what she\'s doing or eating.'},
+            {id:null,type:'sys',q:'Student Care Centres (SCC) available in primary schools provide structured supervision until 7pm including homework help, enrichment, and meals. No equivalent exists in secondary schools. (MOE)'}]}]},
+      evening:{acts:[{t:'Dinner together (if happens). <strong>"How was school?"</strong> — surface-level',w:['eat'],st:'changed'},
+              {t:'Reminder: "Do your homework, don\'t stay up late"',w:[],st:''}]},
+      night:{acts:[{t:'<strong>Asleep before youth.</strong> Unaware youth is still on phone',w:['sleep'],st:'changed',
+        
+        bp:'The bedtime enforcement model collapses when parents sleep first. Youth\'s private phone access in their room creates an invisible window no adult monitors.',
+        wi:'Sleep + Screen: Parent\'s own sleep schedule inadvertently creates the biggest health gap of the day. No replacement structure exists.',
+        ev:[{id:'P09',age:50,g:'F',role:'Sec 2 son',bond:'weak',type:'idi',q:'Honestly, I go to sleep before him most nights. I don\'t know what time he actually sleeps.'},
+            {id:null,type:'lit',q:'Parents who set bedtimes slow the trend towards delayed bedtimes, but many are unaware youth stay awake after "bedtime." (Bauducco et al. 2023)'}]}]}
+    },
+    peer:{
+      morning:{acts:[{t:'WhatsApp/Telegram groups active — <strong>morning check-ins</strong>',w:['screen'],st:'new'}]},
+      commute:{acts:[]},
+      school_am:{acts:[]},
+      lunch:{acts:[{t:'<strong>Group eating norms</strong> — "let\'s get bubble tea", social comparison on food',w:['eat'],st:'new',
+        
+        bp:'Peer food norms override family food values at point of purchase. \'Let\'s get bubble tea\' is an invitation to belong, not a nutrition decision. Social belonging trumps health knowledge.',
+        wi:'Eat: Peer influence on food choice is strongest at moments of independent purchasing — exactly when parent influence is absent.',
+        ev:[{id:null,type:'lit',q:'Shared family meals are protective for nutritional health in youths, but peer influence increasingly drives choices at school. (Liu et al. 2021, Zhang et al. 2022)'}]}]},
+      after:{acts:[{t:'<strong>Main social time.</strong> Hanging out, shared screen content, food runs',w:['eat','screen'],st:'new'}]},
+      evening:{acts:[{t:'Online gaming together. Social media interaction. <strong>Group chats peak</strong>',w:['screen'],st:'new'}]},
+      night:{acts:[{t:'Late-night group chats. <strong>"Everyone is still online"</strong> — FOMO keeps youth up',w:['screen','sleep'],st:'new'}]}
+    },
+    school:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'Lessons. <strong>PE if scheduled</strong> (1-2x/week)',w:['exercise'],st:''},
+                       {t:'Health ed: occasional, not sustained',w:[],st:'',
+        ux:{flag:true,q:'What happens to the HP Booklet and 4-week challenge? Does the parent see the Health Plan? What is actual conversion rate?'}}]},
+      lunch:{acts:[{t:'Canteen open. <strong>No monitoring</strong> of food choices — more options incl. fried food',w:['eat'],st:'changed'}]},
+      after:{acts:[{t:'<strong>CCA 2-3x/week</strong> — primary structured exercise. Some don\'t have physical CCA',w:['exercise'],st:'changed',
+        
+        bp:'CCA is the only structured exercise most youth get, but it\'s 2–3x/week and depends on youth choosing a physical CCA. Schools assume responsibility parents have offloaded, but can only partly deliver.',
+        wi:'Exercise: The gap between parental expectation (\'school handles PA\') and school reality (\'only if youth opts in\') creates an exercise responsibility vacuum.',
+        ev:[{id:null,type:'lit',q:'Parents tend to off-load responsibility for physical activity to schools and their children, but schools only partly meet youths\' PA needs unless youths are motivated to participate. (McGaughey et al. 2020)'}],
+        ux:{flag:true,q:'How do school scheduling decisions (protecting PE/CCA vs allowing academic squeeze) affect youth health outcomes?'}}]},
+      evening:{acts:[]},
+      night:{acts:[]}
+    },
+    hpb:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'<strong>SHS annual visit:</strong> screening + brief lifestyle coaching + Health Plan booklet',w:['eat','exercise','sleep','screen'],st:'',
+        
+        bp:'The Health Plan touchpoint is annual and brief — a one-shot screening in a year of daily health decisions. The booklet competes with academic materials for attention and rarely converts to action.',
+        wi:'All wells: Single annual touchpoint attempts to shift daily behaviours across 5 wells. Format (hardcopy booklet) mismatches youth\'s digital-first information habits.',
+        ev:[{id:null,type:'sys',q:'During in-school health screening, child receives brief lifestyle coaching based on LQ, interests and health status. Child receives hardcopy HP Booklet with lifestyle prescription, healthy habit information, and 4-week at-home challenges. (GWSG Health Plan Journey)'}]}]},
+      lunch:{acts:[]},
+      after:{acts:[]},
+      evening:{acts:[{t:'PG letter sent to parents with <strong>Health Plan + H365 resources</strong> (low uptake)',w:[],st:'',
+        
+        bp:'Parents receive health information through official channels (HealthHub), but awareness doesn\'t translate to action. Resources exist but aren\'t integrated into daily parenting routines.',
+        wi:'System gap: Information reaches parents but lacks practical \'how-to\' that fits their schedule and their teen\'s resistance to health conversations.',
+        ev:[{id:null,type:'sys',q:'Parents access Health Plan on HealthHub. Letter includes screening results, vaccination performed, referrals to SHC/RHS, and lifestyle prescription. Curated content/programs on HHub/H365 available but usage is low. (GWSG Journey)'},
+            {id:null,type:'stat',q:'Parents are generally aware of health-related resources and appreciate government efforts, but usage of existing resources is low. (Forbes IDI Phase 3)'}],
+        ux:{flag:true,q:'Does the HPB messaging adapt for academic pressure years (Sec 3-4)? How does it compete for attention against exam stress?'}}]},
+      night:{acts:[]}
+    }
+  },
+  frictions:[
+    {from:'parent',to:'youth',time:'morning',label:'Wake-up handover',
+      before:'Parent wakes child, ensures ready for school. <strong>Visible start to the day</strong> with parent oversight.',
+      after:'Youth self-manages with phone alarm. <strong>First screen contact happens before getting out of bed.</strong> Parent may not know if youth slept enough.',
+      wells:['sleep','screen'],
+      note:'The day begins with screen before anything else — pattern that didn\'t exist in P6 when parent managed the morning routine.',
+      ev:[{id:'Y03',age:14,g:'M',type:'idi',q:'First thing I do is check Instagram. Even before I get out of bed.'},
+          {id:'P05',age:48,g:'F',role:'Sec 1 son',bond:'moderate',type:'idi',q:'In primary school I would make sure he was dressed and had breakfast. Now I just shout from outside.'}]},
+    {from:'parent',to:'youth',time:'lunch',label:'Food choice handover',
+      before:'Parent packs lunch or canteen choices are limited & monitored. <strong>Meals aligned with family norms.</strong>',
+      after:'Youth chooses own food in expanded canteen + nearby shops. <strong>Peer influence drives choices</strong> — bubble tea, fried food become social currency.',
+      wells:['eat','oral'],
+      note:'Nutrition shifts from family-controlled to peer-influenced. Youth don\'t reject healthy food — they choose convenient, social food. Oral health impact: increased sugary drinks between meals.',
+      ev:[{id:'Y02',age:13,g:'F',type:'idi',q:'After school, we always go buy bubble tea. It\'s like a thing we do together.'},
+          {id:'P04',age:44,g:'F',role:'Sec 1 daughter',bond:'moderate',type:'idi',q:'I used to pack her lunch. Now she buys her own... I don\'t even know what she eats.'}]},
+    {from:'parent',to:'youth',time:'night',label:'Sleep enforcement gap',
+      before:'Parent enforces bedtime — <strong>"lights out"</strong> with visibility. Youth in shared space or parent checks.',
+      after:'<strong>No one enforces bedtime.</strong> Youth stays awake on phone in their room. Parent often asleep before youth.',
+      wells:['sleep','screen'],
+      note:'Sleep is the MOST VULNERABLE habit at this transition. It has no clear driver after parents stop enforcing it. This is the single biggest handover gap.',
+      ev:[{id:'Y06',age:13,g:'M',type:'idi',q:'I play until like 1am sometimes. My parents don\'t know because they\'re already asleep.'},
+          {id:'P09',age:50,g:'F',role:'Sec 2 son',bond:'weak',type:'idi',q:'Honestly, I go to sleep before him most nights. I don\'t know what time he actually sleeps.'},
+          {id:null,type:'lit',q:'Parents who set bedtimes slow the trend towards delayed bedtimes, but many are unaware youth stay awake after "bedtime." (Bauducco et al. 2023)'}]},
+    {from:'school',to:'youth',time:'after',label:'SCC-to-Nothing gap',
+      before:'Primary school: <strong>Student Care Centre (SCC)</strong> provides structured supervision until 7pm — homework help, enrichment activities, meals. Working parents fully covered.',
+      after:'Secondary school: <strong>No SCC equivalent exists.</strong> Students independent after 1:30-2pm dismissal. Working parents have 4+ hour gap with zero oversight. After-school programmes (Youth GO!) are opt-in, not universal.',
+      wells:['exercise','eat','screen'],
+      note:'This is a CRITICAL SYSTEM GAP. The after-school period (2-6pm) is when the most health-relevant choices happen — and it\'s the window with least adult oversight. SCC removal is the single largest structural change in supervision.',
+      ev:[{id:'P08',age:47,g:'F',role:'Sec 1 son',bond:'moderate',type:'idi',q:'Student Care was such a big help... Now in Sec 1, I feel like I lost all that support overnight.'},
+          {id:'P03',age:41,g:'F',role:'Sec 1 daughter',bond:'moderate',type:'idi',q:'I asked the school if there\'s anything like Student Care for Sec 1. They said no. I was shocked.'},
+          {id:null,type:'sys',q:'Student Care Centres are available in all primary schools, providing after-school care until 7pm. No equivalent programme exists at secondary school level. (MOE policy)'},
+          {id:null,type:'lit',q:'The after-school period represents the highest health-choice window with the least structured support. Parental off-loading of physical activity responsibility to schools is common. (McGaughey et al. 2020)'}]}
+  ]
+},
+{
+  id:'sec2sec3',
+  tab:'Sec 2 <span class="arrow">→</span> Sec 3',
+  tabSub:'Age 14 → 15',
+  title:'The Academic Squeeze',
+  roles:{
+    youth:{stage:'Balancing academics with health',gap:'No tools to maintain health under pressure'},
+    parent:{stage:'Should guide health alongside academics',gap:'Conversation narrowed to grades; health guilt'},
+    peer:{stage:'Should provide mutual support',gap:'Academic comparison drives shared unhealthy norms'},
+    school:{stage:'Should protect health time (PE, CCA)',gap:'System signals grades > health; exercise squeezed'},
+    hpb:{stage:'Should adapt messaging for pressure',gap:'Same generic messaging; no academic-pressure design'}
+  },
+  pathway:[
+    {time:'morning',owners:[{a:'youth',st:'partial',n:'Youth fatigued, rushing'},{a:'parent',st:'partial',n:'Reminder only'}]},
+    {time:'commute',owners:[{a:'youth',st:'partial',n:'Phone: revision + social media'}]},
+    {time:'school_am',owners:[{a:'school',st:'partial',n:'Academics prioritised over PE'},{a:'hpb',st:'absent',n:'Generic SHS only'}]},
+    {time:'lunch',owners:[{a:'peer',st:'owns',n:'Study groups; convenience food'},{a:'youth',st:'partial',n:'Some skip meals'}]},
+    {time:'after',owners:[{a:'peer',st:'owns',n:'Study groups = hidden screen time'},{a:'parent',st:'partial',n:'Tuition > health'}]},
+    {time:'evening',owners:[{a:'parent',st:'partial',n:'Academic-only conversation'},{a:'youth',st:'vacuum',n:'HEALTH CROWDED OUT'}]},
+    {time:'night',owners:[{a:'youth',st:'vacuum',n:'EXAMS > SLEEP (both agree)'},{a:'parent',st:'absent',n:'Permits late nights'}]}
+  ],
+  desc:'Academic pressure intensifies and compresses everything else. Exercise drops unless identity-anchored. Screen time extends through "study" sessions. Health becomes "known but not prioritised."',
+  grid:{
+    youth:{
+      morning:{acts:[{t:'Later wake, <strong>more fatigued</strong>. Phone check → rush to school. Breakfast often skipped',w:['sleep','eat','screen'],st:'changed',
+        
+        bp:'Sleep debt from late-night studying creates a morning cascade: later wake → no breakfast → rush to school. Academic pressure directly undermines two health behaviours before the school day starts.',
+        wi:'Sleep → Eat: Chronic sleep debt from homework compresses morning routine, eliminating breakfast. This isn\'t laziness — it\'s a structural consequence of academic demands.',
+        ev:[{id:'Y08',age:15,g:'M',type:'idi',q:'I sleep at like 1am because of homework. Then I rush in the morning, no time for breakfast.'}]}]},
+      commute:{acts:[{t:'Phone: revision notes mixed with <strong>social media scrolling</strong>',w:['screen'],st:''}]},
+      school_am:{acts:[{t:'Academic intensity up. <strong>Less PE</strong> as timetable packed. Focus = grades',w:['exercise'],st:'changed',
+        
+        bp:'Youth have internalised the school\'s implicit message: grades matter more than health. PE is perceived as time \'wasted\' — health has been deprioritised by the system\'s own signalling.',
+        wi:'Exercise: School culture signals academic performance outranks physical activity. Exercise survives only when identity-anchored (e.g., competitive sports CCA).',
+        ev:[{id:'Y11',age:15,g:'F',type:'idi',q:'PE feels like a waste of time honestly. I could be studying. There\'s so much to cover.'},
+            {id:null,type:'lit',q:'School culture often signals academic performance over physical activity, with PE perceived as less important during exam-focused years. (Cox et al. 2021)'}]}]},
+      lunch:{acts:[{t:'Quick canteen meal. Some <strong>skip lunch to study</strong> or do homework',w:['eat'],st:'changed',
+        
+        bp:'Stress suppresses appetite and studying provides a \'productive\' excuse to skip meals. Meal-skipping is both a time-management strategy and a stress response — not a conscious health choice.',
+        wi:'Eat: Stress-driven meal skipping creates nutritional gaps that compound fatigue, worsening the sleep–fatigue–stress cycle.',
+        ev:[{id:'Y10',age:15,g:'F',type:'idi',q:'Sometimes I don\'t eat lunch. I just go to the library and study. Not hungry also when stressed.'}]}]},
+      after:{acts:[{t:'<strong>Study groups</strong> extend screen time. Tuition for some. CCA may taper for non-sports',w:['screen','exercise'],st:'changed',
+        
+        bp:'Screen time becomes invisible under academic cover. The laptop is simultaneously a study tool and entertainment device — neither parents nor youth can cleanly separate productive from recreational use.',
+        wi:'Screen: Parental monitoring becomes impossible without being intrusive. \'He needs the laptop for homework\' neutralises any screen-time conversation.',
+        ev:[{id:'Y08',age:15,g:'M',type:'idi',q:'We go library to "study" but honestly half the time everyone is on their phone.'},
+            {id:'P10',age:46,g:'M',role:'Sec 3 son',bond:'strained',type:'idi',q:'He says he needs the laptop for homework. I can\'t monitor what tabs are open.'}]}]},
+      evening:{acts:[{t:'Homework volume ↑. <strong>Screen for study + entertainment blurred</strong>. Family time squeezed',w:['screen'],st:'changed'}]},
+      night:{acts:[{t:'Studying late normalised. <strong>"I need to finish this"</strong> — screen-sleep cycle deepens',w:['sleep','screen'],st:'changed',
+        
+        bp:'Both parents and youth have implicitly agreed: exams > sleep. Parents permit late nights \'for studying,\' removing the last adult voice for sleep. But post-study screen use extends waking further.',
+        wi:'Sleep + Screen: Academic permission to stay up late creates a second, hidden window of recreational screen use that no one monitors or questions.',
+        ev:[{id:'Y11',age:15,g:'F',type:'idi',q:'My parents actually let me stay up late now because they know I have exams. But then I\'m on my phone after.'},
+            {id:null,type:'lit',q:'Adolescents make sleep-academic trade-offs where studying consistently wins over sleep, leading to chronic sleep debt that compounds. (Godsell & White 2019)'}]}]}
+    },
+    parent:{
+      morning:{acts:[{t:'Reminder to wake up. <strong>Less able to enforce</strong> — youth tired from late nights',w:[],st:''}]},
+      commute:{acts:[]},
+      school_am:{acts:[]},
+      lunch:{acts:[]},
+      after:{acts:[{t:'May arrange tuition. <strong>Academic support > health support</strong>',w:[],st:'changed',
+        
+        bp:'Parental investment shifts fully to academic support. Health is acknowledged but actively deprioritised — \'exams are more important right now\' becomes the operating principle for the whole family.',
+        wi:'Exercise: Tuition schedules (3x/week for some) directly compete with physical activity time. Health becomes a post-exam aspiration that never materialises.',
+        ev:[{id:'P11',age:49,g:'F',role:'Sec 3 daughter',bond:'moderate',type:'idi',q:'Tuition 3 times a week. I know she doesn\'t exercise but exams are more important right now.'}]}]},
+      evening:{acts:[{t:'"Are you studying?" — <strong>conversations now academic-focused</strong>. Health reminders feel secondary',w:[],st:'changed',
+        
+        bp:'Health conversations get crowded out by academic anxiety. Parents feel guilty raising health when they can see how stressed their child is about grades. The relationship narrows to a single topic.',
+        wi:'Bond: Conversational bandwidth shrinks to academics, reducing opportunities for health dialogue or meaningful relationship-building.',
+        ev:[{id:'P10',age:46,g:'M',role:'Sec 3 son',bond:'strained',type:'idi',q:'I feel guilty pushing him about health when I can see how stressed he is about grades.'}]}]},
+      night:{acts:[{t:'<strong>Allows late nights</strong> "for studying." Own screen use undermines sleep messaging',w:['sleep','screen'],st:'changed',
+        bp:'Parents\' own screen habits undermine their sleep messaging. When youth can point to parental hypocrisy (\'you\\\'re on your phone too\'), the credibility of health guidance collapses entirely.',
+        wi:'Sleep + Screen: Role-modelling failure is the most visible barrier. Youth explicitly call out the double standard, making any sleep advice feel hollow.',
+        ev:[{id:'P12',age:52,g:'M',role:'Sec 3 son',bond:'strained',type:'idi',q:'I tell him to sleep early but then I\'m on my phone too. He calls me out on it.'},
+            {id:null,type:'stat',q:'Role modelling good sleep habits was rated as the most challenging CTA by parents of 13-18 year olds. (Forbes IDI Phase 3)'}]}]}
+    },
+    peer:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'<strong>Academic comparison</strong> begins. "What did you get?" Social stakes around grades',w:[],st:'new',
+        
+        bp:'Academic comparison creates chronic low-grade stress that cascades into health behaviours. \'What did you get?\' after every test establishes grades as the primary currency of peer interaction.',
+        wi:'Sleep + Eat + Exercise: Academic stress drives a triple impact — sleep loss (studying late), meal skipping (too stressed to eat), and exercise avoidance (no time).',
+        ev:[{id:'Y10',age:15,g:'F',type:'idi',q:'Everyone asks "what did you get?" after every test. It\'s so stressful.'}]}]},
+      lunch:{acts:[{t:'Study group norms. Skipping meals together. <strong>Convenience food</strong>',w:['eat'],st:'changed'}]},
+      after:{acts:[{t:'<strong>Study groups</strong> at libraries, cafes. Screen time masked as "study". Social pressure to keep up',w:['screen'],st:'changed'}]},
+      evening:{acts:[{t:'Online study calls. <strong>Gaming as stress relief</strong> — "I deserve a break"',w:['screen'],st:'',
+        
+        bp:'Gaming and screen time serve an emotional regulation function — they\'re stress relief, not just entertainment. Youth frame it as a \'deserved reward,\' making it resistant to any restriction framing.',
+        wi:'Screen: Screen time fills a coping void. Without alternative stress-relief strategies, reducing screen time removes youth\'s only accessible emotional outlet.',
+        ev:[{id:'Y07',age:14,g:'M',type:'idi',q:'Gaming is my reward. After studying I play for like 2 hours. It\'s how I de-stress.'}],
+        ux:{flag:true,q:'Is gaming/screen time functioning as adaptive or maladaptive coping? What emotional function does it serve? What alternatives would youth actually accept?'}}]},
+      night:{acts:[{t:'<strong>"Are you still studying?"</strong> — peer norms around late nights intensify',w:['sleep','screen'],st:'changed',
+        
+        bp:'Peer pressure operates through social proof: \'my friends are still studying at midnight\' creates pressure to match. Late-night texting normalises sleep deprivation as an expected part of student identity.',
+        wi:'Sleep + Screen: Peer norms reinforce the idea that sleeping = losing. Staying up late becomes a performance of academic effort, not just a practical necessity.',
+        ev:[{id:'Y11',age:15,g:'F',type:'idi',q:'My friends text at midnight like "are you still studying?" It makes you feel like you should be.'}]}]}
+    },
+    school:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'<strong>Academic pressure from school culture</strong>. Exams, tests, rankings. PE squeezed',w:['exercise'],st:'changed',
+        ux:{flag:true,q:'Do schools that protect PE/CCA time show different health outcomes vs those that allow academic scheduling to squeeze it out?'}}]},
+      lunch:{acts:[{t:'Canteen same but youth <strong>rushing through meals</strong>',w:['eat'],st:''}]},
+      after:{acts:[{t:'CCA tapering for some. <strong>Supplementary lessons</strong> replacing physical activity time',w:['exercise'],st:'changed'}]},
+      evening:{acts:[]},
+      night:{acts:[]}
+    },
+    hpb:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'Same annual SHS. <strong>Messages don\'t adapt</strong> to academic pressure context',w:[],st:'',
+        ux:{flag:true,q:'Does the HPB Health Plan differentiate messaging for Sec 3-4 academic pressure years? How does it compete for attention against exam stress?'}}]},
+      lunch:{acts:[]},
+      after:{acts:[]},
+      evening:{acts:[]},
+      night:{acts:[]}
+    }
+  },
+  frictions:[
+    {from:'school',to:'youth',time:'school_am',label:'Academic > Exercise',
+      before:'PE regular in Sec 1-2. CCA participation steady. <strong>Exercise had a clear slot.</strong>',
+      after:'Academic timetable expands. <strong>PE squeezed, supplementary lessons replace CCA time.</strong> School culture signals grades > health.',
+      wells:['exercise'],
+      note:'The school itself becomes a source of health-undermining pressure. Exercise doesn\'t get dropped by youth choice alone — the system squeezes it out.',
+      ev:[{id:'Y11',age:15,g:'F',type:'idi',q:'PE feels like a waste of time honestly. I could be studying.'},
+          {id:null,type:'lit',q:'School culture signals academic performance over physical activity. Exercise survives only when identity-anchored. (Cox et al. 2021)'}]},
+    {from:'parent',to:'youth',time:'night',label:'Sleep pact erodes',
+      before:'Parent still reminds about sleep. Implicit agreement that bedtime matters.',
+      after:'<strong>Parents allow late nights "for studying."</strong> Academic pressure overrides sleep messaging. Both parties implicitly agree that exams > sleep.',
+      wells:['sleep','screen'],
+      note:'This is where the sleep gap institutionalises. When parents themselves permit late nights for academic reasons, there\'s no remaining adult voice advocating for sleep.',
+      ev:[{id:'Y11',age:15,g:'F',type:'idi',q:'My parents actually let me stay up late now because they know I have exams.'},
+          {id:'P12',age:52,g:'M',role:'Sec 3 son',bond:'strained',type:'idi',q:'I tell him to sleep early but then I\'m on my phone too. He calls me out on it.'}]},
+    {from:'peer',to:'youth',time:'after',label:'Study = Screen time',
+      before:'After-school socialising was primarily in-person: hanging out, food, activities.',
+      after:'<strong>Study groups extend screen time</strong> under academic cover. "We\'re studying" = laptops open, tabs switching between notes and social media.',
+      wells:['screen'],
+      note:'Screen time becomes invisible because it\'s wrapped in "studying." Neither parents nor schools can easily distinguish productive vs unproductive screen time.',
+      ev:[{id:'Y08',age:15,g:'M',type:'idi',q:'We go library to "study" but honestly half the time everyone is on their phone.'},
+          {id:'P10',age:46,g:'M',role:'Sec 3 son',bond:'strained',type:'idi',q:'He says he needs the laptop for homework. I can\'t monitor what tabs are open.'}]}
+  ]
+},
+{
+  id:'sec4jc',
+  tab:'Sec 4 <span class="arrow">→</span> JC / Poly',
+  tabSub:'Age 16 → 17',
+  title:'The Institutional Reset',
+  roles:{
+    youth:{stage:'Should reset and recover from exam depletion',gap:'Carries depleted habits; no recovery mechanism'},
+    parent:{stage:'Advisory role with continued connection',gap:'Minimal involvement; influence via relationship only'},
+    peer:{stage:'New group = potential reset window',gap:'Old habits transfer; window closes fast without intervention'},
+    school:{stage:'Should provide health continuity',gap:'Different institution; no handover of health records'},
+    hpb:{stage:'Should ensure Health Plan continuity',gap:'Plan is institution-linked, not person-linked'}
+  },
+  pathway:[
+    {time:'morning',owners:[{a:'youth',st:'partial',n:'Self-managing with depleted baseline'},{a:'parent',st:'absent',n:'Advisory only'}]},
+    {time:'commute',owners:[{a:'youth',st:'partial',n:'Longer commute = more screen'}]},
+    {time:'school_am',owners:[{a:'school',st:'partial',n:'New institution; less pastoral care'},{a:'hpb',st:'vacuum',n:'CONTINUITY BROKEN'}]},
+    {time:'lunch',owners:[{a:'youth',st:'partial',n:'Fully independent choices'},{a:'peer',st:'partial',n:'New norms forming'}]},
+    {time:'after',owners:[{a:'youth',st:'vacuum',n:'EXERCISE VACUUM (CCA gap)'},{a:'school',st:'absent',n:'CCA not yet started'}]},
+    {time:'evening',owners:[{a:'youth',st:'partial',n:'Self-directed'},{a:'parent',st:'partial',n:'Advisory only'}]},
+    {time:'night',owners:[{a:'youth',st:'vacuum',n:'SAME LATE PATTERN (no reset)'},{a:'parent',st:'absent',n:'No enforcement'}]}
+  ],
+  desc:'Youth enter a completely new institution carrying depleted habits from exam mode. No structured handover of health information. Previous peer group disperses. No recovery mechanism exists.',
+  grid:{
+    youth:{
+      morning:{acts:[{t:'<strong>Carrying depleted habits</strong> from O/N Levels. New commute, new schedule. Sleep debt accumulated',w:['sleep'],st:'changed',
+        
+        bp:'Youth enter a new institution carrying the worst habits from their exam period — but with no mechanism to reset. \'I\'m still young\' reasoning peaks here, making health feel irrelevant.',
+        wi:'Sleep: Accumulated sleep debt from O/N Levels becomes the new baseline. No recovery intervention exists at the institutional transition point.',
+        ev:[{id:null,type:'lit',q:'Youth perceive their young age as giving them invincibility — health is not top-of-mind after exam periods. "I\'m still young" reasoning peaks here. (Ridder et al. 2010)'}],
+        ux:{flag:true,q:'No longitudinal data on whether depleted habits from O/N Level exam period recover naturally, or become the permanent new baseline.'}}]},
+      commute:{acts:[{t:'Longer commute for many. <strong>More screen time in transit</strong>',w:['screen'],st:'changed',
+        
+        bp:'Longer commute = more passive screen time in transit. Geographic dispersal of JC/Poly institutions structurally increases daily screen accumulation beyond youth\'s control.',
+        wi:'Screen: Additional 30–60 min daily screen time from commute alone. This is structural, not behavioural — reducing it requires changing the commute, not the habit.',
+        ev:[{id:null,type:'sys',q:'JC/Polytechnic institutions are more geographically dispersed than secondary schools. Many students face significantly longer commutes. (MOE)'}]}]},
+      school_am:{acts:[{t:'<strong>New academic environment</strong>. Less pastoral care. Self-directed learning expected',w:[],st:'changed'}]},
+      lunch:{acts:[{t:'New canteen/food options. <strong>Choices now fully independent</strong> — no prior peer group norms yet',w:['eat'],st:'changed',
+        ux:{flag:true,q:'Does a new food environment offer a reset opportunity for eating habits, or do old patterns transfer regardless of context?'}}]},
+      after:{acts:[{t:'<strong>New CCA selection</strong>. Some don\'t take physical CCA. Less structured than sec school',w:['exercise'],st:'changed',
+        
+        bp:'CCA re-selection creates a 2–4 month exercise vacuum between institutions. Some youth don\'t choose a physical CCA at all, permanently losing their only structured exercise.',
+        wi:'Exercise: The transition gap removes the one reliable exercise structure. If youth don\'t re-opt into physical CCA, regular exercise effectively ends.',
+        ev:[{id:null,type:'sys',q:'CCA re-selection at JC/Poly creates a 2-4 month exercise vacuum between institutions where no structured physical activity exists. (MOE)'}]}]},
+      evening:{acts:[{t:'<strong>Heavier workload</strong> for JC. Adjusting to new pace. Screen mixed with study continues',w:['screen'],st:''}]},
+      night:{acts:[{t:'<strong>Same late-night pattern</strong> carries forward. No intervention point triggered the reset',w:['sleep','screen'],st:''}]}
+    },
+    parent:{
+      morning:{acts:[{t:'<strong>Trust-based</strong>. Youth manages own morning. Parent involvement minimal',w:[],st:'changed',
+        
+        bp:'Parental role has fully shifted to advisory. Direct influence is minimal — youth manage their own routines. Developmentally appropriate, but means no adult is actively monitoring health behaviours.',
+        wi:'All wells: Advisory parenting means health behaviours are fully self-managed. Parental leverage now exists only through relationship quality, not enforcement.',
+        ev:[{id:null,type:'lit',q:'At late adolescence (17-19), parents transition to advisors and mentors. Youth look for emotional and practical support but desire greater autonomy. (Asia Insights 2025)'}],
+        ux:{flag:true,q:'What does "advisory parenting" actually look like in practice at age 16-17? What levers do parents still have — direct vs indirect influence?'}}]},
+      commute:{acts:[]},
+      school_am:{acts:[]},
+      lunch:{acts:[]},
+      after:{acts:[]},
+      evening:{acts:[{t:'<strong>Advisory only.</strong> "How\'s the new school?" Health conversations rare',w:[],st:'changed'}]},
+      night:{acts:[{t:'<strong>No enforcement.</strong> Youth\'s sleep schedule = their own problem now',w:[],st:''}]}
+    },
+    peer:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'<strong>New peer group forming.</strong> Social dynamics resetting',w:[],st:'new',
+        ux:{flag:true,q:'Is there a window during new peer group formation where health norms are more receptive to influence, before they solidify?'}}]},
+      lunch:{acts:[{t:'New friend group. <strong>Food habits from old group carry forward</strong> into new context',w:['eat'],st:'new'}]},
+      after:{acts:[{t:'<strong>New social patterns</strong> establishing. Old habits transfer to new friendships',w:['screen'],st:'new'}]},
+      evening:{acts:[{t:'Old friend group chats still active. <strong>Managing two social worlds</strong>',w:['screen'],st:'new'}]},
+      night:{acts:[]}
+    },
+    school:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'<strong>Different institution entirely.</strong> Less structured health support. Focus on academic transition',w:[],st:'changed'}]},
+      lunch:{acts:[{t:'<strong>New food environment.</strong> Different canteen, nearby food options',w:['eat'],st:'changed'}]},
+      after:{acts:[{t:'CCA re-selection. <strong>Gap period</strong> before new CCA starts — exercise vacuum',w:['exercise'],st:'changed'}]},
+      evening:{acts:[]},
+      night:{acts:[]}
+    },
+    hpb:{
+      morning:{acts:[]},
+      commute:{acts:[]},
+      school_am:{acts:[{t:'<strong>Continuity gap.</strong> Health Plan from sec school may not transfer. New SHS schedule unclear',w:[],st:'changed',
+        
+        bp:'The health system loses track of youth at institutional transitions. Health Plans are school-linked, not person-linked — when the institution changes, the health record doesn\'t follow.',
+        wi:'System: The moment youth most need recovery support (post-exam depleted habits) is precisely when the health system has the least visibility and no touchpoint.',
+        ev:[{id:null,type:'sys',q:'GWSG Health Plan is tied to school-level SHS programme. No cross-institutional handover mechanism exists when youth move from secondary to JC/Poly. (GWSG system)'}],
+        ux:{flag:true,q:'What happens to accumulated health data when youth change institutions? Is there a mechanism for Health Plan portability?'}}]},
+      lunch:{acts:[]},
+      after:{acts:[]},
+      evening:{acts:[]},
+      night:{acts:[]}
+    }
+  },
+  frictions:[
+    {from:'school',to:'school',time:'school_am',label:'Institutional handover gap',
+      before:'Secondary school health system: annual SHS, known teachers, pastoral care, established CCA.',
+      after:'<strong>Different institution entirely.</strong> Health records may not transfer. No structured handover of health information. Youth carrying depleted habits from exam period get no "reset" support.',
+      wells:['sleep','exercise','eat','screen'],
+      note:'This is a system-level gap. When youth most need recovery support (post-exam depleted habits), the health system loses track of them at institutional transition.',
+      ev:[{id:null,type:'sys',q:'GWSG Health Plan is institution-linked. No continuity mechanism exists for cross-institutional handover. (GWSG system)'}]},
+    {from:'peer',to:'youth',time:'lunch',label:'Habits transfer to new group',
+      before:'Established peer group with known food/social norms. Influence patterns stable (even if unhealthy).',
+      after:'<strong>Old habits carry into new peer group.</strong> Youth bring Sec 3-4 patterns as their baseline. New friends inherit these norms rather than challenging them.',
+      wells:['eat','screen'],
+      note:'Without an intervention point, the depleted habits from exam mode become the permanent baseline. New peer groups don\'t correct these — they absorb them.'},
+    {from:'hpb',to:'youth',time:'school_am',label:'Health Plan continuity break',
+      before:'HPB touchpoint via secondary school SHS. Annual screening, Health Plan, PG letters.',
+      after:'<strong>No continuity mechanism.</strong> Health Plan from secondary school doesn\'t automatically transfer to JC/Poly.',
+      wells:['sleep','exercise','eat','screen'],
+      note:'The HPB system is designed around institutional relationships. When the institution changes, the touchpoint breaks. Youth fall through the gap between school health systems.',
+      ev:[{id:null,type:'sys',q:'HPB\'s school health service operates through institutional partnerships. Transition between institutions creates a touchpoint vacuum. (GWSG Journey)'}]}
+  ]
+}
+];
+
+let curZ='p6sec1', selFr=null, selAct=null;
+
+function rTabs(){
+  document.getElementById('tabs').innerHTML=ZONES.map(z=>
+    `<button class="ttab${z.id===curZ?' on':''}" onclick="goZ('${z.id}')">${z.tab}<small>${z.tabSub}</small></button>`
+  ).join('');
+}
+
+const TMAP_LINK={p6sec1:'tz1',sec2sec3:'tz3',sec4jc:'tz5'};
+function rCtx(){
+  const z=ZONES.find(x=>x.id===curZ);
+  const tmHash=TMAP_LINK[curZ]||'';
+  const backLink=tmHash?`<a class="cross-link" href="transition_map.html#${tmHash}" target="_blank">← View transition detail (What breaks down)</a>`:'';
+  document.getElementById('ctx').innerHTML=`<b>${z.title}</b><span>${z.desc}</span>${backLink}`;
+}
+
+function goZ(id){curZ=id;selFr=null;selAct=null;closeDr();rTabs();rCtx();rSwim();}
+
+function wellTag(w){
+  const map={sleep:'Sleep',screen:'Screen',eat:'Eat',exercise:'Exercise',oral:'Oral'};
+  return `<span class="well well-${w}">${map[w]||w}</span>`;
+}
+
+function wellFull(w){
+  return {sleep:'Sleep Well',screen:'Learn Well',eat:'Eat Well',exercise:'Exercise Well',oral:'Oral Health'}[w]||w;
+}
+
+/* Render evidence cards */
+function renderEvCards(evArr){
+  if(!evArr||!evArr.length) return '';
+  return '<div class="ev-cards">'+evArr.map(e=>{
+    let badgeCls='lit', badgeTxt='Literature';
+    if(e.type==='idi'){
+      badgeCls=e.role?'idi-p':'idi-y';
+      let txt=e.id?(e.id+' · '+(e.age?e.age+'yo ':'')+(e.g==='M'?'Male':'Female')+(e.role?' · Parent of '+e.role:'')):'Interview';
+      badgeTxt=txt;
+    } else if(e.type==='stat'){badgeCls='stat';badgeTxt='Statistic';}
+    else if(e.type==='sys'){badgeCls='sys';badgeTxt='System / Policy';}
+    else {badgeCls='lit';badgeTxt='Literature';}
+    const isLit=e.type==='lit'||e.type==='stat'||e.type==='sys';
+    let bondHtml='';
+    if(e.bond){
+      const bc={strong:'#27ae60',moderate:'#e67e22',weak:'#c0504d',strained:'#c0504d'};
+      const bl={strong:'Connected',moderate:'Navigating',weak:'Distant',strained:'Strained'};
+      bondHtml=`<span class="ev-bond" style="background:${bc[e.bond]||'#999'}">${bl[e.bond]||e.bond}</span>`;
+    }
+    return `<div class="ev-card${isLit?' lit-card':''}">
+      <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap"><div class="ev-badge ${badgeCls}">${badgeTxt}</div>${bondHtml}</div>
+      <div class="ev-quote">${e.q}</div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function renderUxBanner(ux){
+  if(!ux||!ux.flag) return '';
+  return `<div class="ux-banner"><div class="ux-banner-h">Under-Explored — Further Research Needed</div><div class="ux-banner-t">${ux.q}</div></div>`;
+}
+
+function rSwim(){
+  const z=ZONES.find(x=>x.id===curZ);
+  let h=`<div class="swim" style="grid-template-columns:150px repeat(${TIMES.length},1fr)">`;
+
+  h+=`<div class="t-corner">Actor ↓ / Time →</div>`;
+  TIMES.forEach(t=>{
+    h+=`<div class="t-col"><div class="t-col-t">${t.l}</div><div class="t-col-s">${t.s}</div></div>`;
+  });
+
+  ACTORS.forEach((a,ai)=>{
+    const role=z.roles?z.roles[a.id]:null;
+    let roleHtml='';
+    if(role){
+      roleHtml=`<div class="lane-role"><div class="lane-role-tag">Stage role</div><div class="lane-role-txt">${role.stage}</div><div class="lane-role-txt"><em>⚠ ${role.gap}</em></div></div>`;
+    }
+    h+=`<div class="lane-lbl"><div class="lane-d" style="background:${a.c}"></div><div class="lane-n">${a.l}</div><div class="lane-r">${a.r}</div>${roleHtml}</div>`;
+    TIMES.forEach((t,ti)=>{
+      const gd=z.grid[a.id]?z.grid[a.id][t.id]:null;
+      const acts=(gd&&gd.acts)?gd.acts:[];
+      const isEmpty=acts.length===0;
+      h+=`<div class="cell${isEmpty?' empty':''}">`;
+      acts.forEach((ac,idx)=>{
+        const hasEv=ac.ev&&ac.ev.length>0;
+        const hasUx=ac.ux&&ac.ux.flag;
+        const isSel=selAct&&selAct.actor===a.id&&selAct.time===t.id&&selAct.idx===idx;
+        let cls=ac.st==='changed'?' changed':ac.st==='new'?' new':'';
+        if(hasEv) cls+=' has-ev';
+        if(hasUx) cls+=' ux-flag';
+        if(isSel) cls+=' sel';
+        const click=(hasEv||hasUx)?` onclick="openAct('${a.id}','${t.id}',${idx})"`:hasUx?` onclick="openAct('${a.id}','${t.id}',${idx})"`:''
+        h+=`<div class="act${cls}"${click}>${ac.t}`;
+        if(hasEv) h+=`<div class="ev-dot"></div>`;
+        if(ac.w&&ac.w.length) h+=`<div class="wells">${ac.w.map(w=>wellTag(w)).join('')}</div>`;
+        if(hasUx) h+=`<div class="ux-tag">Under-explored</div>`;
+        h+=`</div>`;
+      });
+      h+=`</div>`;
+    });
+
+    const myFrictions=z.frictions.filter(f=>f.from===a.id);
+    if(myFrictions.length>0){
+      h+=`<div class="fr-lbl"><span>⚡ Friction</span></div>`;
+      TIMES.forEach(t=>{
+        const fr=myFrictions.find(f=>f.time===t.id);
+        if(fr){
+          const isSel=selFr&&selFr.from===fr.from&&selFr.time===fr.time&&selFr.label===fr.label;
+          h+=`<div class="fr-cell"><div class="fr-chip${isSel?' sel':''}" onclick="openFr('${z.id}','${fr.from}','${fr.time}','${fr.label.replace(/'/g,"\\'")}')"><span class="fr-arr">⚠</span><span class="fr-txt">${fr.label}</span></div></div>`;
+        } else {
+          h+=`<div class="fr-cell empty-fr"></div>`;
+        }
+      });
+    }
+  });
+
+  h+=`</div>`;
+
+  // Shared Pathway / Ecosystem Ownership synthesis row
+  if(z.pathway){
+    h=h.slice(0,-6); // remove closing </div> to add rows inside grid
+    h+=`<div class="sp-lbl"><span>🔗 Who Owns Health at This Moment?</span></div>`;
+    TIMES.forEach(t=>{
+      const po=z.pathway.find(p=>p.time===t.id);
+      if(po&&po.owners){
+        h+=`<div class="sp-cell"><div class="sp-own">`;
+        po.owners.forEach(o=>{
+          const actObj=ACTORS.find(aa=>aa.id===o.a);
+          const dotCol=actObj?actObj.h:'#999';
+          h+=`<div class="sp-actor ${o.st}"><div class="sp-dot" style="background:${dotCol}"></div>${o.n}</div>`;
+        });
+        h+=`</div></div>`;
+      } else {
+        h+=`<div class="sp-cell"></div>`;
+      }
+    });
+    h+=`</div>`;
+  }
+
+  document.getElementById('swim').innerHTML=h;
+}
+
+function openAct(actorId, timeId, idx){
+  selFr=null;
+  selAct={actor:actorId, time:timeId, idx:idx};
+  rSwim();
+
+  const z=ZONES.find(x=>x.id===curZ);
+  const gd=z.grid[actorId][timeId];
+  const ac=gd.acts[idx];
+  const timeObj=TIMES.find(t=>t.id===timeId);
+  const actorObj=ACTORS.find(a=>a.id===actorId);
+
+  const hasEv=ac.ev&&ac.ev.length>0;
+  const hasUx=ac.ux&&ac.ux.flag;
+  const iconCls=hasUx?'ux-icon':'ev-icon';
+  const iconChar=hasUx?'🔍':'📋';
+
+  const dr=document.getElementById('drawer');
+  let html=`<div class="dr-anim">
+    <button class="dr-x" onclick="closeDr()">✕</button>
+    <div class="dr-hd">
+      <div class="dr-icon ${iconCls}">${iconChar}</div>
+      <div class="dr-title">${actorObj.l} · ${timeObj.l}</div>
+      <div class="dr-stage">${z.tab.replace(/<[^>]+>/g,'')}</div>
+    </div>
+    <div style="font-size:12px;color:var(--tx);margin-bottom:8px;line-height:1.6;">${ac.t}</div>`;
+  if(ac.w&&ac.w.length) html+=`<div class="dr-wells" style="margin-bottom:10px">${ac.w.map(w=>`<span class="dr-well well-${w}">${wellFull(w)}</span>`).join('')}</div>`;
+  if(ac.bp) html+=`<div class="bp-block"><div class="bp-label">Behavioural Pattern</div><div class="bp-text">${ac.bp}</div></div>`;
+  if(ac.wi) html+=`<div class="wi-block"><div class="wi-label">Well Interaction</div><div class="wi-text">${ac.wi}</div></div>`;
+  if(hasEv){
+    html+=`<div class="dr-lbl">Supporting Evidence (${ac.ev.length})</div>`;
+    html+=renderEvCards(ac.ev);
+  }
+  if(hasUx) html+=renderUxBanner(ac.ux);
+  html+=`</div>`;
+  dr.innerHTML=html;
+  dr.classList.add('open');
+  dr.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function openFr(zid,from,time,label){
+  const z=ZONES.find(x=>x.id===zid);
+  const fr=z.frictions.find(f=>f.from===from&&f.time===time&&f.label===label);
+  if(!fr)return;
+  selFr={from:fr.from,time:fr.time,label:fr.label};
+  selAct=null;
+  rSwim();
+
+  const timeObj=TIMES.find(t=>t.id===fr.time);
+  const dr=document.getElementById('drawer');
+  let html=`<div class="dr-anim">
+    <button class="dr-x" onclick="closeDr()">✕</button>
+    <div class="dr-hd">
+      <div class="dr-icon fr-icon">⚡</div>
+      <div class="dr-title">${fr.label}</div>
+      <div class="dr-stage">${timeObj.l}</div>
+    </div>
+    <div class="dr-body">
+      <div class="dr-col">
+        <div class="dr-lbl">Before (Previous Stage)</div>
+        <div class="dr-before">${fr.before}</div>
+      </div>
+      <div class="dr-col">
+        <div class="dr-lbl">After (New Reality)</div>
+        <div class="dr-after">${fr.after}</div>
+      </div>
+    </div>
+    <div style="margin-top:10px">
+      <div class="dr-lbl">Why This Matters for YPS</div>
+      <div class="dr-desc">${fr.note}</div>
+      ${fr.wells&&fr.wells.length?`<div class="dr-wells">${fr.wells.map(w=>`<span class="dr-well well-${w}">${wellFull(w)}</span>`).join('')}</div>`:''}
+    </div>`;
+  if(fr.ev&&fr.ev.length){
+    html+=`<div style="margin-top:10px"><div class="dr-lbl">Supporting Evidence (${fr.ev.length})</div>${renderEvCards(fr.ev)}</div>`;
+  }
+  html+=`</div>`;
+  dr.innerHTML=html;
+  dr.classList.add('open');
+  dr.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeDr(){
+  document.getElementById('drawer').classList.remove('open');
+  selFr=null;selAct=null;
+  setTimeout(()=>rSwim(),50);
+}
+
+// Hash-based incoming navigation
+if(window.location.hash){const h=window.location.hash.slice(1);if(['p6sec1','sec2sec3','sec4jc'].includes(h))curZ=h;}
+rTabs();rCtx();rSwim();
+</script>
+</body>
+</html>

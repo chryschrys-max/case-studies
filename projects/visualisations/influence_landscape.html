@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Influence Landscape — YPS Youth Health HCD</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg: #FAFAFA;
+  --surface: #FFFFFF;
+  --border: #E8E8E8;
+  --text: #1A1A1A;
+  --text-secondary: #555;
+  --text-muted: #888;
+  --strong-border: #0891B2;
+  --strong-bg: #F0FDFA;
+  --inferred-border: #D97706;
+  --inferred-bg: #FFFBEB;
+  --underexplored-border: #9CA3AF;
+  --underexplored-bg: #F9FAFB;
+  --sleep: #6366F1;
+  --screen: #F59E0B;
+  --eat: #10B981;
+  --exercise: #EF4444;
+  --bond: #EC4899;
+  --oral: #8B5CF6;
+  --ring1: rgba(8,145,178,0.08);
+  --ring2: rgba(217,119,6,0.06);
+  --ring3: rgba(156,163,175,0.05);
+  --youth-core: #0E7490;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 24px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+}
+.header .subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  max-width: 800px;
+}
+.header .viz-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Legend ── */
+.legend-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.legend-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.legend-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.legend-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+.legend-swatch.strong { border: 2.5px solid var(--strong-border); background: var(--strong-bg); }
+.legend-swatch.inferred { border: 2.5px dashed var(--inferred-border); background: var(--inferred-bg); }
+.legend-swatch.underexplored { border: 2.5px dotted var(--underexplored-border); background: var(--underexplored-bg); }
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+}
+
+.legend-ring-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-ring-swatch.ring-s1 {
+  border: 2px solid rgba(8,145,178,0.4);
+  background: var(--ring1);
+}
+.legend-ring-swatch.ring-s2 {
+  border: 2px dashed rgba(217,119,6,0.35);
+  background: var(--ring2);
+}
+.legend-ring-swatch.ring-s3 {
+  border: 2px dotted rgba(156,163,175,0.5);
+  background: var(--ring3);
+}
+
+/* ── Landscape Container ── */
+.landscape-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+.landscape {
+  position: relative;
+  width: 920px;
+  height: 920px;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+/* ── Concentric Rings ── */
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.ring-1 {
+  width: 340px; height: 340px;
+  border: 1.5px solid rgba(8,145,178,0.22);
+  background: var(--ring1);
+}
+.ring-2 {
+  width: 580px; height: 580px;
+  border: 1.5px dashed rgba(217,119,6,0.18);
+  background: var(--ring2);
+}
+.ring-3 {
+  width: 820px; height: 820px;
+  border: 1.5px dotted rgba(156,163,175,0.22);
+  background: var(--ring3);
+}
+
+/* ── Center: Youth ── */
+.youth-center {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0E7490, #0891B2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 4px 20px rgba(14,116,144,0.3);
+  z-index: 10;
+}
+.youth-center .youth-age {
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-top: 2px;
+}
+
+/* ── Actor Bubbles ── */
+.actor-bubble {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 12px 14px;
+  min-width: 130px;
+  max-width: 150px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.actor-bubble:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  z-index: 15;
+}
+.actor-bubble.active {
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  z-index: 15;
+}
+
+/* Tier styles */
+.actor-bubble.strong {
+  border: 2.5px solid var(--strong-border);
+}
+.actor-bubble.inferred {
+  border: 2.5px dashed var(--inferred-border);
+}
+.actor-bubble.underexplored {
+  border: 2.5px dotted var(--underexplored-border);
+  opacity: 0.85;
+}
+.actor-bubble.underexplored:hover,
+.actor-bubble.underexplored.active {
+  opacity: 1;
+}
+
+.actor-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.actor-tier {
+  font-size: 10px;
+  font-family: 'Roboto Mono', monospace;
+  margin-top: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  display: inline-block;
+  letter-spacing: 0.3px;
+}
+.actor-tier.strong {
+  color: var(--strong-border);
+  background: rgba(8,145,178,0.08);
+}
+.actor-tier.inferred {
+  color: var(--inferred-border);
+  background: rgba(217,119,6,0.08);
+}
+.actor-tier.underexplored {
+  color: #6B7280;
+  background: rgba(156,163,175,0.1);
+}
+
+.actor-wells {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+.well-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  position: relative;
+}
+.well-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-family: 'Roboto Mono', monospace;
+  white-space: nowrap;
+  background: var(--text);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.well-dot:hover::after {
+  opacity: 1;
+}
+
+/* ── Connection Lines (SVG overlay) ── */
+.connections-svg {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+.conn-line {
+  stroke-width: 1.5;
+  fill: none;
+  opacity: 0.2;
+}
+.conn-line.strong { stroke: var(--strong-border); opacity: 0.25; }
+.conn-line.inferred { stroke: var(--inferred-border); stroke-dasharray: 6,4; opacity: 0.2; }
+.conn-line.underexplored { stroke: var(--underexplored-border); stroke-dasharray: 3,3; opacity: 0.12; }
+
+/* ── Detail Panel ── */
+.panel-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.15);
+  z-index: 200;
+}
+.panel-overlay.open { display: block; }
+
+.detail-panel {
+  position: fixed;
+  top: 0;
+  right: -520px;
+  width: 500px;
+  height: 100vh;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  box-shadow: -4px 0 24px rgba(0,0,0,0.1);
+  z-index: 300;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  padding: 0;
+}
+.detail-panel.open {
+  right: 0;
+}
+
+.panel-header {
+  padding: 24px 28px 20px;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: 10;
+}
+.panel-close {
+  position: absolute;
+  top: 20px; right: 20px;
+  width: 32px; height: 32px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: all 0.15s;
+}
+.panel-close:hover {
+  background: #f5f5f5;
+  color: var(--text);
+}
+.panel-actor-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  padding-right: 40px;
+}
+.panel-tier-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-family: 'Roboto Mono', monospace;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-top: 8px;
+  letter-spacing: 0.3px;
+}
+.panel-tier-badge.strong { color: var(--strong-border); background: rgba(8,145,178,0.08); border: 1px solid rgba(8,145,178,0.2); }
+.panel-tier-badge.inferred { color: var(--inferred-border); background: rgba(217,119,6,0.08); border: 1px solid rgba(217,119,6,0.2); }
+.panel-tier-badge.underexplored { color: #6B7280; background: rgba(156,163,175,0.08); border: 1px solid rgba(156,163,175,0.25); }
+
+.panel-summary {
+  font-size: 15px;
+  color: var(--text-secondary);
+  margin-top: 10px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.panel-body {
+  padding: 24px 28px 40px;
+}
+
+.panel-section {
+  margin-bottom: 24px;
+}
+.panel-section-title {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.panel-section-content {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+.panel-wells-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.panel-well-chip {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #F3F4F6;
+}
+.panel-well-chip .chip-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+.panel-influence-item {
+  padding: 10px 14px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.panel-influence-item.works {
+  background: #F0FDF4;
+  border-left: 3px solid #22C55E;
+}
+.panel-influence-item.backfires {
+  background: #FEF2F2;
+  border-left: 3px solid #EF4444;
+}
+.panel-influence-item .inf-label {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+.panel-influence-item.works .inf-label { color: #16A34A; }
+.panel-influence-item.backfires .inf-label { color: #DC2626; }
+
+/* Phase 2 Workstream callout */
+.phase2-callout {
+  background: linear-gradient(135deg, #EFF6FF, #F0F9FF);
+  border: 1.5px solid #93C5FD;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 8px;
+}
+.phase2-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1D4ED8;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.phase2-title::before {
+  content: '→';
+  font-size: 16px;
+}
+.phase2-desc {
+  font-size: 13px;
+  color: #3B82F6;
+  line-height: 1.55;
+}
+
+/* Evidence quotes */
+.evidence-grid { display:flex; flex-direction:column; gap:10px; }
+.evidence-quote {
+  background: #F8FAFC;
+  border-left: 3px solid #0891B2;
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.evidence-quote .eq-text {
+  font-style: italic;
+  color: #334155;
+  margin-bottom: 4px;
+}
+.evidence-quote .eq-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11.5px;
+  color: #64748B;
+}
+.evidence-quote .eq-code {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
+  color: #0E7490;
+  background: #ECFEFF;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+.evidence-quote .eq-context {
+  font-style: normal;
+}
+.evidence-quote.parent-quote { border-left-color: #7C3AED; }
+.evidence-quote.parent-quote .eq-code { color: #6D28D9; background: #F5F3FF; }
+
+.panel-sources {
+  font-size: 12px;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  background: #F9FAFB;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+/* ── Reading guide ── */
+.reading-guide {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 24px;
+}
+.guide-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.guide-card p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.guide-emphasis {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ── Responsive ── */
+@media (max-width: 980px) {
+  .landscape { transform: scale(0.8); transform-origin: top center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<div class="header">
+  <div class="viz-label">VIZ 03 — INFLUENCE LANDSCAPE</div>
+  <h1>Who Shapes Youth Health Behaviour — and Where Our Evidence Sits</h1>
+  <div class="subtitle">Concentric rings map proximity of influence. Evidence tiers distinguish where our research has depth versus what requires further structured inquiry. Click any actor to see the full evidence picture.</div>
+</div>
+
+<!-- ── Legend ── -->
+<div class="legend-bar">
+  <div class="legend-section">
+    <span class="legend-section-label">Evidence Tier</span>
+    <div class="legend-item"><span class="legend-swatch strong"></span> Strong Primary</div>
+    <div class="legend-item"><span class="legend-swatch inferred"></span> Inferred from Data</div>
+    <div class="legend-item"><span class="legend-swatch underexplored"></span> Under-explored</div>
+  </div>
+  <div class="legend-divider"></div>
+  <div class="legend-section">
+    <span class="legend-section-label">Wells</span>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--screen)"></span> Screen</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--sleep)"></span> Sleep</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--eat)"></span> Eat</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--exercise)"></span> Exercise</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--oral)"></span> Oral</div>
+    <div class="legend-item"><span class="legend-dot" style="background:var(--bond)"></span> Bond</div>
+  </div>
+  <div class="legend-divider"></div>
+  <div class="legend-section">
+    <span class="legend-section-label">Proximity</span>
+    <div class="legend-item"><span class="legend-ring-swatch ring-s1"></span> Proximal — Direct Contact</div>
+    <div class="legend-item"><span class="legend-ring-swatch ring-s2"></span> Structural — Shapes Daily Context</div>
+    <div class="legend-item"><span class="legend-ring-swatch ring-s3"></span> Systemic — Defines Available Options</div>
+  </div>
+</div>
+<div class="landscape-wrap">
+  <div class="landscape" id="landscape">
+
+    <!-- Rings (back to front) -->
+    <div class="ring ring-3"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-1"></div>
+
+    <!-- SVG connection lines -->
+    <svg class="connections-svg" id="connectionsSvg" viewBox="0 0 920 920"></svg>
+
+    <!-- Youth center -->
+    <div class="youth-center">
+      <span>YOUTH</span>
+      <span class="youth-age">13–16 yo</span>
+    </div>
+
+    <!-- Actor bubbles will be injected by JS -->
+  </div>
+</div>
+
+<!-- ── Reading Guide ── -->
+<div class="reading-guide">
+  <div class="guide-card">
+    <h3>How to Read This Landscape</h3>
+    <p>
+      <span class="guide-emphasis">Proximity = influence closeness.</span> Ring 1 actors have daily, direct contact with youth behaviour. Ring 2 actors shape the structural context in which choices happen. Ring 3 actors define the systemic options available.
+    </p>
+    <p style="margin-top:8px;">
+      <span class="guide-emphasis">Border style = evidence confidence.</span> Solid borders mean we have strong primary data from the IDIs — enough to inform direction with confidence. Dashed borders mean influence was referenced but not directly studied. Dotted borders mark actors we know matter but haven't explored — each includes a recommended Phase 2 workstream.
+    </p>
+    <p style="margin-top:8px;">
+      <span class="guide-emphasis">The strategic implication:</span> Our current research has depth along the parent-youth-peer axis. Everything beyond that ring carries evidence gaps that need further structured inquiry before we can act on them. The under-explored actors aren't unknowns — they're named research investments.
+    </p>
+  </div>
+</div>
+
+<!-- ── Detail Panel ── -->
+<div class="panel-overlay" id="panelOverlay"></div>
+<div class="detail-panel" id="detailPanel">
+  <div class="panel-header">
+    <button class="panel-close" id="panelClose">✕</button>
+    <div class="panel-actor-name" id="panelName"></div>
+    <div id="panelTierBadge"></div>
+    <div class="panel-summary" id="panelSummary"></div>
+  </div>
+  <div class="panel-body" id="panelBody"></div>
+</div>
+
+<script>
+// ── DATA ──
+const WELL_COLORS = {
+  screen: { color: '#F59E0B', label: 'Screen / Learn Well' },
+  sleep:  { color: '#6366F1', label: 'Sleep Well' },
+  eat:    { color: '#10B981', label: 'Eat Well' },
+  exercise:{ color: '#EF4444', label: 'Exercise Well' },
+  oral:   { color: '#8B5CF6', label: 'Oral Health' },
+  bond:   { color: '#EC4899', label: 'Bond Well' }
+};
+
+const ACTORS = [
+  // ── RING 1: Proximal ──
+  {
+    id: 'self',
+    name: 'Self / Youth Agency',
+    ring: 1,
+    tier: 'strong',
+    tierLabel: 'Strong Primary Evidence',
+    wells: ['screen','sleep','eat','exercise','oral','bond'],
+    position: { left: '50%', top: '30%' },
+    summary: '"I know what\'s healthy. I just can\'t keep it up when things get busy."',
+    whatWeKnow: 'Youth consistently describe knowing what\'s healthy but lacking skills to follow through — self-regulation breaks under academic pressure and fatigue. Phone use is described in near-addictive terms. Health is available; it\'s just not the deciding factor when competing with convenience, social belonging, and emotional relief. Several youth described transformation moments anchored to identity shifts (appearance, sport, academic goals) rather than health knowledge.',
+    influenceType: 'Internal — self-regulation, habit formation, identity-driven choices',
+    whatWorks: 'Youth who maintained habits described anchoring them to identity goals — appearance, energy, social confidence — rather than abstract long-term outcomes. Those who experienced a turning point connected it to a specific catalyst (a mentor, a sport, a social comparison) that made change feel personally urgent rather than externally imposed.',
+    whatBackfires: 'Guilt-based "should" messaging was described as demotivating. Abstract long-term health framing did not compete with immediate pressures. All-or-nothing expectations led to complete routine collapse after small failures.',
+    evidence: [
+      { code:'Y03', text:'"I know I should stop but I can\'t"', context:'On phone addiction', type:'youth' },
+      { code:'Y05', text:'"I have no self-control. I wish someone would forcefully tell me stop"', context:'On screen time', type:'youth' },
+      { code:'Y03', text:'"I need to see my phone before I fall asleep"', context:'On sleep routine', type:'youth' },
+      { code:'Y09', text:'"I\'m not sure why... I know it\'s good but I choose to put it to the side"', context:'On eating vegetables', type:'youth' },
+      { code:'Y04', text:'"Realised whole life bad habit. He realised he cannot continue"', context:'On habit transformation via basketball', type:'youth' },
+      { code:'Y06', text:'"Friends are doing so well... makes him want to LOCK IN"', context:'On motivation to change', type:'youth' },
+      { code:'Y10', text:'"I feel bad when I eat fast food — not at the moment of eating, but the next day I reflect"', context:'On food guilt cycle', type:'youth' },
+      { code:'Y11', text:'"Obsessed with coming better as a person as a whole, control mind, spirit and body"', context:'On self-optimization', type:'youth' }
+    ],
+    whatsMissing: null,
+    phase2: null,
+    sources: 'Y01–Y11 (IDIs), COM-B Youth Mapping, Miro Evidence Board — Youth'
+  },
+  {
+    id: 'parents',
+    name: 'Parents',
+    ring: 1,
+    tier: 'strong',
+    tierLabel: 'Strong Primary Evidence',
+    wells: ['screen','sleep','eat','exercise','oral','bond'],
+    position: { left: '27%', top: '62%' },
+    summary: '"I want to help, but everything I try either gets ignored or starts a fight."',
+    whatWeKnow: 'Parents remain the most influential actor across all 5 Wells, but their role is shifting from direct control to advisory influence during the 13–16 window. They lose visibility into daily routines at the secondary school transition. Many struggle to role-model the behaviours they ask for — particularly screen use and sleep. Primary-school strategies (reward charts, confiscation, strict rules) stop working, and parents lack replacements. The control-based approach triggers resistance; collaborative approaches maintain connection.',
+    influenceType: 'Relational — shifts from directive (structure/guidance) to collaborative (coaching/boundary-setting) across adolescence',
+    whatWorks: 'Parents who maintained influence described using environmental defaults rather than rules — removing the phone from the bedroom was more effective than imposing screen time limits. Shared activities (cooking, family sports) were the most consistent bonding channel. Youth were more receptive when agreements were negotiated collaboratively. Parents who modelled the behaviour themselves reported less resistance.',
+    whatBackfires: 'Surveillance and confiscation triggered resistance and workarounds rather than compliance. Inconsistent enforcement eroded credibility. Both youth and parents identified that asking for behaviours the parent doesn\'t practice undermined the message. Rigid rules without explained rationale were a consistent source of conflict.',
+    evidence: [
+      { code:'P03', text:'"Reward systems, such as giving stars for eating healthy meals, that worked in primary no longer work"', context:'On strategies failing in secondary', type:'parent' },
+      { code:'P07', text:'"They find ways to circumvent that via iPad"', context:'On screen time controls', type:'parent' },
+      { code:'P01', text:'"I don\'t want to confiscate his phone as other parents do — my son views this as a lack of respect"', context:'On trust-based approach', type:'parent' },
+      { code:'P10', text:'"Life with teenager not easy. They don\'t usually share. Try to stay involved even if they don\'t share"', context:'On maintaining connection', type:'parent' },
+      { code:'P05', text:'"Biggest change is the decreased visibility into their day-to-day routine"', context:'On secondary school transition', type:'parent' },
+      { code:'P06', text:'"If not controlled, it affects sleep, if lack sleep, it makes other things problem"', context:'On screen-sleep interconnection', type:'parent' },
+      { code:'P04', text:'"Setting rules but focusing on explaining the purpose of those rules... works better with teenagers"', context:'On collaborative approach', type:'parent' },
+      { code:'Y01', text:'"It\'s kind of stressful because my mother can monitor my activity"', context:'Youth perspective on parental monitoring', type:'youth' }
+    ],
+    whatsMissing: null,
+    phase2: null,
+    sources: 'P01–P10 (IDIs), Y01–Y11 (youth perspectives on parents), COM-B Parent Mapping, Miro Evidence Board — Parents'
+  },
+  {
+    id: 'peers',
+    name: 'Peers',
+    ring: 1,
+    tier: 'strong',
+    tierLabel: 'Strong Primary Evidence',
+    wells: ['eat','screen','exercise','bond'],
+    position: { left: '73%', top: '62%' },
+    summary: '"When I\'m with friends, healthy choices just... don\'t come up."',
+    whatWeKnow: 'Peer influence is the dominant force reshaping food choices, screen use norms, and social activity preferences in secondary school. Eating out with friends defaults to fast food and bubble tea — not through direct pressure but because the social context doesn\'t present healthy options. Screen use is socially embedded (gaming together, group chats requiring responsiveness). Peers also serve as primary confidants, replacing parents as the first point of emotional support. In some cases, peers provided the catalyst for positive health transformation.',
+    influenceType: 'Social normative — sets defaults through environmental context rather than direct pressure',
+    whatWorks: 'Health behaviours that were socially embedded — shared sports, group challenges — persisted because they didn\'t require choosing between health and belonging. Peer-driven transformation (e.g., friends who gym together, sports teams) created sustained motivation that external messaging could not. Where healthy options were the default in social contexts, youth adopted them without friction.',
+    whatBackfires: 'Health choices that made youth stand out negatively from the group were the strongest deterrent. Health messaging that implicitly positioned healthy behaviour against social belonging was described as irrelevant.',
+    evidence: [
+      { code:'Y03', text:'"After school I eat lunch with friends, usually at McDonald\'s or a coffee shop"', context:'On default peer food choices', type:'youth' },
+      { code:'Y01', text:'"I typically confide in my primary school friends first about personal concerns rather than my mother"', context:'On peers as emotional support', type:'youth' },
+      { code:'Y04', text:'"Met an uncle that taught him simple basketball skills... After that day, he became like want to play basketball more"', context:'On peer/mentor as transformation catalyst', type:'youth' },
+      { code:'Y10', text:'"My uncle also does gym — he\'s one of the influences for me"', context:'On peer-like role models for exercise', type:'youth' },
+      { code:'Y05', text:'"My mother encouraged exercise, sometimes motivating me with treats like ice cream for cycling"', context:'Contrast: external incentives vs peer-driven motivation', type:'youth' },
+      { code:'P05', text:'"Preference for playing games with friends and having set times to go online together"', context:'Parent view on social screen use', type:'parent' }
+    ],
+    whatsMissing: null,
+    phase2: null,
+    sources: 'Y01–Y11 (IDIs), referenced across Eat Well and Screen Use discussions, Miro Evidence Boards'
+  },
+
+  // ── RING 2: Structural ──
+  {
+    id: 'school',
+    name: 'School Environment',
+    ring: 2,
+    tier: 'inferred',
+    tierLabel: 'Inferred from Adjacent Data',
+    wells: ['exercise','eat','screen','sleep'],
+    position: { left: '16%', top: '33%' },
+    summary: 'Where habits play out 6–8 hours daily — but explored only through parent and youth references, not directly studied.',
+    whatWeKnow: 'Parents frequently offload health responsibility to schools, especially for physical activity and nutrition. School schedules directly constrain sleep through early start times. Device policies vary by school and teacher, creating inconsistent norms. The Sec 1 transition represents a major disruption to established routines. School canteen options shape daily nutritional intake but face practical constraints.',
+    influenceType: 'Structural — sets schedule constraints, environmental defaults, and normative context',
+    whatWorks: null,
+    whatBackfires: null,
+    evidence: [
+      { code:'Y01', text:'"Studies is my primary source of stress — felt all the time since Secondary 2"', context:'On academic pressure', type:'youth' },
+      { code:'P03', text:'"Queues are long, leaving only five minutes to eat"', context:'On school canteen constraints', type:'parent' },
+      { code:'P05', text:'"From strict, top-down approach in primary school to more relaxed and discussion-based approach in secondary"', context:'On transition as shift point', type:'parent' },
+      { code:'Y08', text:'"Gets a good amount of sleep (at least 6 hours)"', context:'Youth considers 6 hours adequate — below guidelines', type:'youth' }
+    ],
+    whatsMissing: 'No educator interviews were conducted. No observation of school health integration or canteen environments. No assessment of how Health Plan recommendations translate into school practice. The school-home handover gap is identified but not mapped from the school\'s perspective.',
+    phase2: null,
+    sources: 'Referenced by P03, P05, P06, P08 (IDIs); Triangulated Insights; Forbes IDI Phase 3'
+  },
+  {
+    id: 'home-env',
+    name: 'Home Physical Environment',
+    ring: 2,
+    tier: 'underexplored',
+    tierLabel: 'Under-explored',
+    wells: ['screen','sleep','eat'],
+    position: { left: '84%', top: '33%' },
+    summary: 'The physical design of the home — where the phone charges, what food is visible, how the bedroom is set up — shapes default behaviours.',
+    whatWeKnow: 'Multiple references suggest environment matters: phone in bedroom disrupts sleep, accessible healthy food increases intake, screen-free zones reduce conflict. Parents mention wanting to create "conducive environments" but lack specific guidance. GWSG Message House CTA 2 references this directly but parents report not knowing how to implement it.',
+    influenceType: 'Environmental — shapes defaults and friction through physical cues',
+    whatWorks: null,
+    whatBackfires: null,
+    evidence: [
+      { code:'Y10', text:'"If no one\'s home, order food will mostly happen — it\'s convenient"', context:'On food environment when unsupervised', type:'youth' },
+      { code:'P06', text:'"Evening come back with snacks, instant noodles... Korean food/Wingstop"', context:'On unhealthy food defaults at home', type:'parent' },
+      { code:'P04', text:'"No phones are allowed in the room for either child"', context:'On environment-based screen rule', type:'parent' },
+      { code:'Y03', text:'"Dinner is at 7:00 or 8:00 PM, which I cook myself and eat alone"', context:'On unsupervised home eating', type:'youth' }
+    ],
+    whatsMissing: 'No home environment observations or audits were conducted. No systematic mapping of physical cues and defaults across different housing types. No understanding of how home constraints differ by income, housing size, or family composition.',
+    phase2: {
+      title: 'Phase 2 Workstream: Home Environment Audit',
+      desc: 'Conduct structured observations and photo documentation of home setups (bedroom, kitchen, shared spaces) across diverse family types and housing configurations. Map physical cues, defaults, and friction points that enable or prevent healthy choices — including device charging locations, food accessibility, sleep environment quality, and available activity space. Produces actionable environmental design recommendations.'
+    },
+    sources: 'Indirect references in P01–P12 IDIs; GWSG Message House CTA framework'
+  },
+  {
+    id: 'digital-env',
+    name: 'Digital Environment',
+    ring: 2,
+    tier: 'underexplored',
+    tierLabel: 'Under-explored',
+    wells: ['screen','sleep','bond'],
+    position: { left: '84%', top: '67%' },
+    summary: 'The phone isn\'t just a screen time issue — it\'s an environment designed to capture and hold attention.',
+    whatWeKnow: 'Youth describe phone use in terms that suggest the device itself is an actor — algorithms serve content that maintains engagement, notifications interrupt sleep routines, social media creates obligations to respond. The BMC Pediatrics study identifies a destructive cycle where poor sleep increases screen dependency. Youth average 8.5 hours daily on devices. Our data treats this as "screen time" (a quantity) rather than understanding the digital environment as a designed system.',
+    influenceType: 'Algorithmic/environmental — designed to capture attention, shape behaviour through variable reward and social obligation',
+    whatWorks: null,
+    whatBackfires: null,
+    evidence: [
+      { code:'Y03', text:'"Even if I\'m tired, I\'ll still watch TikTok"', context:'On algorithmic pull', type:'youth' },
+      { code:'Y03', text:'"I go out with friends or build something... It works for one hour. When I\'m done... I just go back to my phone"', context:'On inability to break cycle', type:'youth' },
+      { code:'Y09', text:'"I watch my phone until I can fall asleep"', context:'On phone as sleep cue', type:'youth' },
+      { code:'Y10', text:'"If I cannot sleep, I will just start using phone... hoping it makes me more tired. I know it\'s a bad habit"', context:'On self-aware screen dependency', type:'youth' },
+      { code:'Y06', text:'"Screen use was the worst habit in P6. Would just come home play games for 6 hours straight"', context:'On gaming as default activity', type:'youth' }
+    ],
+    whatsMissing: 'No analysis of specific platform mechanics or algorithm effects on youth behaviour. No digital ethnography to understand how different platforms serve different emotional and social functions. No understanding of how content (not just time) shapes attitudes toward health, body image, and social norms. The attention economy as an actor is unnamed in current research.',
+    phase2: {
+      title: 'Phase 2 Workstream: Digital Behaviour Ethnography',
+      desc: 'Move beyond screen time measurement to understand how platform design, algorithmic content curation, and social dynamics within digital spaces actively shape youth behaviour and wellbeing. Includes app usage pattern analysis, content influence mapping, and understanding the distinct emotional and social functions served by different platforms (e.g., TikTok vs. WhatsApp groups vs. gaming). Produces platform-specific intervention insights.'
+    },
+    sources: 'BMC Pediatrics study (Annex C); CNA-IPS Screen Time Survey; youth IDI references to phone as "addictive"'
+  },
+  {
+    id: 'siblings',
+    name: 'Siblings & Extended Family',
+    ring: 2,
+    tier: 'inferred',
+    tierLabel: 'Inferred from Adjacent Data',
+    wells: ['bond','screen','eat'],
+    position: { left: '16%', top: '67%' },
+    summary: 'Grandparents, helpers, and siblings shape the daily caregiving environment — but were not a focus of inquiry.',
+    whatWeKnow: 'Several parents mentioned grandparents and domestic helpers as alternative caregivers with different health attitudes and rules — potentially undermining or reinforcing parental approaches. Siblings were occasionally referenced as both positive influences (older siblings modelling behaviour) and negative. Family composition and caregiving arrangements create different influence dynamics.',
+    influenceType: 'Relational/structural — creates alternative authority figures and peer-like dynamics within the home',
+    whatWorks: null,
+    whatBackfires: null,
+    evidence: [
+      { code:'P02', text:'When menstruation came, cousin came to school with supplies while wife was overseas', context:'Extended family as safety net', type:'parent' },
+      { code:'Y10', text:'"My uncle also does gym — he\'s one of the influences for me. Uncle won a bodybuilding competition before"', context:'Extended family as health role model', type:'youth' },
+      { code:'P10', text:'5 children (19M, 18M, 16F, 7F, 6F) — complex sibling dynamics shape caregiving capacity', context:'On family composition constraints', type:'parent' },
+      { code:'Y09', text:'"On Friday I come home earlier and nobody is home. I cook it myself"', context:'On self-reliance when family absent', type:'youth' }
+    ],
+    whatsMissing: 'No structured inquiry into how extended family caregivers\' attitudes and behaviours influence youth health. No understanding of sibling dynamics in health behaviour formation. The moderator guide focused exclusively on the parent-youth dyad.',
+    phase2: null,
+    sources: 'Brief references in Forbes IDI Phase 3; caregiving arrangement context in IDIs'
+  },
+
+  // ── RING 3: Systemic ──
+  {
+    id: 'hpb',
+    name: 'HPB Touchpoints & Health Plan',
+    ring: 3,
+    tier: 'underexplored',
+    tierLabel: 'Under-explored',
+    wells: ['screen','sleep','eat','exercise','oral','bond'],
+    position: { left: '50%', top: '7%' },
+    summary: 'HPB\'s own service journey — from Health Plan delivery to Healthy 365 — is the primary channel for reaching youth, but hasn\'t been assessed from the user\'s perspective.',
+    whatWeKnow: 'Parents report awareness of HPB resources but low usage. The Health Plan is delivered during school health screening with a hardcopy booklet and brief lifestyle coaching. Parents access results via HealthHub. Healthy 365 app has low sustained engagement with teens. Parents find existing resources "helpful but limited in impact." The GWSG journey has defined touchpoints (T-1 month, screening, T+1 week) but it\'s unclear how youth and parents actually experience or act on these.',
+    influenceType: 'Service/systemic — defines the official health support pathway and available resources',
+    whatWorks: null,
+    whatBackfires: null,
+    whatsMissing: 'No service design assessment of current HPB youth touchpoints. No user journey mapping from youth or parent perspective. No evaluation of Health Plan impact or engagement post-delivery. No understanding of why resource awareness doesn\'t translate to resource usage. The primary channel for reaching this age group hasn\'t been examined from the user\'s perspective.',
+    phase2: {
+      title: 'Phase 2 Workstream: HPB Service Design Audit',
+      desc: 'Map the current youth-facing HPB journey end-to-end — from pre-screening communications through Health Plan delivery, lifestyle coaching, to post-screening follow-up and Healthy 365 engagement. Assess each touchpoint for reach, relevance, and resonance with the 13–16 age group. Evaluate how the service experience aligns with youth expectations and the parent-youth dynamics identified in this research. Produces touchpoint redesign priorities.'
+    },
+    sources: 'GWSG Journey Map; Forbes IDI Phase 3 (parent resource awareness); Project Brief'
+  },
+  {
+    id: 'community',
+    name: 'Community Resources',
+    ring: 3,
+    tier: 'underexplored',
+    tierLabel: 'Under-explored',
+    wells: ['exercise','eat','bond'],
+    position: { left: '10%', top: '50%' },
+    summary: 'ActiveSG, community centres, and local programmes exist — but relevance and accessibility for teens is uncharted.',
+    whatWeKnow: 'Parents report awareness of ActiveSG incentives and community facilities but low uptake due to time constraints, lack of interest, or activities not being relevant to teens. There is a noted gap in activities tailored for teen and parent-teen bonding. Parents want more gamified and age-appropriate options. Geographic proximity and cost affect access, particularly for lower-income families.',
+    influenceType: 'Systemic/environmental — defines available options for physical activity, social engagement, and family bonding outside the home',
+    whatWorks: null,
+    whatBackfires: null,
+    whatsMissing: 'No community resource mapping conducted. No assessment of programme alignment with youth preferences identified in this research. No geographic accessibility analysis. No understanding of how lower-income families\' access constraints differ. Programmes exist but we don\'t know if they reach the right people at the right time.',
+    phase2: {
+      title: 'Phase 2 Workstream: Community Resource & Accessibility Mapping',
+      desc: 'Audit available community programmes, facilities (ActiveSG, CC activities, public sports facilities), and their alignment with youth preferences, family schedules, and accessibility constraints identified in this research. Include geographic proximity mapping, cost barrier analysis, and relevance assessment against the 5 Wells framework. Specific attention to lower-income family access. Produces resource gap analysis and programme design recommendations.'
+    },
+    sources: 'Forbes IDI Phase 3 (parent feedback on resources); Project Brief (resource preferences)'
+  },
+  {
+    id: 'mental-health',
+    name: 'Mental Health Ecosystem',
+    ring: 3,
+    tier: 'underexplored',
+    tierLabel: 'Under-explored',
+    wells: ['bond','sleep','screen'],
+    position: { left: '90%', top: '50%' },
+    summary: 'Mental health intersects every Well — youth cope with stress through screens and sacrifice sleep — but pathways to support are unmapped.',
+    whatWeKnow: 'Youth mental health prevalence has risen significantly (17.9% to 26.5% in mainstream schools, YHS 2023). Parents report youth are less willing to share issues as they age. Phone use serves emotional coping functions — removing screens without addressing the underlying need creates a vacuum. Parent-induced stigma around seeking help was flagged in the project brief. The project brief notes dovetailing with a parallel MH team HCD, but integration hasn\'t occurred within this research.',
+    influenceType: 'Systemic/relational — intersects with all Wells through emotional coping, stress response, and help-seeking pathways',
+    whatWorks: null,
+    whatBackfires: null,
+    whatsMissing: 'No mental health pathway mapping. No understanding of help-seeking barriers specific to this age group. No integration with the parallel MH HCD workstream. The emotional and stress-coping functions of "unhealthy" behaviours (screen use for comfort, food for emotional regulation) are identified as patterns but not systematically explored as mental health intersections.',
+    phase2: {
+      title: 'Phase 2 Workstream: Youth Help-Seeking Pathway Mapping',
+      desc: 'Map how 13–16 year olds currently navigate mental health and emotional wellbeing support — from initial distress through to professional help or coping strategies. Understand stigma barriers, the role of parents as gatekeepers vs. barriers, peer support pathways, and how mental health conditions intersect with the 5 Wells behaviours (screen use as coping, sleep deprivation as symptom, food as comfort). Align findings with the parallel MH HCD workstream. Produces integrated intervention recommendations.'
+    },
+    sources: 'YHS 2023 (mental health prevalence); Project Brief (parent-induced stigma, MH HCD reference); youth IDI indirect references'
+  }
+];
+
+// ── RENDER BUBBLES ──
+const landscape = document.getElementById('landscape');
+
+ACTORS.forEach(actor => {
+  const bubble = document.createElement('div');
+  bubble.className = `actor-bubble ${actor.tier}`;
+  bubble.dataset.id = actor.id;
+  bubble.style.left = actor.position.left;
+  bubble.style.top = actor.position.top;
+
+  const wellDots = actor.wells.map(w =>
+    `<div class="well-dot" style="background:${WELL_COLORS[w].color}" data-label="${WELL_COLORS[w].label}"></div>`
+  ).join('');
+
+  const tierLabels = { strong: 'PRIMARY', inferred: 'INFERRED', underexplored: 'EXPLORE' };
+
+  bubble.innerHTML = `
+    <div class="actor-name">${actor.name}</div>
+    <div class="actor-tier ${actor.tier}">${tierLabels[actor.tier]}</div>
+    <div class="actor-wells">${wellDots}</div>
+  `;
+
+  bubble.addEventListener('click', () => openPanel(actor));
+  landscape.appendChild(bubble);
+});
+
+// ── DRAW CONNECTION LINES ──
+function drawConnections() {
+  const svg = document.getElementById('connectionsSvg');
+  const cx = 460, cy = 460; // center of youth in the 920x920 viewBox
+  let lines = '';
+
+  ACTORS.forEach(actor => {
+    const pctL = parseFloat(actor.position.left) / 100;
+    const pctT = parseFloat(actor.position.top) / 100;
+    const ax = pctL * 920;
+    const ay = pctT * 920;
+    lines += `<line class="conn-line ${actor.tier}" x1="${cx}" y1="${cy}" x2="${ax}" y2="${ay}" />`;
+  });
+
+  svg.innerHTML = lines;
+}
+drawConnections();
+
+// ── DETAIL PANEL ──
+const panelOverlay = document.getElementById('panelOverlay');
+const detailPanel = document.getElementById('detailPanel');
+const panelClose = document.getElementById('panelClose');
+let activeId = null;
+
+function openPanel(actor) {
+  // Deactivate previous
+  document.querySelectorAll('.actor-bubble.active').forEach(b => b.classList.remove('active'));
+  // Activate current
+  document.querySelector(`.actor-bubble[data-id="${actor.id}"]`)?.classList.add('active');
+  activeId = actor.id;
+
+  // Header
+  document.getElementById('panelName').textContent = actor.name;
+  document.getElementById('panelTierBadge').innerHTML =
+    `<span class="panel-tier-badge ${actor.tier}">${actor.tierLabel}</span>`;
+  document.getElementById('panelSummary').textContent = actor.summary;
+
+  // Body
+  let html = '';
+
+  // Wells
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Wells Influenced</div>
+    <div class="panel-wells-grid">
+      ${actor.wells.map(w => `<div class="panel-well-chip"><span class="chip-dot" style="background:${WELL_COLORS[w].color}"></span>${WELL_COLORS[w].label}</div>`).join('')}
+    </div>
+  </div>`;
+
+  // What we know
+  if (actor.whatWeKnow) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">What the Data Tells Us</div>
+      <div class="panel-section-content">${actor.whatWeKnow}</div>
+    </div>`;
+  }
+
+  // Influence type
+  if (actor.influenceType) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Influence Type</div>
+      <div class="panel-section-content">${actor.influenceType}</div>
+    </div>`;
+  }
+
+  // What works / backfires (only for strong evidence actors)
+  if (actor.whatWorks) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Observed Influence Patterns</div>
+      <div class="panel-influence-item works">
+        <div class="inf-label">Where Influence Lands</div>
+        ${actor.whatWorks}
+      </div>
+      ${actor.whatBackfires ? `<div class="panel-influence-item backfires">
+        <div class="inf-label">Where Influence Fails</div>
+        ${actor.whatBackfires}
+      </div>` : ''}
+    </div>`;
+  }
+
+  // Evidence quotes
+  if (actor.evidence && actor.evidence.length > 0) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Participant Evidence</div>
+      <div class="evidence-grid">
+        ${actor.evidence.map(e => `<div class="evidence-quote ${e.type === 'parent' ? 'parent-quote' : ''}">
+          <div class="eq-text">${e.text}</div>
+          <div class="eq-meta">
+            <span class="eq-code">${e.code}</span>
+            <span class="eq-context">${e.context}</span>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  // What's missing
+  if (actor.whatsMissing) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">What We Don't Yet Know</div>
+      <div class="panel-section-content">${actor.whatsMissing}</div>
+    </div>`;
+  }
+
+  // Phase 2 workstream
+  if (actor.phase2) {
+    html += `<div class="panel-section">
+      <div class="panel-section-title">Recommended Research Extension</div>
+      <div class="phase2-callout">
+        <div class="phase2-title">${actor.phase2.title}</div>
+        <div class="phase2-desc">${actor.phase2.desc}</div>
+      </div>
+    </div>`;
+  }
+
+  // Sources
+  html += `<div class="panel-section">
+    <div class="panel-section-title">Evidence Sources</div>
+    <div class="panel-sources">${actor.sources}</div>
+  </div>`;
+
+  document.getElementById('panelBody').innerHTML = html;
+
+  panelOverlay.classList.add('open');
+  detailPanel.classList.add('open');
+  detailPanel.scrollTop = 0;
+}
+
+function closePanel() {
+  panelOverlay.classList.remove('open');
+  detailPanel.classList.remove('open');
+  document.querySelectorAll('.actor-bubble.active').forEach(b => b.classList.remove('active'));
+  activeId = null;
+}
+
+panelClose.addEventListener('click', closePanel);
+panelOverlay.addEventListener('click', closePanel);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closePanel();
+});
+</script>
+
+</body>
+</html>

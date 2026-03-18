@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transition Map — Youth Health Behaviour Decline (13–16yo)</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --surface: #f5f6f8;
+  --surface2: #eef0f4;
+  --border: #d8dbe4;
+  --text: #1a1d2b;
+  --text-dim: #5a5f75;
+  --text-muted: #8b90a5;
+  --accent: #3b5bdb;
+  --accent-dim: rgba(59,91,219,0.1);
+  --sleep: #7b6cf6;
+  --eat: #2ba56e;
+  --exercise: #e68a2e;
+  --screen: #e04343;
+  --learn: #14b8a6;
+  --oral: #1a9bcf;
+  --bond: #c084fc;
+  --gap: rgba(200,160,30,0.08);
+  --gap-border: #b8951f;
+  --font: 'Roboto', -apple-system, sans-serif;
+  --mono: 'Roboto Mono', monospace;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:var(--font); line-height:1.5; }
+
+.page { max-width:1200px; margin:0 auto; padding:24px 32px 48px; }
+
+/* Header */
+.header {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid var(--border);
+}
+.header h1 { font-size:22px; font-weight:700; letter-spacing:-0.5px; }
+.header .subtitle { font-size:13px; color:var(--text-dim); margin-top:4px; max-width:700px; }
+.header .meta { text-align:right; font-size:11px; color:var(--text-muted); font-family:var(--mono); }
+.badge { display:inline-block; padding:3px 10px; border-radius:4px; font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; margin-left:6px; }
+.badge-qual { background:rgba(108,140,255,0.15); color:var(--accent); }
+.badge-n { background:rgba(60,201,138,0.15); color:var(--eat); }
+
+/* ============================================================
+   TRANSITION TABS
+   ============================================================ */
+.transition-tabs {
+  display:flex; gap:0; border-bottom:2px solid var(--border); margin-bottom:0;
+}
+.t-tab {
+  flex:1; padding:14px 12px 12px; text-align:center;
+  background:none; border:none; cursor:pointer;
+  font-family:var(--font); font-size:12px; font-weight:600;
+  color:var(--text-muted); position:relative; transition:all 0.2s;
+  border-right:1px solid var(--border);
+}
+.t-tab:last-child { border-right:none; }
+.t-tab:hover { background:var(--surface); color:var(--text-dim); }
+.t-tab.active { color:var(--accent); background:var(--surface); }
+.t-tab.active::after {
+  content:''; position:absolute; bottom:-2px; left:0; right:0;
+  height:2px; background:var(--accent); border-radius:2px 2px 0 0;
+}
+.t-tab .tab-from-to { font-family:var(--mono); font-size:13px; font-weight:700; display:block; margin-bottom:2px; }
+.t-tab .tab-title { font-size:10px; font-weight:500; display:block; }
+.t-tab .tab-severity {
+  display:inline-block; padding:1px 6px; border-radius:3px;
+  font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;
+  margin-top:4px;
+}
+.tab-severity.critical { background:rgba(224,67,67,0.12); color:#e04343; }
+.tab-severity.moderate { background:rgba(230,138,46,0.12); color:#c67520; }
+
+/* ============================================================
+   DETAIL VIEW
+   ============================================================ */
+.detail-view {
+  background:var(--surface); border:1px solid var(--border); border-top:none;
+  border-radius:0 0 12px 12px; padding:28px 32px 32px;
+}
+
+/* Section 1: Description */
+.detail-desc {
+  font-size:14px; color:var(--text-dim); line-height:1.7; margin-bottom:20px;
+}
+
+/* Section 2: Criticality */
+.criticality-box {
+  padding:14px 18px; border-radius:8px; margin-bottom:24px;
+  border:1px solid rgba(224,67,67,0.2); background:rgba(224,67,67,0.04);
+}
+.criticality-box .crit-label {
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;
+  color:#e04343; margin-bottom:6px;
+}
+.criticality-box .crit-text { font-size:12.5px; color:var(--text); line-height:1.6; }
+
+/* Section heading */
+.section-title {
+  font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;
+  letter-spacing:0.5px; margin-bottom:14px; padding-bottom:6px; border-bottom:1px solid var(--border);
+}
+
+/* Section 3: Learning Cards */
+.learning-cards { display:flex; flex-direction:column; gap:16px; margin-bottom:28px; }
+.learn-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:10px;
+  padding:20px; transition:border-color 0.2s;
+}
+.learn-card:hover { border-color:var(--accent); }
+.learn-card-title {
+  font-size:14px; font-weight:700; color:var(--text); margin-bottom:14px;
+  display:flex; align-items:baseline; gap:10px; line-height:1.35;
+}
+.learn-card-num {
+  display:inline-flex; align-items:center; justify-content:center;
+  width:22px; height:22px; min-width:22px; border-radius:50%;
+  background:var(--accent); color:white; font-size:11px; font-weight:700; font-family:var(--mono);
+}
+.sub-label {
+  font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;
+}
+.sub-label.learning-label { color:var(--accent); }
+.sub-label.underneath-label { color:var(--exercise); }
+.learn-card-text { font-size:12.5px; color:var(--text); line-height:1.65; margin-bottom:14px; }
+.quote-block {
+  padding:10px 14px; background:var(--surface); border-left:3px solid var(--accent);
+  border-radius:0 6px 6px 0; margin-bottom:8px;
+}
+.quote-block .q-text { font-size:12px; font-style:italic; color:var(--text); line-height:1.55; }
+.quote-block .q-source { font-size:10px; font-family:var(--mono); color:var(--text-muted); margin-top:4px; }
+
+/* Section 4: Well Drift (before → after) */
+.drift-section { margin-bottom:28px; }
+.drift-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(140px, 1fr)); gap:10px;
+}
+.drift-card {
+  background:var(--bg); border:1px solid var(--border); border-radius:8px;
+  padding:12px 14px; text-align:center; transition:all 0.2s; position:relative;
+}
+.drift-card:hover { border-color:var(--accent); }
+.drift-card.major-drop { border-left:3px solid #e04343; }
+.drift-card .well-name { font-size:10px; font-weight:600; margin-bottom:8px; }
+.drift-card .well-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:4px; vertical-align:middle; }
+.drift-scores {
+  display:flex; align-items:center; justify-content:center; gap:6px;
+  font-family:var(--mono); font-size:15px; font-weight:700;
+}
+.drift-scores .before { color:var(--text-muted); }
+.drift-scores .arrow { color:var(--text-muted); font-size:12px; font-weight:400; }
+.drift-scores .after { color:var(--text); }
+.drift-delta {
+  margin-top:6px; font-family:var(--mono); font-size:12px; font-weight:700;
+}
+.drift-delta.negative { color:#c0392b; }
+.drift-delta.neutral { color:var(--text-muted); }
+.drift-delta.positive { color:#27ae60; }
+
+/* Mini bar chart showing before/after */
+.drift-bars {
+  margin-top:10px; display:flex; gap:4px; align-items:flex-end; justify-content:center; height:40px;
+}
+.drift-bar-pair {
+  display:flex; gap:2px; align-items:flex-end;
+}
+.drift-bar {
+  width:16px; border-radius:3px 3px 0 0; transition:height 0.4s ease;
+  position:relative;
+}
+.drift-bar .bar-label {
+  position:absolute; top:-14px; left:50%; transform:translateX(-50%);
+  font-size:8px; font-family:var(--mono); font-weight:600; white-space:nowrap;
+}
+.drift-note { font-size:9px; color:var(--text-muted); margin-top:8px; line-height:1.3; font-style:italic; }
+
+/* Section 5: Confidence Note */
+.confidence-note {
+  padding:14px 18px; background:var(--gap); border:1px dashed var(--gap-border);
+  border-radius:8px; font-size:11px; color:#8a7620; line-height:1.6;
+}
+.confidence-note strong {
+  display:block; margin-bottom:3px; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.5px; color:#b8951f;
+}
+
+/* Cross-link bar */
+.cross-link {
+  display:inline-flex; align-items:center; gap:6px; padding:8px 14px;
+  background:rgba(59,91,219,0.06); border:1px solid rgba(59,91,219,0.15);
+  border-radius:6px; font-size:11px; font-weight:600; color:var(--accent);
+  text-decoration:none; margin-bottom:20px; transition:all 0.2s;
+}
+.cross-link:hover { background:rgba(59,91,219,0.12); border-color:var(--accent); }
+.cross-link .cl-arrow { font-size:13px; }
+
+/* Responsive */
+@media (max-width:900px) {
+  .page { padding:16px; }
+  .transition-tabs { flex-wrap:wrap; }
+  .t-tab { min-width:120px; }
+  .drift-grid { grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); }
+  .header { flex-direction:column; gap:12px; }
+  .header .meta { text-align:left; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <div>
+      <h1>🔄 Transition Map <span class="badge badge-qual">Qualitative</span><span class="badge badge-n">N=24</span></h1>
+      <div class="subtitle">Where healthy behaviours break down — 5 transition zones mapped with well-level drift, evidence-based learnings, and confidence ratings. Click each transition to explore.</div>
+    </div>
+    <div class="meta">
+      YPS Youth HCD 2025<br>
+      HPB × Zühlke<br>
+      Discovery Phase
+    </div>
+  </div>
+
+  <div class="transition-tabs" id="tabs"></div>
+  <div class="detail-view" id="detail"></div>
+
+</div>
+
+<script>
+// ============================================================
+// SCORES (from ecosystem blueprint — 1-5 scale)
+// ============================================================
+// Indices: 0=P3-P4, 1=P5-P6, 2=Sec1, 3=Sec2, 4=Sec3, 5=Sec4, 6=JC/Poly
+const SCORES = {
+  sleep:    [4.5, 4.0, 2.5,  1.75, 1.5,  1.25, 1.25],
+  eat:      [4.5, 4.25,3.0,  2.75, 2.5,  2.25, 2.0],
+  exercise: [4.5, 4.25,4.0,  3.5,  2.0,  1.75, 1.5],
+  screen:   [3.5, 2.25,1.75, 1.5,  1.25, 1.25, 1.25],
+  learn:    [4.0, 3.5, 3.25, 2.75, 2.5,  2.25, 2.0],
+  oral:     [4.5, 4.5, 4.25, 4.0,  3.5,  3.5,  3.5],
+  bond:     [4.5, 4.25,3.25, 2.5,  2.0,  1.75, 1.5],
+};
+
+const STAGE_LABELS = ['P3–P4','P5–P6','Sec 1','Sec 2','Sec 3','Sec 4','JC/Poly'];
+
+const WELL_META = {
+  sleep:    { name:'Sleep Well',       color:'#7b6cf6', icon:'🌙' },
+  eat:      { name:'Eat Well',         color:'#2ba56e', icon:'🥗' },
+  exercise: { name:'Exercise Well',    color:'#e68a2e', icon:'🏃' },
+  screen:   { name:'Screen / Devices', color:'#e04343', icon:'📱' },
+  learn:    { name:'Learn Well',       color:'#14b8a6', icon:'📚' },
+  oral:     { name:'Oral Health',      color:'#1a9bcf', icon:'🦷' },
+  bond:     { name:'Bond Well',        color:'#c084fc', icon:'🤝' },
+};
+
+const WELLS_ORDER = ['sleep','eat','exercise','screen','learn','oral','bond'];
+
+// Cross-link to swimlanes file (maps transition index → swimlane zone ID)
+const SWIMLANE_LINK = { 0:'p6sec1', 2:'sec2sec3', 4:'sec4jc' };
+
+// ============================================================
+// PER-WELL NOTES for each transition (contextual colour)
+// ============================================================
+const WELL_NOTES = {
+  // P5-P6 → Sec 1
+  0: {
+    sleep:    'Steepest single drop — bedtime enforcement ends abruptly',
+    eat:      'Canteen shift — first autonomous food choices, no skills',
+    exercise: 'CCA cushions this — holds better than other wells',
+    screen:   'Independent device access widens',
+    learn:    'Homework becomes primary learning driver',
+    oral:     'Largely self-sustaining — minor dip',
+    bond:     'Communication frequency drops sharply',
+  },
+  // Sec 1 → Sec 2
+  1: {
+    sleep:    'Drift continues — screen-sleep loop begins forming',
+    eat:      'Peer eating norms establish; convenience becomes default',
+    exercise: 'CCA still holds — gradual decline only',
+    screen:   'Already near floor — minimal further drop',
+    learn:    'Screen displaces purposeful engagement',
+    oral:     'Self-management gaps starting',
+    bond:     'Conversations narrow to transactional',
+  },
+  // Sec 2 → Sec 3
+  2: {
+    sleep:    'Already near floor — doom loop entrenched',
+    eat:      'Meal skipping increases under pressure',
+    exercise: 'SHARPEST CLIFF — academic pressure kills non-identity exercise',
+    screen:   'Fully embedded — cannot decline further',
+    learn:    'Academic focus narrows learning',
+    oral:     'Caries peak window (12-15yo)',
+    bond:     'Nagging dynamic entrenched',
+  },
+  // Sec 3 → Sec 4
+  3: {
+    sleep:    'At floor — no further decline possible',
+    eat:      'Convenience eating locked in',
+    exercise: 'Survives only if identity-anchored',
+    screen:   'Plateau — fully embedded',
+    learn:    'O Level pressure overrides all',
+    oral:     'Stable at reduced level',
+    bond:     'Safety net only — minimal daily influence',
+  },
+  // Sec 4 → JC/Poly
+  4: {
+    sleep:    'At floor — no recovery without intervention',
+    eat:      'Full autonomy — no family meal anchor',
+    exercise: 'No new structural driver — stays near floor',
+    screen:   'Fully embedded in daily life',
+    learn:    'New environment, no health scaffolding',
+    oral:     'Stable — autonomous habit',
+    bond:     'Minimal daily influence remains',
+  },
+};
+
+// ============================================================
+// TRANSITION DATA
+// ============================================================
+const TRANSITIONS = [
+  {
+    id: 'tz1', from: 'P5/P6', to: 'Sec 1', fromIdx: 1, toIdx: 2,
+    title: 'The Structure Drops Away',
+    severity: 'critical',
+    desc: 'The move from primary to secondary school appeared across interviews as the point where parent-held structures — set mealtimes, enforced bedtimes, controlled screen access — loosened before youth had developed the skills to self-manage. The data surfaced this as a "handover" that happens by default rather than by design.',
+    whyCritical: 'This transition showed the steepest combined drop across multiple wells simultaneously. Sleep lost 1.5 points (the single largest drop for any well at any transition), Eat lost 1.25 points, and Bond lost 1.0 point. Unlike later transitions where declines are gradual, this one appeared abrupt — structures disappeared faster than replacement skills could form. It also sets the baseline from which all subsequent declines compound.',
+    cards: [
+      {
+        title: 'Eating autonomy arrives before food skills',
+        learning: 'Several youth described gaining eating autonomy in Sec 1 (choosing from canteen, hawker centres) without a clear sense of what constitutes a balanced meal. Parents reported assuming the school would provide guidance that didn\'t always materialise.',
+        underneath: 'The shift from family-provided meals to self-selected meals happened faster than either party expected. What appeared as "poor choices" may reflect a gap in practical food skills rather than deliberate neglect of nutrition.',
+        quotes: [
+          { text: 'I don\'t really know what\'s healthy at the canteen. I just buy what my friends buy, or whatever is cheapest.', source: 'Y03, 14, M' },
+          { text: 'In primary school, I packed her lunch every day. Sec 1... she said it was embarrassing. So I stopped.', source: 'P04, parent of 14yo M' },
+        ]
+      },
+      {
+        title: 'Sleep is the most vulnerable handover',
+        learning: 'Sleep was the behaviour where parental withdrawal appeared most abrupt. Multiple parents described stopping bedtime enforcement at Sec 1, framing it as "they\'re old enough now." Youth described staying up later but not knowing how to self-regulate.',
+        underneath: 'Sleep appears to be the most vulnerable habit at this transition because it had no internal driver — it was purely parent-enforced. Unlike exercise (which can be identity-anchored via CCA) or eating (which has social triggers), sleep had no replacement structure once parental rules loosened.',
+        quotes: [
+          { text: 'In Sec 1, my mom stopped telling me to sleep. I started sleeping at midnight, then 1am. No one said anything.', source: 'Y08, 15, M' },
+          { text: 'Sec 1 was when we decided — okay, you\'re big enough. Manage your own bedtime. Looking back, maybe we let go too fast.', source: 'P07, parent of 13yo & 17yo M' },
+        ]
+      },
+      {
+        title: 'Stepping back without scaffolding',
+        learning: 'Parents described the Sec 1 transition as a conscious decision to "step back" — but youth didn\'t always experience this as intended. Some interpreted it as disinterest, while others welcomed the freedom but felt unprepared.',
+        underneath: 'Both sides want the same thing — youth developing independence — but the mechanism of how this handover happens matters more than the timing. Stepping back without scaffolding the transition creates a gap where habits drift rather than evolve.',
+        quotes: [
+          { text: 'My parents just... stopped checking. I didn\'t know if they trusted me or just gave up.', source: 'Y12, 16, F' },
+          { text: 'We see Sec 1 as the time for them to take charge. But maybe we should have been more deliberate about how we passed the baton.', source: 'P05, parent of 13yo M' },
+        ]
+      },
+    ],
+    disclaimer: 'These observations draw on N=24 interviews (12 youth, 12 parents). The transition from P5-P6 to Sec 1 was frequently referenced in retrospect by older participants — direct evidence from youth currently at this transition point is limited. Patterns described here are directional, not definitive.'
+  },
+  {
+    id: 'tz2', from: 'Sec 1', to: 'Sec 2', fromIdx: 2, toIdx: 3,
+    title: 'New Norms Settle',
+    severity: 'moderate',
+    desc: 'Post-transition drift settles into patterns. The screen-sleep loop begins forming as a reinforcing cycle. Peer-driven eating norms establish — canteen and hawker choices become habitual. Youth develop a "new normal" that is already below baseline. Bond Well continues to erode as conversations narrow.',
+    whyCritical: null,
+    cards: [
+      {
+        title: 'The "new normal" settles below guidelines',
+        learning: 'By Sec 2, several youth described their habits as "just how things are" — late nights, screen-heavy routines, and convenience eating had become normalised rather than questioned. Parents described noticing the drift but feeling the window to intervene had passed.',
+        underneath: 'This settling phase may be significant because it represents the moment where unhealthy patterns become identity-consistent. Once a behaviour feels "normal," the motivation to change shifts from maintenance (easy) to active change (hard).',
+        quotes: [
+          { text: 'I don\'t really think about it anymore. This is just how I live now.', source: 'Y03, 14, M' },
+          { text: 'By Sec 2, I stopped asking him about his sleep. It felt like nagging. But nothing improved on its own.', source: 'P09, parent of 15yo F' },
+        ]
+      },
+      {
+        title: 'Screen-sleep loop begins forming',
+        learning: 'The early pattern of screen use before bed, initially occasional in Sec 1, appeared to become habitual by Sec 2. Youth described it as a "need" rather than a choice — checking the phone was the last thing before sleep and first thing on waking.',
+        underneath: 'The transition from occasional to habitual screen-sleep overlap may represent a critical window — once the loop is established, breaking it becomes significantly harder. Interventions targeting this Sec 1→2 settling period could interrupt the pattern before it entrenches.',
+        quotes: [
+          { text: 'I need to see my phone before I fall asleep. It\'s not even a choice anymore.', source: 'Y03, 14, M' },
+        ]
+      },
+    ],
+    disclaimer: 'The Sec 1 to Sec 2 transition was described by participants as gradual rather than event-driven, making it harder to pinpoint. Patterns reflect retrospective accounts and may conflate Sec 1 and Sec 2 experiences.'
+  },
+  {
+    id: 'tz3', from: 'Sec 2', to: 'Sec 3', fromIdx: 3, toIdx: 4,
+    title: 'Peer Overtakes, Pressure Compounds',
+    severity: 'critical',
+    desc: 'By Sec 2–3, peer influence became the primary reference point for daily choices — what to eat, when to sleep, how to spend time. Academic pressure intensified simultaneously, and the screen-sleep connection deepened into a reinforcing loop that youth described being unable to break.',
+    whyCritical: 'This transition is where the most opportunity areas cluster (7 of 17). Exercise shows its sharpest cliff (−1.5 points), driven by academic pressure eliminating non-identity-anchored physical activity. The screen-sleep doom loop becomes entrenched. Parent-youth communication narrows to transactional nagging, reducing the effectiveness of the last remaining adult lever. This is also where peer influence crosses above parental influence — the critical handover point for who shapes daily health choices.',
+    cards: [
+      {
+        title: 'Exercise survives only when identity-anchored',
+        learning: 'Youth who maintained exercise through Sec 2–3 shared a common trait: they\'d anchored it to identity (e.g. "I\'m a runner," "gym is my thing") rather than treating it as a health obligation. Those without this anchor described exercise as the first thing dropped under academic pressure.',
+        underneath: 'Exercise retention may have less to do with motivation or access and more to do with whether the behaviour became part of how youth see themselves. Worth exploring whether this identity-anchoring mechanism could be supported earlier — before the pressure peak.',
+        quotes: [
+          { text: 'Gym is literally who I am now. I\'ll skip homework before I skip the gym.', source: 'Y06, 16, M' },
+          { text: 'I used to swim three times a week. Then tuition started. Then exams. Now I don\'t do anything.', source: 'Y09, 15, F' },
+        ]
+      },
+      {
+        title: 'The screen-sleep loop becomes entrenched',
+        learning: 'The screen-sleep pattern appeared most entrenched at this stage. Youth described a cycle: stay up late on screens → wake tired → rely on screens for stimulation → stay up late again. Several expressed awareness of the loop but felt unable to break it.',
+        underneath: 'Youth recognised the pattern but lacked practical strategies for interrupting it. The common framing was "I have no self-control" — but this may reflect an absence of skills rather than a character deficit. The loop also worsened when academic demands provided a legitimate reason to stay up late.',
+        quotes: [
+          { text: 'I know I should sleep earlier. I just... can\'t. I\'ll say one more video, then it\'s 2am.', source: 'Y05, 15, M' },
+          { text: 'He says he\'s studying. I check, and he\'s on TikTok. But I can\'t police a 15-year-old every night.', source: 'P03, parent of 14yo F&M' },
+        ]
+      },
+      {
+        title: 'Parent-youth communication narrows to nagging',
+        learning: 'Parent-youth communication at this stage appeared to narrow — conversations about health became shorter, more transactional, and more likely to trigger conflict. Several youth described avoiding health topics because they anticipated nagging.',
+        underneath: 'Youth didn\'t reject guidance itself, but the way it was typically delivered — repetitive reminders or surveillance-style checking. Where parents shifted to more conversational approaches, youth appeared more receptive.',
+        quotes: [
+          { text: 'Every time my mom talks to me it\'s "did you eat", "go sleep", "stop your phone." I just tune it out now.', source: 'Y04, 14, F' },
+          { text: 'I try to ask how school was, but she just says "fine." The conversations stopped somewhere around Sec 2.', source: 'P09, parent of 15yo F' },
+        ]
+      },
+    ],
+    disclaimer: 'These patterns reflect participant accounts of their experiences during Sec 2–3. The screen-sleep connection was the most frequently cited pattern across the sample but has not been quantitatively measured in this study.'
+  },
+  {
+    id: 'tz4', from: 'Sec 3', to: 'Sec 4', fromIdx: 4, toIdx: 5,
+    title: 'Lock-in or Break',
+    severity: 'moderate',
+    desc: 'Exam pressure peaks. Habits either lock in via identity anchors or deteriorate further. "Health can wait, O Levels cannot." The parent role narrows to a safety net — occasional check-ins rather than daily guidance. Screen and sleep are already at or near floor, so the visible decline slows, but habits are simply entrenched at their lowest.',
+    whyCritical: null,
+    cards: [
+      {
+        title: 'Identity anchors determine who survives this stage',
+        learning: 'By Sec 3–4, the sample divided into two groups: those who had anchored at least one health behaviour to identity (gym, sport, cooking), and those for whom all health behaviours were in decline. The identity-anchored group maintained that behaviour even under exam pressure.',
+        underneath: 'This "lock-in or break" pattern suggests that by Sec 4, the window for broad behaviour change has narrowed. Interventions at this stage may be more effective if they strengthen existing anchors rather than introduce new behaviours.',
+        quotes: [
+          { text: 'Health can wait. O Levels cannot.', source: 'Y06, 16, M' },
+          { text: 'I know I\'m not eating well or sleeping enough. But right now, getting into a good course matters more. I\'ll fix it later.', source: 'Y10, 16, F' },
+        ]
+      },
+      {
+        title: 'Parents become safety net, not daily guide',
+        learning: 'Parents of Sec 4 youth described their role as "being there if needed" rather than actively guiding daily habits. Several framed this as a conscious choice; others described it as the result of repeated failed attempts to intervene.',
+        underneath: 'The shift to safety-net parenting appears to be both intentional (respecting autonomy) and the result of accumulated friction. Worth exploring whether parents could be given a new role vocabulary — from "enforcer" to "consultant" — with practical tools for that mode.',
+        quotes: [
+          { text: 'I just make sure dinner is on the table and the house is quiet after 10. Beyond that, it\'s his life now.', source: 'P07, parent of 13yo & 17yo M' },
+        ]
+      },
+    ],
+    disclaimer: 'The Sec 3–4 transition was primarily described by Sec 4 participants reflecting on the past year. Exam pressure was universally cited as the dominant factor, but the extent to which it causally drives health decline versus serves as a rationalisation remains unclear from qualitative data alone.'
+  },
+  {
+    id: 'tz5', from: 'Sec 4', to: 'JC/Poly/ITE', fromIdx: 5, toIdx: 6,
+    title: 'Full Autonomy, Depleted Structures',
+    severity: 'critical',
+    desc: 'The post-secondary transition was the least directly evidenced in our sample (bookend stage, largely estimated from literature and retrospective accounts). What emerged was a picture of youth entering full autonomy with habits already at their lowest and school-based health support structures dropping away.',
+    whyCritical: 'This transition is critical not because of a sharp drop (most wells are already near floor) but because of a structural vacuum. School health screening stops. CCAs end. Parental involvement is minimal. There is no "reset moment" — depleted habits simply carry over into a context with even less scaffolding. The accumulated drift from Sec 1–4 compounds without any countervailing force.',
+    cards: [
+      {
+        title: 'Depleted habits carry over — no reset moment',
+        learning: 'The few participants who described the post-sec transition painted a picture of habits that were already depleted carrying over — there was no "reset" moment. Convenience-driven eating, embedded screen patterns, and minimal exercise continued unless the youth had already found identity anchors.',
+        underneath: 'Rather than a sharp drop, this transition is characterised by a structural vacuum — school health screening stops, CCAs end, parental involvement is minimal. The absence of new structures compounds the accumulated drift from Sec 1–4.',
+        quotes: [
+          { text: 'When I go poly, I\'ll be on my own. My parents won\'t know what I eat, when I sleep. That\'s kind of scary actually.', source: 'Y11, 16, M' },
+          { text: 'My older one went to JC. His habits got worse, not better. More freedom, less structure. We didn\'t know how to help from home.', source: 'P07, parent of 13yo & 17yo M' },
+        ]
+      },
+      {
+        title: 'Health becomes "something to fix later"',
+        learning: 'Several Sec 4 youth described future planning (career, finances, further education) as completely overriding health. Health was framed as something to "deal with later" — after exams, after securing a place.',
+        underneath: 'This mirrors "perceived invincibility" from literature, but with a nuance: it\'s not that youth believe they\'re invincible, but that health feels non-urgent compared to immediate academic and career demands. The trade-off appears rational from their perspective.',
+        quotes: [
+          { text: 'Health can wait. O Levels cannot.', source: 'Y06, 16, M' },
+          { text: 'I know I\'m not eating well or sleeping enough. But right now, getting into a good course matters more. I\'ll fix it later.', source: 'Y10, 16, F' },
+        ]
+      },
+    ],
+    disclaimer: 'This transition zone has the weakest evidence base in our sample. The JC/Poly/ITE stage is estimated from literature, retrospective parent accounts, and a small number of Sec 4 youth projecting forward. Direct evidence from youth currently navigating this transition was not captured in this study phase.'
+  }
+];
+
+// ============================================================
+// RENDER
+// ============================================================
+
+let activeIdx = 0;
+
+function renderTabs() {
+  const el = document.getElementById('tabs');
+  el.innerHTML = TRANSITIONS.map((t, i) =>
+    `<button class="t-tab${i===activeIdx?' active':''}" onclick="select(${i})">
+      <span class="tab-from-to">${t.from} → ${t.to}</span>
+      <span class="tab-title">${t.title}</span>
+      <span class="tab-severity ${t.severity}">${t.severity==='critical'?'● Critical':'◐ Moderate'}</span>
+    </button>`
+  ).join('');
+}
+
+function renderDetail() {
+  const t = TRANSITIONS[activeIdx];
+  const notes = WELL_NOTES[activeIdx];
+  let h = '';
+
+  // 1. DESCRIPTION
+  h += `<div class="detail-desc">${t.desc}</div>`;
+
+  // CROSS-LINK to swimlanes (if available for this transition)
+  if (SWIMLANE_LINK[activeIdx] !== undefined) {
+    const zoneId = SWIMLANE_LINK[activeIdx];
+    h += `<a class="cross-link" href="transition_swimlanes.html#${zoneId}" target="_blank">
+      <span class="cl-arrow">→</span> View day-in-life swimlane for this transition (Who does what, when)
+    </a>`;
+  }
+
+  // 2. WHY CRITICAL
+  if (t.whyCritical) {
+    h += `<div class="criticality-box">
+      <div class="crit-label">⚠ Why this transition is critical</div>
+      <div class="crit-text">${t.whyCritical}</div>
+    </div>`;
+  }
+
+  // 3. LEARNING CARDS
+  h += '<div class="section-title">What the Data Surfaced</div>';
+  h += '<div class="learning-cards">';
+  t.cards.forEach((c, i) => {
+    h += '<div class="learn-card">';
+    h += `<div class="learn-card-title"><span class="learn-card-num">${i+1}</span>${c.title}</div>`;
+    h += '<div class="sub-label learning-label">Learning (what we saw)</div>';
+    h += `<div class="learn-card-text">${c.learning}</div>`;
+    h += '<div class="sub-label underneath-label">What\'s underneath</div>';
+    h += `<div class="learn-card-text">${c.underneath}</div>`;
+    (c.quotes||[]).forEach(q => {
+      h += `<div class="quote-block"><div class="q-text">"${q.text}"</div><div class="q-source">— ${q.source}</div></div>`;
+    });
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // 4. WELL DRIFT (before → after)
+  h += '<div class="drift-section">';
+  h += `<div class="section-title">Well Drift: ${STAGE_LABELS[t.fromIdx]} → ${STAGE_LABELS[t.toIdx]}</div>`;
+  h += '<div class="drift-grid">';
+  WELLS_ORDER.forEach(well => {
+    const m = WELL_META[well];
+    const before = SCORES[well][t.fromIdx];
+    const after  = SCORES[well][t.toIdx];
+    const delta  = after - before;
+    const deltaStr = delta > 0.001 ? `+${delta.toFixed(2)}` : delta < -0.001 ? delta.toFixed(2) : '0.00';
+    const deltaClass = delta < -0.01 ? 'negative' : delta > 0.01 ? 'positive' : 'neutral';
+    const isMajor = delta <= -1.0;
+    const barMaxH = 36; // px
+    const bH = (before / 5) * barMaxH;
+    const aH = (after / 5)  * barMaxH;
+    const note = notes[well] || '';
+
+    h += `<div class="drift-card${isMajor?' major-drop':''}">`;
+    h += `<div class="well-name"><span class="well-dot" style="background:${m.color}"></span>${m.icon} ${m.name}</div>`;
+    h += `<div class="drift-scores">
+      <span class="before">${before.toFixed(1)}</span>
+      <span class="arrow">→</span>
+      <span class="after">${after.toFixed(1)}</span>
+    </div>`;
+    h += `<div class="drift-delta ${deltaClass}">${deltaStr}</div>`;
+
+    // Mini before/after bar pair
+    h += '<div class="drift-bars"><div class="drift-bar-pair">';
+    h += `<div class="drift-bar" style="height:${bH}px;background:${m.color}44;"><span class="bar-label" style="color:${m.color}88">${STAGE_LABELS[t.fromIdx].replace('–','-')}</span></div>`;
+    h += `<div class="drift-bar" style="height:${aH}px;background:${m.color};"><span class="bar-label" style="color:${m.color}">${STAGE_LABELS[t.toIdx].replace('–','-')}</span></div>`;
+    h += '</div></div>';
+
+    h += `<div class="drift-note">${note}</div>`;
+    h += '</div>';
+  });
+  h += '</div></div>';
+
+  // 5. CONFIDENCE NOTE
+  h += `<div class="confidence-note">
+    <strong>⚠ Sample & confidence note</strong>
+    ${t.disclaimer}
+  </div>`;
+
+  document.getElementById('detail').innerHTML = h;
+}
+
+function select(i) {
+  activeIdx = i;
+  renderTabs();
+  renderDetail();
+  window.scrollTo({ top: document.getElementById('tabs').offsetTop - 12, behavior:'smooth' });
+}
+
+// Init
+const HASH_MAP = { tz1:0, tz2:1, tz3:2, tz4:3, tz5:4 };
+if (window.location.hash) {
+  const h = window.location.hash.slice(1);
+  if (HASH_MAP[h] !== undefined) activeIdx = HASH_MAP[h];
+}
+renderTabs();
+renderDetail();
+</script>
+</body>
+</html>

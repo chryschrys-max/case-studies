@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>C2 — Hook U Up · Findings</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --navy:   #1B3A2C;
+    --c2:     #2E5219;
+    --c2-lt:  #EBF4E7;
+    --c2-rule:#B8DFC8;
+    --teal:   #2E86AB;
+    --amber:  #F4A261;
+    --orange: #E07B54;
+    --green:  #2D7D52;
+    --red:    #B71C1C;
+    --red-lt: #FFEBEE;
+    --amb-lt: #FEF8F0;
+    --light:  #F7F9FC;
+    --white:  #FFFFFF;
+    --mid:    #64748B;
+    --ink:    #1A2332;
+    --rule:   #DDE4ED;
+    --partial:#F4A261;
+    --met:    #2D7D52;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #EAECF0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--ink);
+    padding: 32px 20px 60px;
+  }
+
+  .report-header {
+    max-width: 960px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .report-header .concept-tag {
+    background: var(--c2);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 3px;
+  }
+  .report-header h1 { font-size: 18px; font-weight: 700; color: var(--navy); }
+  .report-header .sub { font-size: 13px; color: var(--mid); }
+
+  .slide {
+    background: var(--white);
+    max-width: 960px;
+    margin: 0 auto 24px;
+    border-radius: 4px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.10);
+    overflow: hidden;
+    page-break-inside: avoid;
+  }
+
+  .slide-header {
+    background: var(--navy);
+    padding: 14px 22px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    border-left: 6px solid var(--c2);
+  }
+  .slide-header .sh-inner { flex: 1; }
+  .slide-header h2 { font-size: 17px; font-weight: 700; color: white; line-height: 1.3; }
+  .slide-header .sh-sub { font-size: 11px; color: rgba(255,255,255,.55); margin-top: 3px; font-style: italic; }
+
+  .slide-body { padding: 22px 24px 20px; }
+
+  .cols { display: grid; gap: 24px; }
+  .cols-2 { grid-template-columns: 1fr 1fr; }
+  .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .cols-24 { grid-template-columns: 2fr 1.2fr; }
+
+  .sec-label {
+    font-size: 10px; font-weight: 700; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--c2); margin-bottom: 6px;
+  }
+
+  p { font-size: 13px; line-height: 1.65; color: var(--ink); }
+  p + p { margin-top: 10px; }
+
+  .pills { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0; }
+  .pill {
+    font-size: 10px; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; color: white;
+    padding: 4px 10px; border-radius: 3px;
+  }
+
+  .quote-block {
+    border-left: 3px solid var(--c2);
+    padding: 10px 14px;
+    background: var(--c2-lt);
+    border-radius: 0 4px 4px 0;
+    margin-top: 12px;
+    position: relative;
+  }
+  .quote-block.teal { border-color: var(--teal); background: #EBF5FA; }
+  .quote-block.amber { border-color: var(--amber); background: var(--amb-lt); }
+  .quote-block.red { border-color: var(--red); background: var(--red-lt); }
+  .quote-block.green { border-color: var(--green); background: #EBF5EF; }
+  .quote-block q {
+    font-size: 12.5px; font-style: italic; color: var(--c2);
+    line-height: 1.5; display: block; margin-bottom: 4px; quotes: none;
+  }
+  .quote-block.teal q { color: var(--teal); }
+  .quote-block.amber q { color: #7A4A00; }
+  .quote-block.red q { color: var(--red); }
+  .quote-block.green q { color: var(--green); }
+  .quote-block .attr { font-size: 10px; color: var(--mid); font-weight: 600; }
+
+  .copy-btn {
+    position: absolute; top: 8px; right: 8px;
+    background: rgba(0,0,0,.07); border: none;
+    border-radius: 3px; padding: 3px 8px;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: .05em; text-transform: uppercase;
+    color: rgba(0,0,0,.45); cursor: pointer;
+    font-family: monospace; transition: background .15s;
+  }
+  .copy-btn:hover { background: rgba(0,0,0,.14); color: var(--ink); }
+  .copy-btn.copied { background: #A7F3D0; color: #065F46; }
+  .copyable { position: relative; }
+
+  .metric-row {
+    display: grid;
+    grid-template-columns: 36px 1fr auto;
+    gap: 0 14px;
+    align-items: start;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 14px 16px;
+    background: white;
+    margin-bottom: 8px;
+  }
+  .metric-num { font-size: 22px; font-weight: 800; color: var(--c2-rule); line-height: 1; padding-top: 2px; }
+  .metric-text strong { font-size: 13px; color: var(--navy); display: block; margin-bottom: 4px; line-height: 1.4; }
+  .metric-text .why-note { font-size: 11px; color: var(--mid); font-style: italic; line-height: 1.4; }
+  .metric-why {
+    min-width: 200px; padding: 8px 12px;
+    background: var(--light); border-radius: 3px;
+    font-size: 11px; color: var(--ink); line-height: 1.5;
+    border-left: 3px solid var(--c2-rule);
+  }
+  .metric-why .why-label { font-size: 9px; font-weight: 700; color: var(--mid); letter-spacing: .07em; text-transform: uppercase; margin-bottom: 4px; }
+
+  .verdict-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .verdict-card {
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid var(--rule);
+    display: flex; flex-direction: column;
+  }
+  .verdict-badge { padding: 8px 10px; font-size: 12px; font-weight: 700; color: white; text-align: center; }
+  .verdict-body { padding: 12px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .verdict-metric { font-size: 12px; font-weight: 700; color: var(--navy); line-height: 1.35; }
+  .verdict-divider { height: 1px; background: var(--rule); }
+  .verdict-evidence { font-size: 11px; color: var(--ink); line-height: 1.5; flex: 1; }
+  .verdict-quote { font-size: 10.5px; font-style: italic; line-height: 1.4; }
+  .verdict-who { font-size: 9.5px; color: var(--mid); font-weight: 600; margin-top: 2px; }
+
+  .strength-card {
+    border-left: 4px solid var(--c2);
+    padding: 14px 16px;
+    background: var(--c2-lt);
+    border-radius: 0 4px 4px 0;
+  }
+  .strength-card.teal { border-color: var(--teal); background: #EBF5FA; }
+  .strength-card h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .strength-card .design-tag {
+    display: inline-block;
+    font-size: 9px; font-weight: 700; letter-spacing: .07em;
+    text-transform: uppercase; color: var(--c2);
+    background: white; border: 1px solid var(--c2-rule);
+    padding: 2px 7px; border-radius: 2px; margin-bottom: 8px;
+  }
+  .strength-card.teal .design-tag { color: var(--teal); border-color: #9BD4E8; }
+
+  .fix-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0 14px;
+    align-items: start;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--red);
+    border-radius: 0 4px 4px 0;
+    padding: 12px 14px;
+    background: white;
+    margin-bottom: 8px;
+  }
+  .fix-row.pilot { border-left-color: var(--teal); }
+  .fix-tag {
+    font-size: 9px; font-weight: 800; letter-spacing: .06em;
+    text-transform: uppercase; color: white;
+    background: var(--red); padding: 3px 8px;
+    border-radius: 2px; white-space: nowrap; margin-top: 2px;
+  }
+  .fix-tag.pilot { background: var(--teal); }
+  .fix-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 5px; }
+  .fix-body { font-size: 12px; color: var(--ink); line-height: 1.55; }
+  .fix-evidence { font-size: 10px; color: var(--mid); font-style: italic; text-align: right; min-width: 150px; line-height: 1.4; }
+
+  .unseen-row {
+    border-left: 4px solid var(--c2);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    background: var(--light);
+    border-radius: 0 4px 4px 0;
+    position: relative;
+  }
+  .unseen-row:nth-child(2) { border-color: var(--teal); }
+  .unseen-row:nth-child(3) { border-color: var(--orange); }
+  .unseen-row h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+
+  .participant-list { list-style: none; }
+  .participant-list li {
+    font-size: 11.5px; color: var(--ink); line-height: 1.5;
+    padding: 5px 0; border-bottom: 1px solid var(--rule);
+    display: flex; gap: 8px; align-items: baseline;
+  }
+  .participant-list li:last-child { border-bottom: none; }
+  .participant-list .pid { font-size: 10px; font-weight: 700; color: var(--c2); font-family: monospace; white-space: nowrap; min-width: 36px; }
+
+  .who-callout {
+    background: var(--c2-lt); border: 1px solid var(--c2-rule);
+    border-radius: 4px; padding: 12px 16px; margin-top: 16px;
+  }
+  .who-callout .wc-label { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--c2); margin-bottom: 5px; }
+  .who-callout p { font-size: 12px; color: var(--ink); }
+
+  .rec-callout {
+    background: var(--c2-lt); border: 1px solid var(--c2-rule);
+    border-radius: 4px; padding: 12px 16px; margin-top: 4px;
+  }
+  .rec-callout .rec-label { font-size: 10px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--c2); margin-bottom: 5px; }
+  .rec-callout p { font-size: 12px; color: var(--ink); }
+
+  hr { border: none; border-top: 1px solid var(--rule); margin: 16px 0; }
+
+  .note-box {
+    background: #FFF3DC; border: 1px solid #F5C76A;
+    border-radius: 3px; padding: 8px 12px;
+    font-size: 11px; color: #7A4A0A;
+    margin-top: 12px; line-height: 1.5;
+  }
+
+  .slide-number {
+    max-width: 960px; margin: 0 auto 8px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--mid); padding-left: 4px;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+    .slide { box-shadow: none; margin-bottom: 0; page-break-after: always; }
+    .copy-btn { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="report-header">
+  <span class="concept-tag">C2</span>
+  <div>
+    <h1>Hook U Up — Findings</h1>
+    <div class="sub">HPB YPS Validation Testing · March 2026 · 12 parents, 9 youth</div>
+  </div>
+</div>
+
+<!-- SLIDE 1 — Concept overview -->
+<div class="slide-number">Slide 1 of 7 — Concept overview</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>What this concept is and what it was designed to answer</h2>
+      <div class="sh-sub">C2 — Hook U Up</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="cols cols-24">
+      <div>
+        <div class="sec-label">What it is</div>
+        <p>A physical card deck of 14-day challenges. Youth picks a topic pack, finds a buddy, and both complete daily challenges together. Proof is submitted via QR code. A streak mechanic tracks progress. Five topic packs cover eat, exercise, and screen habits. A Shield mechanic allows one free slip per person.</p>
+        <div class="pills" style="margin-top:12px;">
+          <span class="pill" style="background:var(--c2)">Eat</span>
+          <span class="pill" style="background:var(--teal)">Exercise</span>
+          <span class="pill" style="background:var(--green)">Screen</span>
+          <span class="pill" style="background:var(--amber)">After School · Window 1 · 2–6pm</span>
+        </div>
+        <hr>
+        <div class="sec-label">What it was designed to answer</div>
+        <p>After-school time is four hours of low structure and low adult visibility. Peer influence is the strongest motivator at this age. Restriction does not work once youth are out of the house. This concept starts from the idea that if health behaviour can be made socially relevant — something you do with someone, not something done to you — it is more likely to stick.</p>
+        <hr>
+        <div class="sec-label">Design principles carried</div>
+        <p style="color:var(--mid);font-size:12px;">Peer over parent &nbsp;·&nbsp; Identity-first framing &nbsp;·&nbsp; Replace, don't restrict</p>
+      </div>
+      <div>
+        <div style="background:var(--c2);padding:10px 14px;border-radius:3px 3px 0 0;">
+          <span style="font-size:11px;font-weight:700;color:white;letter-spacing:.05em;text-transform:uppercase;">Who tested this concept</span>
+        </div>
+        <div style="border:1px solid var(--c2-rule);border-top:none;border-radius:0 0 3px 3px;padding:10px 14px;">
+          <ul class="participant-list">
+            <li><span class="pid">TP01</span>Instantly positive — "Who's the smartass that made it?!"</li>
+            <li><span class="pid">TP02</span>Skeptical — found QR process very tedious</li>
+            <li><span class="pid">TP04</span>Liked Glow Up for daughters, noted makeup deck missing</li>
+            <li><span class="pid">TP05</span>Rated 5/7 — positive but noted sustainability risk</li>
+            <li><span class="pid">TP06</span>Rated 6/7 — saw bonding potential across generations</li>
+            <li><span class="pid">TP07</span>6/7 — conditional on exam period timing</li>
+            <li><span class="pid">TP09</span>4/7 — try but cannot sustain</li>
+            <li><span class="pid">TP10</span>3/7 — found it tedious, QR concern</li>
+            <li><span class="pid">TP11</span>7/7 experience — 5/7 for youth likelihood</li>
+            <li><span class="pid">TP12</span>1/7 — daughter has no time, online = 6 for control</li>
+            <li><span class="pid">TY01</span>7/7 — "Would keep me occupied for hours." Would pay for it.</li>
+            <li><span class="pid">TY04</span>Asked how to buy it mid-session. No prompting.</li>
+            <li><span class="pid">TY10</span>Ranked C2 first — drawn to Recharge deck</li>
+            <li><span class="pid">TY11</span>Would buy it. Invented her own bet mechanic.</li>
+            <li><span class="pid">TY08</span>Ranked C2 last — stress and privacy concerns</li>
+          </ul>
+          <div class="note-box">QR proof mechanic was blocked by the 2026 school phone ban and could not be tested as designed. Peer accountability interaction was simulated, not observed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 2 — Success metrics -->
+<div class="slide-number">Slide 2 of 7 — Success metrics</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>What we were watching for</h2>
+      <div class="sh-sub">C2 — Hook U Up · Success metrics (set before testing began)</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <p style="font-style:italic;color:var(--mid);margin-bottom:14px;">These four outcomes were defined in advance. They describe what a strong result looks like for this concept.</p>
+
+    <div class="metric-row copyable">
+      <div class="metric-num">01</div>
+      <div class="metric-text">
+        <strong>Youth picks a deck that matches a real habit they want to change, not what sounds impressive.</strong>
+        <span class="why-note">Tests honest self-selection. If youth pick based on image rather than need, the challenge will not land.</span>
+      </div>
+      <div class="metric-why">
+        <div class="why-label">Why this matters</div>
+        Glow Up and Recharge both serve real needs. If youth pick Bulk Up because it sounds bold rather than because they want to exercise more, the 14 days will not produce the habit it was designed for.
+      </div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+    <div class="metric-row copyable">
+      <div class="metric-num">02</div>
+      <div class="metric-text">
+        <strong>The peer accountability mechanic creates genuine motivation, not just compliance.</strong>
+        <span class="why-note">Tests whether social connection is the driver, or whether it feels like pressure from another person.</span>
+      </div>
+      <div class="metric-why">
+        <div class="why-label">Why this matters</div>
+        If the buddy system feels like obligation — checking in because you have to, not because you want to — the peer mechanic becomes another form of external control. Genuine motivation looks like youth bringing the buddy in, not being assigned one.
+      </div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+    <div class="metric-row copyable">
+      <div class="metric-num">03</div>
+      <div class="metric-text">
+        <strong>The proof step does not create friction that breaks the streak.</strong>
+        <span class="why-note">Tests ease of use. A proof mechanic that requires too many steps will be abandoned before the habit forms.</span>
+      </div>
+      <div class="metric-why">
+        <div class="why-label">Why this matters</div>
+        The streak is the motivator. If the act of logging proof is harder than the challenge itself, youth will stop logging before they stop doing the challenge — and the motivation loop breaks.
+      </div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+    <div class="metric-row copyable">
+      <div class="metric-num">04</div>
+      <div class="metric-text">
+        <strong>Both partners can see themselves completing at least half the 14 days without needing to remind each other constantly.</strong>
+        <span class="why-note">The most important test. The mechanic has to do the reminding, not the person.</span>
+      </div>
+      <div class="metric-why">
+        <div class="why-label">Why this matters</div>
+        If the streak depends on one person chasing the other, it is not a peer mechanic — it is a chore. The card deck and the shared commitment need to be doing the motivating work without either side becoming the nag.
+      </div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 3 — Results -->
+<div class="slide-number">Slide 3 of 7 — Results</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>What we found</h2>
+      <div class="sh-sub">C2 — Hook U Up · Success metric results</div>
+    </div>
+  </div>
+  <div class="slide-body">
+
+    <div class="cols cols-2" style="margin-bottom:20px;align-items:start;gap:16px;">
+      <div>
+        <div class="sec-label" style="margin-bottom:4px;">Individual ratings — C2 overall experience (1–7 scale)</div>
+        <div style="font-size:10.5px;color:var(--mid);font-style:italic;margin-bottom:10px;">Each dot is one participant. Verified from session transcripts. Youth rated consistently higher than parents.</div>
+        <div style="position:relative;height:220px;">
+          <canvas id="dotPlotChart"></canvas>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--c2);display:inline-block;"></span><span style="font-size:10px;color:var(--mid);">Parent</span></div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:50%;background:var(--teal);display:inline-block;"></span><span style="font-size:10px;color:var(--mid);">Youth</span></div>
+          <div style="font-size:10px;color:var(--mid);font-style:italic;">Youth ratings cluster high. Parent ratings are more spread — driven by practical concerns about QR and time.</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-label" style="margin-bottom:4px;">Response spread — how participants reacted to each pattern</div>
+        <div style="font-size:10.5px;color:var(--mid);font-style:italic;margin-bottom:10px;">Based on verbal feedback and observer notes across 15 sessions.</div>
+        <div style="position:relative;height:220px;">
+          <canvas id="spreadChart"></canvas>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#2D7D52;display:inline-block;"></span><span style="font-size:10px;color:var(--mid);">Positive</span></div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#F4A261;display:inline-block;"></span><span style="font-size:10px;color:var(--mid);">Mixed / conditional</span></div>
+          <div style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;border-radius:2px;background:#B71C1C;display:inline-block;"></span><span style="font-size:10px;color:var(--mid);">Negative / concern</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:16px;margin-bottom:14px;padding:8px 12px;background:var(--light);border-radius:3px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:2px;background:var(--met);display:inline-block;"></span><span style="font-size:11px;color:var(--ink);">Met</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:2px;background:var(--partial);display:inline-block;"></span><span style="font-size:11px;color:var(--ink);">Partial</span></div>
+      <div style="display:flex;align-items:center;gap:6px;"><span style="width:12px;height:12px;border-radius:2px;background:var(--red);display:inline-block;"></span><span style="font-size:11px;color:var(--ink);">Not Met</span></div>
+      <div style="font-size:11px;color:var(--mid);font-style:italic;">Not Met for QR reflects a design problem, not a concept rejection. Youth appetite for the concept itself was the strongest signal across all three.</div>
+    </div>
+
+    <div class="verdict-grid">
+
+      <div class="verdict-card copyable" style="border-color:var(--met);">
+        <div class="verdict-badge" style="background:var(--met);">Met</div>
+        <div class="verdict-body">
+          <div class="verdict-metric">Youth picks a deck that matches a real habit they want to change</div>
+          <div class="verdict-divider"></div>
+          <div class="verdict-evidence">TY10 went straight to Recharge because she does not sleep well. TY01 chose Glow Up and connected it to her skin. TY04 explored multiple decks deliberately. Deck selection was self-directed and specific in every youth session.</div>
+          <div style="margin-top:auto;padding-top:8px;">
+            <div class="verdict-quote" style="color:var(--met);">"I would not mind doing this with my friends actually."</div>
+            <div class="verdict-who">TY10 Naura — on Recharge deck</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      </div>
+
+      <div class="verdict-card copyable" style="border-color:var(--met);">
+        <div class="verdict-badge" style="background:var(--met);">Met</div>
+        <div class="verdict-body">
+          <div class="verdict-metric">The peer accountability mechanic creates genuine motivation</div>
+          <div class="verdict-divider"></div>
+          <div class="verdict-evidence">4 of 5 youth ranked C2 first. TY06 independently compared it to Snapchat streaks. TY11 invented a bet mechanic on the spot. TY02 described the concept as something that creates "happy memories" alongside healthy habits. Motivation was peer-driven, not compliance-driven.</div>
+          <div style="margin-top:auto;padding-top:8px;">
+            <div class="verdict-quote" style="color:var(--met);">"It's kind of like Snapchat or TikTok streaks. You don't want to break the streak."</div>
+            <div class="verdict-who">TY06 Kayna</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      </div>
+
+      <div class="verdict-card copyable" style="border-color:var(--red);">
+        <div class="verdict-badge" style="background:var(--red);">Not Met</div>
+        <div class="verdict-body">
+          <div class="verdict-metric">The proof step does not create friction that breaks the streak</div>
+          <div class="verdict-divider"></div>
+          <div class="verdict-evidence">QR blocked by 2026 school phone ban. TP10 counted the steps aloud: "Scan, log in, post, share URL." TY08 raised privacy concerns about sending selfies. TP08 confirmed phones are surrendered at school check-in areas. The mechanic cannot work as designed.</div>
+          <div style="margin-top:auto;padding-top:8px;">
+            <div class="verdict-quote" style="color:var(--red);">"So leche ah, every day need to scan a QR code?"</div>
+            <div class="verdict-who">TP02</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      </div>
+
+      <div class="verdict-card copyable" style="border-color:var(--partial);">
+        <div class="verdict-badge" style="background:var(--partial);">Partial</div>
+        <div class="verdict-body">
+          <div class="verdict-metric">Both partners can see completing half the 14 days without constant reminders</div>
+          <div class="verdict-divider"></div>
+          <div class="verdict-evidence">Youth were confident about peer motivation. TY06 described how she would remind a friend and be reminded back. The fixed-buddy rule, however, was too rigid for most. Youth wanted to rotate who they challenge, not commit to one person for the full 14 days.</div>
+          <div style="margin-top:auto;padding-top:8px;">
+            <div class="verdict-quote" style="color:var(--partial);">"I would do this with like, whoever is around — up to five people."</div>
+            <div class="verdict-who">TY11 Zillia</div>
+          </div>
+        </div>
+        <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4 — EAST and B=MAP -->
+<div class="slide-number">Slide 4 of 7 — EAST and B=MAP</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>How it performed against the behavioural frameworks</h2>
+      <div class="sh-sub">C2 — Hook U Up · EAST and B=MAP</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <div class="cols cols-2">
+
+      <div>
+        <div class="sec-label" style="margin-bottom:10px;">EAST — Is it easy, attractive, social, and timed right?</div>
+
+        <div class="copyable" style="margin-bottom:8px;padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">Easy — Card content yes, proof mechanic no</div>
+          <p style="font-size:12px;">The card content was easy to understand. TY10 navigated all five decks without help. TY02 read and responded to cards in under a minute per deck. The proof mechanic was the only friction point — and it is a significant one. Removing the QR step would lift the ease score substantially.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+
+        <div class="copyable" style="margin-bottom:8px;padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">Attractive — Strongest of the three concepts for youth</div>
+          <p style="font-size:12px;">The deck names landed immediately. Glow Up, Recharge, Feel Good — participants understood them without explanation. The visual language and the challenge framing felt like something youth would find, not something handed to them. TY01 said she would pay for it. TY04 asked how to buy it mid-session.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+
+        <div class="copyable" style="margin-bottom:8px;padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">Social — This concept's primary strength</div>
+          <p style="font-size:12px;">The buddy mechanic is the design feature that makes health feel like something you do with people, not something done to you. TY06 independently compared it to Snapchat streaks. TY11 invented her own competitive mechanic. Youth did not need to be told how this is social — they felt it immediately.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+
+        <div class="copyable" style="padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;">Timely — Right window, but exam pressure blocks entry</div>
+          <p style="font-size:12px;">After-school is Window 1 — the right window for this concept. Several participants flagged that exam periods would make the timing wrong. TP07 rated 6/7 but specifically conditioned it on non-exam periods. TY08, the only youth under O-level pressure, was the only one who ranked C2 last.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="sec-label" style="margin-bottom:10px;">B=MAP — Motivation, Ability, Prompt</div>
+
+        <div class="copyable" style="margin-bottom:8px;padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--green);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-bottom:4px;">Motivation — Highest of the three concepts</div>
+          <p style="font-size:12px;">Youth motivation was strong and self-generated. The peer mechanic and the identity language (glow up, recharge) made health behaviour feel socially relevant without framing it as a health intervention. This is the design feature most worth protecting across future iterations.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+
+        <div class="copyable" style="margin-bottom:8px;padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--red);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--red);margin-bottom:4px;">Ability — Proof mechanic breaks it</div>
+          <p style="font-size:12px;">The card content is easy. The QR proof step is not. It requires too many steps, it is blocked during school hours by the 2026 phone policy, and it raised privacy concerns from multiple participants. The ability to complete the challenge exists — the ability to log it does not.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+
+        <div class="copyable" style="padding:10px 14px;border:1px solid var(--rule);border-left:3px solid var(--amber);border-radius:0 4px 4px 0;background:white;position:relative;">
+          <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);margin-bottom:4px;">Prompt — Missing for Day 1</div>
+          <p style="font-size:12px;">The streak is a strong ongoing prompt once started. But there is nothing that makes someone pick up the deck on Day 1. TY06 suggested a notification. TY12 wanted to be able to choose their own starting point rather than follow a fixed order. The first day is the hardest — the concept needs something to get there.</p>
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        </div>
+
+        <div class="quote-block green" style="margin-top:12px;">
+          <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+          <q>"Wow. Both parties not only make happy memories but also gain very healthy relationships."</q>
+          <div class="attr">TY02 Jia Le — initial reaction before reading the cards</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 5 — Strengths -->
+<div class="slide-number">Slide 5 of 7 — Strengths</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>What worked and why</h2>
+      <div class="sh-sub">C2 — Hook U Up · Strengths</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <p style="font-style:italic;color:var(--mid);margin-bottom:16px;">This concept produced the strongest youth response across the three. Two things drove that response — and they reinforce each other.</p>
+    <div class="cols cols-2">
+
+      <div class="strength-card copyable" style="position:relative;">
+        <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        <div class="design-tag">Designed in</div>
+        <h3>Identity-first framing made health feel like something youth choose</h3>
+        <p style="margin-top:8px;font-size:12.5px;">The deck names — Glow Up, Recharge, Energy Era — use the language of aspiration and identity, not health instruction. Youth responded to this immediately. They did not engage with it as a health programme. They engaged with it as something they wanted to try.</p>
+        <p style="margin-top:8px;font-size:12.5px;">TY01 said she would pay for it. TY04 asked how to buy it mid-session without any prompting. TY02's first word was "Wow." None of them needed to be told what it was for.</p>
+        <div class="quote-block" style="margin-top:12px;background:white;">
+          <q>"Would keep me occupied for hours."</q>
+          <div class="attr">TY01 Evangeline — 7/7 overall rating</div>
+        </div>
+      </div>
+
+      <div class="strength-card teal copyable" style="position:relative;">
+        <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+        <div class="design-tag">Designed in — and participants made it stronger</div>
+        <h3>The peer mechanic became a streak mechanic without anyone explaining it</h3>
+        <p style="margin-top:8px;font-size:12.5px;">The buddy system was designed in. But participants took it further. TY06 independently compared it to Snapchat and TikTok streaks — she understood the motivational logic immediately without it being named. TY11 invented a competitive bet mechanic: loser buys the winner something small.</p>
+        <p style="margin-top:8px;font-size:12.5px;">This tells us the social accountability mechanic is genuinely resonant — participants were not just accepting the design, they were building on it. The concept has room to grow beyond the fixed 14-day structure.</p>
+        <div class="quote-block teal" style="margin-top:12px;background:white;">
+          <q>"It's kind of like Snapchat or TikTok streaks. You don't want to break the streak."</q>
+          <div class="attr">TY06 Kayna — drew the comparison herself</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="who-callout" style="margin-top:16px;">
+      <div class="wc-label">Who this concept is for</div>
+      <p>Youth who are already socially active and have a friend group they want to do things with. The concept does not work alone — it works because of who is around. TY08 was the outlier: under O-level exam pressure and self-described as someone who overthinks. His hesitation is about life stage, not concept design. He remains the exception across the study.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 6 — Fixes -->
+<div class="slide-number">Slide 6 of 7 — Fixes before pilot</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>What needs fixing before pilot</h2>
+      <div class="sh-sub">C2 — Hook U Up · Kano classification and fixes</div>
+    </div>
+  </div>
+  <div class="slide-body">
+
+    <div class="cols cols-3" style="margin-bottom:18px;">
+      <div style="padding:12px 14px;background:var(--red-lt);border:1px solid #FFCDD2;border-radius:4px;">
+        <div style="font-size:10px;font-weight:700;color:var(--red);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">Must-haves (absent = rejection)</div>
+        <ul style="font-size:11.5px;color:var(--ink);line-height:1.6;padding-left:14px;">
+          <li>Replace QR with physical proof (tick, sticker, or photo in group chat)</li>
+          <li>Rename "Bulk Up" to aspiration language</li>
+          <li>Allow buddy rotation across 14 days</li>
+          <li>Add benefit explanation to each card</li>
+        </ul>
+      </div>
+      <div style="padding:12px 14px;background:var(--amb-lt);border:1px solid #F5D0B8;border-radius:4px;">
+        <div style="font-size:10px;font-weight:700;color:var(--orange);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">Performance (improves satisfaction)</div>
+        <ul style="font-size:11.5px;color:var(--ink);line-height:1.6;padding-left:14px;">
+          <li>Skip or swap mechanic for physical challenges</li>
+          <li>Flexible challenge order (TY12 suggestion)</li>
+          <li>More deck topics — especially beauty or creativity</li>
+          <li>Notification reminder option</li>
+        </ul>
+      </div>
+      <div style="padding:12px 14px;background:#EBF5EF;border:1px solid #B8DCCA;border-radius:4px;">
+        <div style="font-size:10px;font-weight:700;color:var(--green);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px;">Delighters (unexpected strength)</div>
+        <ul style="font-size:11.5px;color:var(--ink);line-height:1.6;padding-left:14px;">
+          <li>Streak comparison to Snapchat and TikTok (TY06)</li>
+          <li>TY11 invented a competitive bet mechanic unprompted</li>
+          <li>TY01: "Would keep me occupied for hours" — 7/7</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="font-style:italic;color:var(--mid);margin-bottom:12px;font-size:12px;">Four issues emerged clearly enough to address before piloting. Listed in order of priority.</p>
+
+    <div class="fix-row copyable" style="position:relative;">
+      <div class="fix-tag">Must Fix</div>
+      <div>
+        <div class="fix-title">Replace the QR proof mechanic with a physical or social alternative</div>
+        <div class="fix-body">The QR step has three independent blockers: the 2026 school phone ban, privacy concerns from youth about selfies, and too many steps to log. All three surfaced across different sessions without prompting. The peer witness is the accountability — the platform upload is not needed. Replace with a physical tick on the card, a streak sticker, or a shared group chat photo.</div>
+      </div>
+      <div class="fix-evidence">TP02, TP07, TP08, TY08<br>Multiple independent sessions</div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+    <div class="fix-row copyable" style="position:relative;">
+      <div class="fix-tag">Must Fix</div>
+      <div>
+        <div class="fix-title">Rename "Bulk Up"</div>
+        <div class="fix-body">"Bulk Up" uses effort language when every other deck uses aspiration language. It landed as male-coded and gym-oriented for female participants. TP10 said it would put girls off. TP04's daughters would respond to a skincare or beauty deck, which is not in the current set. Test options that carry aspiration language consistent with the rest: Level Up, Stronger, Build.</div>
+      </div>
+      <div class="fix-evidence">TP10, TP04<br>Female participant sessions</div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+    <div class="fix-row copyable" style="position:relative;">
+      <div class="fix-tag">Must Fix</div>
+      <div>
+        <div class="fix-title">Allow buddy rotation — 2 to 4 people across the 14 days</div>
+        <div class="fix-body">One fixed buddy for 14 days was too rigid for most participants. TP01 wanted to challenge whoever felt right that day. TY11 saw it as a group activity, not a pair. TY10 described it as something she would do with friends generally, not one person. The commitment should be to the streak and the challenge, not to a fixed person. Keep the Shield mechanic.</div>
+      </div>
+      <div class="fix-evidence">TP01, TP02, TY11, TY10<br>4 of 11 participants</div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+    <div class="fix-row copyable" style="position:relative;">
+      <div class="fix-tag">Must Fix</div>
+      <div>
+        <div class="fix-title">Add a benefit explanation to each card</div>
+        <div class="fix-body">TY02 asked directly: "What are the benefits that the body is gaining? That's what's missing." Youth are willing to do the challenges — they want to know what will happen if they do. A one-line outcome on each card (e.g. "Sleeping before midnight for 5 nights can cut fatigue by morning") closes the gap between doing the challenge and understanding why it matters.</div>
+      </div>
+      <div class="fix-evidence">TY02 Jia Le, TY08 Josh<br>Raised independently</div>
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- SLIDE 7 — What a physical pilot would show -->
+<div class="slide-number">Slide 7 of 7 — What a physical pilot would show differently</div>
+<div class="slide">
+  <div class="slide-header">
+    <div class="sh-inner">
+      <h2>What we couldn't see through a screen</h2>
+      <div class="sh-sub">C2 — Hook U Up · What a physical pilot would surface</div>
+    </div>
+  </div>
+  <div class="slide-body">
+    <p style="font-style:italic;color:var(--mid);margin-bottom:16px;">The online format could test the concept's content and appeal. It could not test the mechanic or the social dynamic in context. A physical pilot would surface these specifically.</p>
+
+    <div class="unseen-row copyable" style="position:relative;">
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      <h4>Does the physical card deck change how youth relate to the challenge?</h4>
+      <p>Holding a card and placing a tick on it is a different experience from clicking a screen. Several participants described the cards in tactile terms — "something you find," "like a real game," "you can see the deck getting smaller." Whether the physicality of the card creates a different kind of commitment than a digital challenge list is something the online format could not surface.</p>
+    </div>
+
+    <div class="unseen-row copyable" style="position:relative;">
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      <h4>What does the buddy dynamic actually look like at Day 7?</h4>
+      <p>Youth described how they imagined reminding each other, choosing decks together, and reacting to each other's progress. None of this was observed — it was all projected. Whether the social dynamic holds across two weeks, whether one person ends up doing more of the reminding, and whether the Shield mechanic reduces or increases tension are all questions that need a real 14-day observation to answer.</p>
+    </div>
+
+    <div class="unseen-row copyable" style="position:relative;">
+      <button class="copy-btn" onclick="copyParent(this)">Copy</button>
+      <h4>Does the proof mechanic change once it is not QR-based?</h4>
+      <p>The QR proof was the primary concern in every session where it came up. But the underlying question — how do you know both people actually did it — is a real design problem that needs a working answer. Whether a physical tick, a streak sticker, or a group chat photo produces genuine accountability or just easier gaming is not something that can be tested through a screen prototype.</p>
+    </div>
+
+    <div class="rec-callout" style="margin-top:4px;">
+      <div class="rec-label">Recommendation</div>
+      <p>Fix the four must-fix items before the pilot, particularly the QR mechanic. Then run a 14-day pilot with at least two youth pairs from different school contexts — one during a lower-pressure school period and one with Secondary 4 participants — to test whether the concept performs differently under exam pressure. C2 is the concept with the strongest youth appetite of the three. The pilot should be designed to stress-test sustainability, not just initial engagement.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const dotCtx = document.getElementById('dotPlotChart').getContext('2d');
+
+const parents = [
+  { id:'TP01', r:6.5 }, { id:'TP02', r:2 }, { id:'TP04', r:5 },
+  { id:'TP05', r:5 }, { id:'TP06', r:6 }, { id:'TP07', r:6 },
+  { id:'TP09', r:4 }, { id:'TP10', r:3 }, { id:'TP11', r:7 },
+  { id:'TP12', r:1 }
+];
+const youth = [
+  { id:'TY01', r:7 }, { id:'TY04', r:6 }, { id:'TY10', r:6 },
+  { id:'TY11', r:6 }, { id:'TY08', r:4 }
+];
+
+const parentData = parents.map((p, i) => ({ x: p.r, y: 1.8 + (i % 2 === 0 ? 0.18 : -0.18), label: p.id }));
+const youthData  = youth.map((y, i)  => ({ x: y.r, y: 1.0 + (i % 2 === 0 ? 0.15 : -0.15), label: y.id }));
+
+new Chart(dotCtx, {
+  type: 'scatter',
+  data: {
+    datasets: [
+      { label: 'Parents', data: parentData, backgroundColor: '#2E5219', borderColor: 'white', borderWidth: 1.5, pointRadius: 9, pointHoverRadius: 11 },
+      { label: 'Youth',   data: youthData,  backgroundColor: '#2E86AB', borderColor: 'white', borderWidth: 1.5, pointRadius: 9, pointHoverRadius: 11 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ` ${ctx.raw.label}: ${ctx.raw.x}/7` } }
+    },
+    scales: {
+      x: { min: 0.5, max: 7.5, ticks: { stepSize: 1, callback: v => v >= 1 && v <= 7 ? v : '', font: { size: 11 } }, title: { display: true, text: '← Poor  ·  Overall experience rating  ·  Very good →', font: { size: 10 }, color: '#64748B' }, grid: { color: '#EEE' } },
+      y: { min: 0.5, max: 2.5, ticks: { callback: v => v === 1 ? 'Youth' : v === 2 ? 'Parents' : '', font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+const spreadCtx = document.getElementById('spreadChart').getContext('2d');
+new Chart(spreadCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Peer mechanic\nand identity', 'Deck content\nand appeal', 'QR proof\nmechanic', 'Buddy\nflexibility'],
+    datasets: [
+      { label: 'Positive',           data: [11, 9, 1, 5], backgroundColor: '#2D7D52' },
+      { label: 'Mixed',              data: [3,  4, 2, 6], backgroundColor: '#F4A261' },
+      { label: 'Negative / concern', data: [1,  2,12, 4], backgroundColor: '#B71C1C' }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw} participant${ctx.raw !== 1 ? 's' : ''}` } } },
+    scales: {
+      x: { stacked: true, ticks: { font: { size: 10 } }, grid: { display: false } },
+      y: { stacked: true, max: 15, ticks: { stepSize: 3, font: { size: 10 } }, title: { display: true, text: 'Participants', font: { size: 10 }, color: '#64748B' }, grid: { color: '#EEE' } }
+    }
+  }
+});
+
+function copyParent(btn) {
+  const container = btn.closest('.copyable');
+  const text = container.innerText.replace(/^Copy$/m, '').replace(/^Copied!$/m, '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 1800);
+  });
+}
+</script>
+</body>
+</html>
