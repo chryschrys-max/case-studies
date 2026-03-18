@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — Mapping the Machine: Pre-Discovery Systems Scoping for a Complex Case Management Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F9FAFB;
+  --bg2: #F0F4FF;
+  --bg3: #E8EDFF;
+  --surface: #FFFFFF;
+  --bdr: #E5E7EB;
+  --bdr2: #F3F4F6;
+  --tx: #374151;
+  --tx2: #6B7280;
+  --tx3: #9CA3AF;
+  --txb: #111827;
+  --deep: #1E3A5F;
+  --salmon: #2563EB;
+  --salmon-light: rgba(37,99,235,0.1);
+  --almond: #BFDBFE;
+  --silver: #93C5FD;
+  --grape: #1D4ED8;
+  --violet: #1E40AF;
+  --sage: #10B981;
+  --sage-light: #D1FAE5;
+  --coral: #EC4899;
+  --coral-light: #FCE7F3;
+  --sky: #0EA5E9;
+  --sky-light: #E0F2FE;
+  --teal: #0D9488;
+  --teal-light: #CCFBF1;
+  --font: 'DM Sans', -apple-system, sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--tx); font-family: var(--font); line-height: 1.75; -webkit-font-smoothing: antialiased; }
+
+/* ── LAYOUT ── */
+.page { max-width: 1060px; margin: 0 auto; padding: 0 40px 120px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 88px 0 64px;
+  border-bottom: 2px solid var(--txb);
+  margin-bottom: 64px;
+}
+.hero-label {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: var(--font);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--txb);
+  margin-bottom: 20px;
+  max-width: 860px;
+}
+.hero-sub {
+  font-size: 18px;
+  line-height: 1.7;
+  color: var(--tx2);
+  max-width: 760px;
+  margin-bottom: 40px;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--tx2);
+}
+.hero-meta-item strong {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--tx3);
+}
+
+/* ── SECTION ── */
+.section { margin-bottom: 64px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 14px;
+}
+.section h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 20px;
+  line-height: 1.25;
+}
+.section h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--txb);
+  margin: 36px 0 14px;
+}
+.section p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--tx);
+  margin-bottom: 16px;
+}
+.section ul, .section ol {
+  margin: 12px 0 20px 20px;
+}
+.section li {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--tx);
+  margin-bottom: 8px;
+}
+
+/* ── ROLE BLOCK ── */
+.role-block {
+  background: var(--bg2);
+  border-left: 4px solid var(--salmon);
+  border-radius: 0 10px 10px 0;
+  padding: 28px 32px;
+  margin: 32px 0;
+}
+.role-block .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 14px;
+}
+.role-block p, .role-block ul {
+  font-size: 15px;
+  margin-bottom: 12px;
+}
+
+/* ── THINKING BLOCK ── */
+.thinking-block {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  padding: 28px 32px;
+  margin: 32px 0;
+}
+.thinking-block .label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--grape);
+  margin-bottom: 12px;
+}
+.thinking-block p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--tx);
+  margin-bottom: 0;
+}
+
+/* ── STAT STRIP ── */
+.stat-strip {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 40px 0 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  padding: 24px 28px;
+  min-width: 160px;
+  flex: 1;
+}
+.stat-num {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--salmon);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 13px;
+  color: var(--tx2);
+  line-height: 1.5;
+}
+
+/* ── SYSTEMS GRID ── */
+.systems-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 32px 0;
+}
+@media (max-width: 700px) { .systems-grid { grid-template-columns: 1fr; } }
+.system-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  padding: 24px 28px;
+}
+.system-card .sys-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--tx3);
+  margin-bottom: 10px;
+}
+.system-card h4 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 10px;
+}
+.system-card p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+.system-card .placeholder-note {
+  font-size: 13px;
+  color: var(--tx3);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+/* ── FLOW ── */
+.flow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 32px 0;
+}
+.flow-node {
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.4;
+  min-width: 120px;
+}
+.flow-node small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+.flow-arrow {
+  font-size: 20px;
+  color: var(--tx3);
+}
+
+/* ── OUTPUT CARDS ── */
+.output-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 32px 0;
+}
+@media (max-width: 700px) { .output-grid { grid-template-columns: 1fr; } }
+.output-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  padding: 24px;
+}
+.output-card .icon {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+.output-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 8px;
+}
+.output-card p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ── HANDSHAKE DIAGRAM ── */
+.handshake-row {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 32px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--bdr);
+}
+.hs-system {
+  flex: 1;
+  padding: 20px;
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--txb);
+}
+.hs-system span {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--tx2);
+  margin-top: 4px;
+}
+.hs-connector {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: var(--bg2);
+  font-size: 20px;
+  color: var(--salmon);
+  font-weight: 700;
+}
+
+/* ── TEAM BLOCK ── */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 28px 0;
+}
+@media (max-width: 700px) { .team-grid { grid-template-columns: 1fr; } }
+.team-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  padding: 24px;
+}
+.team-card .role {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--salmon);
+  margin-bottom: 8px;
+}
+.team-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 8px;
+}
+.team-card p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ── PRINCIPLES ── */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 28px 0;
+}
+@media (max-width: 700px) { .principles { grid-template-columns: 1fr; } }
+.principle {
+  padding: 24px;
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.principle .num {
+  font-family: var(--font);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--salmon);
+  margin-bottom: 10px;
+}
+.principle h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 8px;
+}
+.principle p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ── LEARNING CARDS ── */
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 28px 0;
+}
+@media (max-width: 700px) { .learning-grid { grid-template-columns: 1fr; } }
+.learning-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 12px;
+  padding: 28px;
+}
+.learning-card .num {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--salmon);
+  margin-bottom: 10px;
+}
+.learning-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 10px;
+}
+.learning-card p {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.75;
+  margin-bottom: 0;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--bdr);
+  margin: 64px 0;
+}
+
+/* ── TOP NAV ── */
+.top-nav {
+  padding: 20px 0;
+}
+.top-nav a {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grape);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.top-nav a:hover { color: var(--salmon); }
+.top-nav a::before { content: '\2190\00a0\00a0'; }
+
+/* ── FOOTER ── */
+.footer {
+  margin-top: 80px;
+  padding-top: 28px;
+  border-top: 1px solid var(--bdr);
+  font-size: 13px;
+  color: var(--tx3);
+}
+
+/* ── BOTTOM BAR ── */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background: rgba(249, 250, 251, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1px solid var(--bdr);
+  padding: 14px 0;
+  text-align: center;
+}
+.bottom-bar a {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grape);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.bottom-bar a:hover { color: var(--salmon); }
+
+/* ── METHODS GRID ── */
+.methods-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+@media (max-width: 700px) { .methods-grid { grid-template-columns: 1fr; } }
+.method-item {
+  background: linear-gradient(135deg, var(--deep), #2563EB);
+  border-radius: 10px;
+  padding: 20px;
+}
+.method-item h5 {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--almond);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.method-item p {
+  font-size: 13px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hero h1 { font-size: 32px; }
+  .page { padding: 0 20px 100px; }
+  .hero-meta { gap: 20px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<nav class="top-nav">
+  <a href="index.html#case-studies">All Projects</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-label">Case Study</div>
+  <h1>Mapping the Machine: Pre-Discovery Systems Scoping for a Complex Public Sector Platform</h1>
+  <p class="hero-sub">Before you can redesign a system, you have to understand what it actually is. This is the story of a one-month scoping engagement that mapped four interconnected systems, charted every capability, and identified where the real complexity lives &mdash; so that discovery could begin with eyes open.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item"><strong>Client</strong>Singapore Government Agency (Public Sector)</div>
+    <div class="hero-meta-item"><strong>Phase</strong>Pre-Discovery Scoping (1 Month)</div>
+    <div class="hero-meta-item"><strong>Team</strong>Lead Designer, Principal BA, Solutions Architect</div>
+    <div class="hero-meta-item"><strong>Role</strong>Lead Designer / Design Strategist</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">The Brief</div>
+  <h2>Four systems. One month. Everything as-is.</h2>
+  <p>The programme goal was to modernise a complex case management platform used across a major public sector operation. Before any discovery work could begin &mdash; before we could ask users what wasn't working or imagine what better looked like &mdash; we needed to understand the terrain.</p>
+  <p>That meant mapping what currently existed across four systems: what each one did, what it was capable of, and critically, where and how they connected to one another. This phase &mdash; which we called the <strong>scoping phase</strong> &mdash; was designed to be a pre-discovery exercise. Its purpose was to make us better prepared to plan and execute the real discovery that would follow.</p>
+
+  <div class="role-block">
+    <div class="label">What I did</div>
+    <p>I led the design and facilitation work within a cross-functional team of three &mdash; a Principal BA and a Solutions Architect alongside me. Each of us brought a different lens to the same systems.</p>
+    <ul>
+      <li><strong>Led engagement design</strong> &mdash; structured how we would systematically move through each system, who we needed to speak to, and how to capture capability information consistently across four different environments</li>
+      <li><strong>Facilitated stakeholder sessions</strong> across system owners and operational teams to surface how each system was actually used day-to-day, not just what it was built to do</li>
+      <li><strong>Synthesised across disciplines</strong> &mdash; translated technical architecture insights from the Solutions Architect and process documentation from the Principal BA into a picture a non-technical audience could act on</li>
+      <li><strong>Mapped the handshakes</strong> &mdash; identified and documented every point where one system passed work to another, including the informal and manual bridges that had grown up over time</li>
+      <li><strong>Framed the output as a discovery brief</strong> &mdash; turned raw mapping into a structured foundation that the discovery phase could build from, with clear questions, known unknowns, and areas of risk flagged</li>
+    </ul>
+
+    <div class="methods-grid">
+      <div class="method-item">
+        <h5>Systems Mapping</h5>
+        <p>Capability inventory across 4 systems, integration point documentation, as-is state analysis</p>
+      </div>
+      <div class="method-item">
+        <h5>Stakeholder Engagement</h5>
+        <p>Sessions with system owners, operational teams, and technical leads to surface real-world usage vs. designed intent</p>
+      </div>
+      <div class="method-item">
+        <h5>Cross-functional Synthesis</h5>
+        <p>Translating BA, architecture, and design observations into a unified picture of current-state complexity</p>
+      </div>
+      <div class="method-item">
+        <h5>Handshake Analysis</h5>
+        <p>Documenting where and how systems connect &mdash; including unofficial bridges and manual workarounds</p>
+      </div>
+      <div class="method-item">
+        <h5>Discovery Planning</h5>
+        <p>Framing scoping outputs as actionable inputs: known questions, open unknowns, and risk areas for the discovery team</p>
+      </div>
+      <div class="method-item">
+        <h5>Documentation Design</h5>
+        <p>Building artefacts that could be used by the discovery team without requiring the scoping team to be in the room</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Systems mapped end-to-end</div></div>
+    <div class="stat-card"><div class="stat-num">1 mo</div><div class="stat-label">Scoping phase duration</div></div>
+    <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">Cross-functional disciplines in the team</div></div>
+    <div class="stat-card"><div class="stat-num">As-is</div><div class="stat-label">Full current-state picture delivered</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ WHY SCOPE FIRST ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Context</div>
+  <h2>Why scope before discovery?</h2>
+  <p>In most HCD projects, discovery is where you start. You go in, talk to users, and let the problems reveal themselves. But when the environment is a multi-system, multi-stakeholder public sector operation, going in blind has a real cost: you lose weeks asking questions that a better-prepared team would already know the answers to.</p>
+  <p>The scoping phase inverted the typical approach. Instead of beginning with users, we began with the systems. The goal was not to find problems to solve &mdash; that was discovery's job &mdash; but to establish a baseline. What exists. How it works. Where it connects. What the constraints are. What we'd be designing within.</p>
+
+  <div class="thinking-block">
+    <div class="label">The logic behind scoping first</div>
+    <p>A discovery team that walks in without a map of the systems will spend the first few weeks building that map. A discovery team that walks in with a map can spend those same weeks talking to users about their experience of those systems. The scoping phase was designed to give discovery that head start &mdash; not to answer discovery's questions, but to make sure discovery was asking the right ones from day one.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ THE FOUR SYSTEMS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Scoping Phase &mdash; What We Mapped</div>
+  <h2>The four systems</h2>
+  <p>Each system served a distinct function within the case management lifecycle. Each had its own history, its own logic, and its own users. Mapping them separately was the starting point; understanding how they connected was the harder work.</p>
+
+  <div class="systems-grid">
+    <div class="system-card">
+      <div class="sys-num">System 01</div>
+      <h4>[System Name TBC]</h4>
+      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
+      <p class="placeholder-note">Details to be added.</p>
+    </div>
+    <div class="system-card">
+      <div class="sys-num">System 02</div>
+      <h4>[System Name TBC]</h4>
+      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
+      <p class="placeholder-note">Details to be added.</p>
+    </div>
+    <div class="system-card">
+      <div class="sys-num">System 03</div>
+      <h4>[System Name TBC]</h4>
+      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
+      <p class="placeholder-note">Details to be added.</p>
+    </div>
+    <div class="system-card">
+      <div class="sys-num">System 04</div>
+      <h4>[System Name TBC]</h4>
+      <p>[Details to be added &mdash; role in the case management lifecycle, key capabilities, primary users, and how long it has been in use.]</p>
+      <p class="placeholder-note">Details to be added.</p>
+    </div>
+  </div>
+
+  <div class="thinking-block">
+    <div class="label">What made this complex</div>
+    <p>Four systems sounds manageable on paper. In practice, complexity compounds quickly: each system has its own data model, its own user base, and its own operational history. More importantly, the real complexity wasn't <em>within</em> any single system &mdash; it was <em>between</em> them. How a case moved from one system to the next, what triggered a handoff, who was responsible at each stage, and where things fell into gaps: that's what we were really mapping.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ HANDSHAKES ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">The Core Work</div>
+  <h2>Mapping the handshakes</h2>
+  <p>In complex multi-system environments, the handshake &mdash; the moment where one system passes responsibility to another &mdash; is often where the real problems live. Not inside any one system, but in the gaps between them.</p>
+  <p>Mapping the handshakes meant going beyond what the technical documentation said should happen, to understand what actually happened: the informal workarounds, the manual steps that had become standard practice, the data that got rekeyed because two systems didn't talk to each other, and the decisions that got made in those gaps that no one had formally documented.</p>
+
+  <div class="handshake-row">
+    <div class="hs-system">System 01<span>[Handoff description TBC]</span></div>
+    <div class="hs-connector">&#8594;</div>
+    <div class="hs-system">System 02<span>[Handoff description TBC]</span></div>
+    <div class="hs-connector">&#8594;</div>
+    <div class="hs-system">System 03<span>[Handoff description TBC]</span></div>
+    <div class="hs-connector">&#8594;</div>
+    <div class="hs-system">System 04<span>[Handoff description TBC]</span></div>
+  </div>
+
+  <div class="thinking-block">
+    <div class="label">Why handshakes matter for discovery</div>
+    <p>A discovery team focused only on individual systems would miss the real friction &mdash; which almost always lives at the boundaries. By mapping handshakes in the scoping phase, we could tell the discovery team: <em>these are the moments where the case management process is most likely to break, slow down, or generate workarounds. Start your user research here.</em> That's the kind of input that turns a generic discovery into a targeted one.</p>
+  </div>
+
+  <h3>What we found at the handshakes</h3>
+  <p>Across the four systems, the handshake mapping surfaced a consistent pattern: formal integration points were well-documented, but the informal processes that had grown up around their limitations were not. [Further findings to be added based on project details.]</p>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ THE TEAM ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Team &amp; Approach</div>
+  <h2>Three disciplines, one picture</h2>
+  <p>The scoping team was deliberately cross-functional. Each discipline contributed a different layer of understanding &mdash; and the synthesis across all three is what made the output useful for discovery.</p>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="role">Lead Designer</div>
+      <h4>Design &amp; Facilitation</h4>
+      <p>Structured the engagement, facilitated stakeholder sessions, and synthesised across disciplines into a picture that non-technical stakeholders could act on. Led handshake mapping and framed outputs for discovery.</p>
+    </div>
+    <div class="team-card">
+      <div class="role">Principal BA</div>
+      <h4>Business Analysis</h4>
+      <p>Documented business processes, capability inventories, and data flows across each system. Surfaced the operational logic behind how cases moved through the organisation.</p>
+    </div>
+    <div class="team-card">
+      <div class="role">Solutions Architect</div>
+      <h4>Technical Architecture</h4>
+      <p>Assessed the technical landscape: integration patterns, system constraints, legacy dependencies, and architectural decisions that would shape what modernisation was actually possible.</p>
+    </div>
+  </div>
+
+  <div class="thinking-block">
+    <div class="label">What the cross-functional model gave us</div>
+    <p>Working across design, BA, and architecture meant we could triangulate. When the BA documented a process and the Solutions Architect mapped the technical integration, I could sit across both and ask: does the system actually support the process it's supposed to enable? More often than not, the answer was "partly" &mdash; and that gap became a signal for discovery to follow up on.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ OUTPUTS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Scoping Outputs</div>
+  <h2>What the scoping phase produced</h2>
+  <p>At the end of one month, the scoping phase delivered a set of artefacts designed to serve one purpose: make the discovery phase smarter, faster, and better targeted.</p>
+
+  <div class="output-grid">
+    <div class="output-card">
+      <div class="icon">&#9783;</div>
+      <h4>Capability Map</h4>
+      <p>A structured inventory of what each of the four systems was capable of &mdash; actual capabilities, not documented specifications &mdash; organised by function and user group.</p>
+    </div>
+    <div class="output-card">
+      <div class="icon">&#8594;</div>
+      <h4>Handshake Map</h4>
+      <p>A visual and documented record of every integration point between systems: what triggers the handoff, what data moves, who is responsible, and where the gaps and manual bridges are.</p>
+    </div>
+    <div class="output-card">
+      <div class="icon">&#9999;</div>
+      <h4>As-Is System Overview</h4>
+      <p>A consolidated view of the current-state landscape: all four systems together, how they relate, and what the case management process looks like end-to-end as it operates today.</p>
+    </div>
+    <div class="output-card">
+      <div class="icon">&#9888;</div>
+      <h4>Risk and Complexity Register</h4>
+      <p>A flagged list of areas where complexity, legacy constraints, or undocumented processes would likely create friction during discovery or design. Input for risk planning.</p>
+    </div>
+    <div class="output-card">
+      <div class="icon">&#63;</div>
+      <h4>Known Unknowns Log</h4>
+      <p>Explicit documentation of questions the scoping phase could not answer &mdash; things that needed user research, deeper technical investigation, or stakeholder decisions to resolve.</p>
+    </div>
+    <div class="output-card">
+      <div class="icon">&#9654;</div>
+      <h4>Discovery Brief</h4>
+      <p>A structured brief for the discovery team: what we know, what we don't, where to focus, and what questions the first phase of user research should be built around.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ LEARNINGS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Reflections</div>
+  <h2>What I learned about working in complex systems</h2>
+
+  <div class="learning-grid">
+    <div class="learning-card">
+      <div class="num">01</div>
+      <h4>The gaps between systems are more revealing than the systems themselves</h4>
+      <p>Every system had documentation. None of the handshakes did. The informal processes, manual bridges, and workarounds that had grown up at integration points were invisible until we specifically went looking for them. That's where the real complexity &mdash; and the real opportunity for improvement &mdash; lives.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">02</div>
+      <h4>What a system does and what it's used for are not the same thing</h4>
+      <p>Across all four systems, there was a consistent gap between designed intent and actual use. Systems had capabilities that were never used, and operational needs that were being met by manual workarounds because no system had been built to handle them. Documenting both &mdash; not just one &mdash; is what makes a capability map useful.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">03</div>
+      <h4>A cross-functional team sees things a single discipline misses</h4>
+      <p>Working alongside a Principal BA and Solutions Architect meant I could surface mismatches that neither discipline would have caught alone: processes that the BA documented but the Solutions Architect knew the system couldn't support; technical constraints that shaped operational workarounds that had never been flagged as a problem. The synthesis across disciplines is where the insight was.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">04</div>
+      <h4>Scoping is an investment, not overhead</h4>
+      <p>On a project this complex, going straight to discovery without a systems map would have been expensive. The scoping phase cost one month. In exchange, the discovery team inherited a clear picture of the environment, a targeted set of questions, and an explicit register of risks and unknowns. That's not a delay &mdash; it's preparation that pays back across every phase that follows.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ OUTCOME ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Outcome</div>
+  <h2>What the scoping phase made possible</h2>
+  <p>We went into the scoping phase with four systems, a brief to modernise, and an unknown amount of complexity. We came out of it with a full as-is picture of the current environment, a documented map of every integration point across the four systems, a clear set of questions for discovery to build from, and a team that was genuinely prepared for what came next.</p>
+  <p>The value of this phase wasn't in the artefacts alone &mdash; it was in the shared understanding they represented. When discovery began, the team didn't need to spend weeks getting oriented. We could go straight to the work that matters: talking to users about their actual experience of these systems, and using what we already knew about the environment to ask better questions.</p>
+
+  <div class="thinking-block">
+    <div class="label">The broader point</div>
+    <p>Complex systems require a different kind of preparation. The skills that make HCD work in a focused, single-product context &mdash; going in early, staying open, letting users lead &mdash; don't disappear in a multi-system environment. But they need to be grounded in something. You can't design your way into clarity if you don't know what system you're designing within. This project taught me to see that preparation as part of the design work, not a precursor to it.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
+<footer class="footer">
+  <p>Case Management Platform Modernisation &mdash; Pre-Discovery Scoping Case Study &bull; Public Sector, Singapore</p>
+</footer>
+
+</div>
+
+<nav class="bottom-bar">
+  <a href="index.html#case-studies">&larr;&nbsp;&nbsp;Back to projects</a>
+</nav>
+
+<script src="scroll-animate.js"></script>
+<script src="gate.js"></script>
+<script src="contact.js"></script>
+</body>
+</html>
