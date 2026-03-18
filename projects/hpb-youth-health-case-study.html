@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Case Study — Flipping the Drift: Behavioural Design for Youth Health in Singapore</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Serif+Display&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafafa; --bg2: #f2f3f6; --bg3: #e8eaef;
+  --surface: #ffffff; --surface2: #f5f6f8;
+  --bdr: #d4d8e0; --bdr2: #e4e7ec;
+  --tx: #1b1f2a; --tx2: #515869; --tx3: #8b90a5; --txb: #0f1219;
+  --sleep: #7b6cf6; --eat: #2ba56e; --exercise: #e68a2e;
+  --screen: #e04343; --learn: #14b8a6; --oral: #1a9bcf; --bond: #c084fc;
+  --parent: rgba(108,140,255,0.65); --peer: rgba(245,158,66,0.65);
+  --cap: #3b5bdb; --opp: #e68a2e; --mot: #c0504d;
+  --critical: #c0392b; --critical-l: rgba(192,57,43,0.06);
+  --moderate: #c67520;
+  --green: #27ae60; --green-l: #edf9f0;
+  --accent: #1b3a2c; --accent2: #e07b54;
+  --font: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--tx); font-family: var(--font); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* ── LAYOUT ── */
+.page { max-width: 1100px; margin: 0 auto; padding: 0 32px 80px; }
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 0 60px;
+  border-bottom: 2px solid var(--txb);
+  margin-bottom: 48px;
+}
+.hero-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-family: var(--serif);
+  font-size: 42px;
+  line-height: 1.15;
+  color: var(--txb);
+  max-width: 780px;
+  margin-bottom: 20px;
+}
+.hero-sub {
+  font-size: 17px;
+  color: var(--tx2);
+  max-width: 680px;
+  line-height: 1.65;
+}
+.hero-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+.hero-meta-item {
+  font-size: 12px;
+  color: var(--tx3);
+}
+.hero-meta-item strong {
+  display: block;
+  font-size: 13px;
+  color: var(--tx);
+  font-weight: 600;
+}
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 56px;
+}
+.section-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 8px;
+}
+.section h2 {
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--txb);
+  margin-bottom: 16px;
+  line-height: 1.25;
+}
+.section p {
+  font-size: 15px;
+  color: var(--tx);
+  line-height: 1.75;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+.section p.muted {
+  color: var(--tx2);
+  font-size: 14px;
+}
+
+/* ── THINKING PROCESS ── */
+.thinking-block {
+  background: var(--accent);
+  color: #fff;
+  padding: 28px 32px;
+  border-radius: 10px;
+  margin: 24px 0 32px;
+}
+.thinking-block .label {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 10px;
+}
+.thinking-block p {
+  font-size: 14px;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.7;
+  max-width: 100%;
+}
+.thinking-block p strong {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+/* ── STAT STRIP ── */
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--txb);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-num.critical { color: var(--critical); }
+.stat-num.amber { color: var(--moderate); }
+.stat-label {
+  font-size: 11px;
+  color: var(--tx2);
+  line-height: 1.4;
+}
+
+/* ── WELL PERFORMANCE CHART (SVG) ── */
+.chart-container {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  padding: 24px;
+  margin: 24px 0;
+  overflow-x: auto;
+}
+.chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 4px;
+}
+.chart-sub {
+  font-size: 11px;
+  color: var(--tx3);
+  margin-bottom: 16px;
+}
+.chart-svg { width: 100%; height: auto; }
+.chart-legend {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  padding-top: 12px;
+  flex-wrap: wrap;
+}
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--tx2);
+  font-weight: 500;
+}
+.leg-line { width: 18px; height: 2.5px; border-radius: 2px; }
+.leg-dash { width: 18px; height: 0; border-top: 2px dashed; opacity: 0.5; }
+
+/* ── COM-B VISUAL ── */
+.comb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+@media (max-width: 700px) { .comb-grid { grid-template-columns: 1fr; } }
+.comb-col {
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.comb-col-hdr {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--txb);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.comb-col-hdr.youth { background: linear-gradient(135deg, #fef7e8, #fdf0d0); border-bottom: 1px solid #f0d48a; }
+.comb-col-hdr.parent { background: linear-gradient(135deg, #fdf0eb, #fce4d6); border-bottom: 1px solid #e8b49c; }
+.comb-section-hdr {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.comb-section-hdr.cap { background: #eef1fb; color: var(--cap); border-bottom: 1px solid #a4b5ec; }
+.comb-section-hdr.opp { background: #fef7e8; color: var(--opp); border-bottom: 1px solid #f0d48a; }
+.comb-section-hdr.mot { background: #fef2f2; color: var(--mot); border-bottom: 1px solid #e8a5a3; }
+.comb-icon {
+  width: 18px; height: 18px; border-radius: 4px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: #fff;
+}
+.comb-icon.cap { background: var(--cap); }
+.comb-icon.opp { background: var(--opp); }
+.comb-icon.mot { background: var(--mot); }
+.comb-barrier {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--bdr2);
+  font-size: 11px;
+  color: var(--tx);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.comb-barrier:last-child { border-bottom: none; }
+.well-tag {
+  font-size: 8px; font-weight: 600;
+  padding: 1px 5px; border-radius: 2px;
+  letter-spacing: 0.3px; text-transform: uppercase;
+  flex-shrink: 0;
+}
+.wt-sleep { background: rgba(124,107,196,0.15); color: var(--sleep); }
+.wt-screen { background: rgba(230,126,34,0.15); color: var(--screen); }
+.wt-eat { background: rgba(39,174,96,0.15); color: var(--eat); }
+.wt-exercise { background: rgba(41,128,185,0.15); color: var(--exercise); }
+.wt-bond { background: rgba(155,89,182,0.15); color: var(--bond); }
+
+/* ── CONVERGENCE ── */
+.convergence {
+  border: 2px solid var(--txb);
+  border-radius: 10px;
+  padding: 20px 24px;
+  margin: 24px 0;
+}
+.convergence h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.convergence h3::before {
+  content: '';
+  width: 4px; height: 16px;
+  background: var(--txb);
+  border-radius: 2px;
+}
+.conv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 700px) { .conv-grid { grid-template-columns: 1fr; } }
+.conv-card {
+  padding: 12px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--bdr);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--tx);
+}
+.conv-card.cap { border-left: 3px solid var(--cap); background: rgba(59,91,219,0.03); }
+.conv-card.opp { border-left: 3px solid var(--opp); background: rgba(230,138,46,0.03); }
+.conv-card.mot { border-left: 3px solid var(--mot); background: rgba(192,80,77,0.03); }
+.conv-card h4 {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  margin-bottom: 6px;
+}
+.conv-card h4.cap { color: var(--cap); }
+.conv-card h4.opp { color: var(--opp); }
+.conv-card h4.mot { color: var(--mot); }
+.conv-pair {
+  display: flex; gap: 6px; margin-bottom: 4px; align-items: flex-start;
+}
+.conv-label {
+  font-size: 7px; font-weight: 700; padding: 2px 5px; border-radius: 2px;
+  flex-shrink: 0; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px;
+}
+.conv-label.y { background: rgba(212,136,12,0.15); color: #d4880c; }
+.conv-label.p { background: rgba(194,85,42,0.15); color: #c2552a; }
+
+/* ── QUOTE ── */
+.quote-block {
+  padding: 16px 20px;
+  background: var(--bg2);
+  border-left: 3px solid var(--txb);
+  border-radius: 0 8px 8px 0;
+  margin: 16px 0;
+  max-width: 640px;
+}
+.quote-block p {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--tx);
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.quote-block .source {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--tx3);
+}
+
+/* ── CASCADE VISUAL ── */
+.cascade {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.cascade-node {
+  font-size: 11px; font-weight: 600;
+  padding: 6px 12px; border-radius: 6px;
+  white-space: nowrap;
+}
+.cascade-arrow {
+  font-size: 14px; color: var(--tx3);
+}
+.cascade-label {
+  font-size: 10px; color: var(--tx2);
+  margin-left: 8px; font-style: italic;
+}
+
+/* ── CONCEPT CARDS ── */
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 24px 0;
+}
+@media (max-width: 800px) { .concept-grid { grid-template-columns: 1fr; } }
+.concept-card {
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.concept-hdr {
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid var(--bdr2);
+}
+.concept-hdr .score {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+  float: right;
+}
+.concept-hdr h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 4px;
+}
+.concept-hdr .type {
+  font-size: 10px;
+  color: var(--tx3);
+  font-weight: 500;
+}
+.concept-body {
+  padding: 16px 20px;
+  font-size: 12px;
+  color: var(--tx);
+  line-height: 1.6;
+}
+.concept-wells {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  border-top: 1px solid var(--bdr2);
+}
+.c1 .concept-hdr { border-top: 3px solid #1F497D; }
+.c1 .score { background: rgba(31,73,125,0.1); color: #1F497D; }
+.c2 .concept-hdr { border-top: 3px solid #375623; }
+.c2 .score { background: rgba(55,86,35,0.1); color: #375623; }
+.c3 .concept-hdr { border-top: 3px solid #843C0C; }
+.c3 .score { background: rgba(132,60,12,0.1); color: #843C0C; }
+
+/* ── DESIGN PRINCIPLES ── */
+.principles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+@media (max-width: 700px) { .principles { grid-template-columns: 1fr; } }
+.principle {
+  padding: 20px;
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.principle .num {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-bottom: 8px;
+}
+.principle h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 6px;
+}
+.principle p {
+  font-size: 12px;
+  color: var(--tx2);
+  line-height: 1.55;
+}
+
+/* ── METHOD TIMELINE ── */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin: 24px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--bdr);
+}
+.tl-item {
+  position: relative;
+  padding-bottom: 20px;
+}
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -24px; top: 4px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--accent2);
+  border: 2px solid var(--bg);
+}
+.tl-item.active::before { background: var(--accent); }
+.tl-phase {
+  font-family: var(--mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent2);
+  margin-bottom: 4px;
+}
+.tl-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--txb);
+  margin-bottom: 4px;
+}
+.tl-desc {
+  font-size: 12px;
+  color: var(--tx2);
+  line-height: 1.55;
+  max-width: 600px;
+}
+
+/* ── WELL MATRIX (simplified) ── */
+.well-matrix {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr 1fr;
+  border: 1px solid var(--bdr);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 24px 0;
+  font-size: 11px;
+}
+.wm-corner {
+  background: var(--bg3);
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--bdr);
+  border-right: 1px solid var(--bdr);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--tx3);
+  display: flex;
+  align-items: flex-end;
+}
+.wm-col-hdr {
+  background: var(--bg3);
+  padding: 10px 12px;
+  border-bottom: 2px solid var(--bdr);
+  border-right: 1px solid var(--bdr2);
+  text-align: center;
+}
+.wm-col-hdr:last-child { border-right: none; }
+.wm-stage {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--txb);
+}
+.wm-age {
+  font-size: 9px;
+  color: var(--tx2);
+  margin-top: 2px;
+}
+.wm-desc {
+  font-size: 8px;
+  color: var(--tx3);
+  font-style: italic;
+  margin-top: 2px;
+}
+.wm-well-label {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--bdr);
+  border-right: 1px solid var(--bdr);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.wm-well-name {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--txb);
+}
+.wm-dot {
+  width: 8px; height: 8px; border-radius: 3px; flex-shrink: 0;
+}
+.wm-cell {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--bdr2);
+  border-right: 1px solid var(--bdr2);
+  line-height: 1.4;
+}
+.wm-cell:last-child { border-right: none; }
+.wm-status {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.wm-status.stable { background: var(--green-l); color: var(--green); }
+.wm-status.declining { background: rgba(212,136,12,0.1); color: var(--moderate); }
+.wm-status.critical { background: var(--critical-l); color: var(--critical); }
+.wm-finding {
+  font-size: 10px;
+  color: var(--tx);
+}
+.wm-driver {
+  font-size: 9px;
+  padding: 3px 6px;
+  border-radius: 3px;
+  margin-top: 4px;
+  display: inline-block;
+}
+.wm-driver.gap { background: rgba(192,57,43,0.08); border-left: 2px solid var(--critical); color: var(--critical); }
+.wm-driver.parent { background: rgba(194,85,42,0.08); border-left: 2px solid var(--critical); color: var(--tx); }
+.wm-driver.peer { background: rgba(230,138,46,0.08); border-left: 2px solid var(--moderate); color: var(--tx); }
+
+/* ── WELL CHAIN STRIP ── */
+.chain-strip {
+  background: var(--bg2);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 16px 0;
+}
+.chain-strip h4 {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--tx3);
+  margin-bottom: 10px;
+}
+.chain {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.chain:last-child { margin-bottom: 0; }
+.chain-node {
+  font-size: 9px; font-weight: 600;
+  padding: 3px 7px; border-radius: 3px;
+}
+.chain-arrow { font-size: 9px; color: var(--tx3); }
+.chain-label {
+  font-size: 9px; color: var(--tx2);
+  margin-left: 4px; font-style: italic;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--bdr);
+  margin: 56px 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 700px) {
+  .hero h1 { font-size: 28px; }
+  .section h2 { font-size: 22px; }
+  .stat-strip { grid-template-columns: 1fr 1fr; }
+  .well-matrix { font-size: 9px; grid-template-columns: 100px 1fr 1fr 1fr; }
+}
+
+@media print {
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: A4; margin: 15mm; }
+  .page { max-width: 100%; padding: 0; }
+  .hero { padding: 40px 0 30px; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- HERO                                                -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="hero">
+    <div class="hero-label">Case Study</div>
+    <h1>Flipping the Drift: Behavioural Design for Youth Health in Singapore</h1>
+    <p class="hero-sub">How we used behavioural science — not just service design — to uncover why Singaporean youth silently lose their healthy habits, and designed three physical interventions to flip the pattern.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>Client</strong>Health Promotion Board (HPB), Singapore</div>
+      <div class="hero-meta-item"><strong>Division</strong>Young People Segment (YPS)</div>
+      <div class="hero-meta-item"><strong>Framework</strong>Growing Well in SG (GWSG)</div>
+      <div class="hero-meta-item"><strong>Duration</strong>Nov 2025 – Mar 2026</div>
+      <div class="hero-meta-item"><strong>Sample</strong>N=60 (24 IDIs + 12 Co-creation + 24 Validation)</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 01 THE CHALLENGE                                    -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">01 — The Challenge</div>
+    <h2>Youth aren't choosing to be unhealthy. The structures holding their habits just... disappear.</h2>
+    <p>Singapore's Health Promotion Board had strong data on older youth (17–25), but the 13–16 age group — the secondary school years — was a blind spot. National health metrics were declining across the board. HPB needed to understand what was happening in this critical window before they could act.</p>
+
+    <div class="stat-strip">
+      <div class="stat-card">
+        <div class="stat-num critical">69%</div>
+        <div class="stat-label">of youth have insufficient sleep — up from 63% in 2015</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num critical">8.5h</div>
+        <div class="stat-label">average daily device use — nearly a full waking day on screens</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num amber">45%</div>
+        <div class="stat-label">not meeting 60 minutes of daily physical activity</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num amber">7.12h</div>
+        <div class="stat-label">average sleep — the shortest in the Asia-Pacific region</div>
+      </div>
+    </div>
+
+    <div class="thinking-block">
+      <div class="label">The Thinking Process</div>
+      <p>This project could have been a conventional CX/UX exercise — map the journey, identify pain points, propose service improvements. <strong>We deliberately chose not to do that.</strong> The numbers told us this wasn't a touchpoint problem. Youth weren't having bad experiences with health services; they were drifting away from healthy habits before any service could reach them. That meant we needed to understand <strong>behaviour, not experience</strong>. We brought in COM-B, transition analysis, and behavioural ecosystem mapping — tools from behavioural science — because the answer wasn't in optimising a service journey. It was in understanding why behaviours change when the structures around young people shift.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 02 OUR APPROACH                                     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">02 — Our Approach</div>
+    <h2>Behaviour science meets human-centred design</h2>
+    <p>We didn't start with personas or journey maps. We started with a behavioural ecosystem — mapping 7 behaviours across 7 developmental stages to find where and why habits break down. This is what separates behavioural design from traditional service design.</p>
+
+    <div class="timeline">
+      <div class="tl-item active">
+        <div class="tl-phase">Phase 1 — Discover</div>
+        <div class="tl-title">Behavioural Ecosystem Blueprint</div>
+        <div class="tl-desc">24 in-depth interviews (12 youth, 12 parents, 2 experts). We mapped 7 behaviours across 7 stages, applied COM-B analysis to every barrier, and scored all 6 Wells across each developmental transition. This wasn't about "how was your experience?" — it was about "why did this behaviour change?"</div>
+      </div>
+      <div class="tl-item active">
+        <div class="tl-phase">Phase 2 — Define</div>
+        <div class="tl-title">Transition Zone Mapping & DVF Prioritisation</div>
+        <div class="tl-desc">Internal workshop with HPB using HMW methodology. We identified 17 opportunity areas, scored them against 18 DVF criteria (Desirability, Viability, Feasibility), and pinpointed the two critical vulnerability windows: after-school (2–6pm) and nighttime (9pm–1am+).</div>
+      </div>
+      <div class="tl-item active">
+        <div class="tl-phase">Phase 3 — Co-create</div>
+        <div class="tl-title">25 Ideas Down to 3 Behavioural Interventions</div>
+        <div class="tl-desc">Separate co-creation workshops with 6 youth and 6 parents. Day-in-the-life mapping, stimulus testing, gallery walk voting. From 25 directions, we shortlisted 3 concepts using behavioural leverage criteria — not just appeal.</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-phase">Phase 4 — Validate</div>
+        <div class="tl-title">Prototype Testing with 24 Participants</div>
+        <div class="tl-desc">Individual 60-minute moderated sessions with physical prototypes. 7-point Likert scales on 5 dimensions. Think-aloud protocol. Testing not just "do you like it?" but "would this change your behaviour?"</div>
+      </div>
+    </div>
+
+    <div class="thinking-block">
+      <div class="label">Why This Matters</div>
+      <p>Traditional HCD would have us map a youth health "journey" and find service gaps. <strong>But there is no journey here — there's a drift.</strong> Youth don't wake up one day and choose to stop sleeping well. They transition into secondary school, lose the structures that held their habits, and slowly slide. That's a behavioural phenomenon, not a service design problem. So we built behavioural analysis tools — ecosystem blueprints, COM-B barrier maps, transition zone scoring — and used them to find the leverage points. The team learned to ask "what behavioural mechanism is at work?" before jumping to solutions.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 03 KEY INSIGHTS                                     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">03 — Key Insights</div>
+    <h2>The Drift: how healthy habits silently unravel</h2>
+    <p>The central finding was what we called <em>"the drift"</em> — the gradual, unintentional slide away from healthy habits during transitions. Not because youth choose to stop, but because the structures that held those habits disappear before they can self-manage.</p>
+
+    <p>The drift manifests in three interconnected breakdowns:</p>
+
+    <div class="principles" style="margin-bottom: 32px;">
+      <div class="principle">
+        <div class="num">1</div>
+        <h4>Knowing to Not Doing</h4>
+        <p>Youth know what's healthy. They were never taught <em>how</em> to do it on their own — someone else always managed it for them.</p>
+      </div>
+      <div class="principle">
+        <div class="num">2</div>
+        <h4>Structure to Gap</h4>
+        <p>Bedtimes, family meals, supervised afternoons all decrease by Sec 1. What replaces them defaults to convenience, not health.</p>
+      </div>
+      <div class="principle">
+        <div class="num">3</div>
+        <h4>Guidance to Friction</h4>
+        <p>Parents haven't stopped caring. But their tools — monitoring, rules, reminders — now trigger resistance rather than compliance.</p>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <p>"I know what's healthy. I just... can't always do it."</p>
+      <div class="source">Y03 — 14 years old</div>
+    </div>
+  </div>
+
+  <!-- ── WELL PERFORMANCE CHART ── -->
+  <div class="section">
+    <div class="section-label">Data Visualisation</div>
+    <h2>Well Performance Across Stages</h2>
+    <p class="muted">How each wellness dimension tracks from late primary through upper secondary. Scores on a 1–5 scale, derived from qualitative analysis of 24 interviews. The crossover of parent and peer influence lines marks the critical handover point.</p>
+
+    <div class="chart-container">
+      <div class="chart-title">Transition Map x Well Performance</div>
+      <div class="chart-sub">Qualitative · N=24 · 12 Youth, 12 Parents · 7 Wells + Parent/Peer Influence</div>
+      <svg class="chart-svg" viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid meet">
+        <!-- Grid -->
+        <line x1="48" y1="12" x2="972" y2="12" stroke="#e4e7ec" stroke-dasharray="4 4"/>
+        <line x1="48" y1="82" x2="972" y2="82" stroke="#e4e7ec" stroke-dasharray="4 4"/>
+        <line x1="48" y1="152" x2="972" y2="152" stroke="#e4e7ec" stroke-dasharray="4 4"/>
+        <line x1="48" y1="222" x2="972" y2="222" stroke="#e4e7ec" stroke-dasharray="4 4"/>
+        <line x1="48" y1="292" x2="972" y2="292" stroke="#e4e7ec" stroke-dasharray="4 4"/>
+
+        <!-- Y labels -->
+        <text x="40" y="16" text-anchor="end" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">5</text>
+        <text x="40" y="86" text-anchor="end" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">4</text>
+        <text x="40" y="156" text-anchor="end" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">3</text>
+        <text x="40" y="226" text-anchor="end" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">2</text>
+        <text x="40" y="296" text-anchor="end" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">1</text>
+
+        <!-- X labels -->
+        <text x="48" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace" opacity="0.5">P3-P4</text>
+        <text x="202" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">P5-P6</text>
+        <text x="356" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">Sec 1</text>
+        <text x="510" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">Sec 2</text>
+        <text x="664" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">Sec 3</text>
+        <text x="818" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace">Sec 4</text>
+        <text x="972" y="320" text-anchor="middle" fill="#8b90a5" font-size="9" font-family="JetBrains Mono,monospace" opacity="0.5">JC/Poly</text>
+
+        <!-- Guidelines met band -->
+        <rect x="48" y="12" width="924" height="34" fill="rgba(59,91,219,0.03)" rx="2"/>
+        <text x="966" y="32" text-anchor="end" fill="rgba(59,91,219,0.25)" font-size="7.5" font-family="DM Sans,sans-serif" font-style="italic">Guidelines Met</text>
+
+        <!-- Transition zone highlight: P5/P6 to Sec 1 -->
+        <rect x="198" y="12" width="162" height="280" fill="rgba(192,57,43,0.06)" stroke="rgba(192,57,43,0.22)" stroke-width="1.5" stroke-dasharray="5 3" rx="5"/>
+        <text x="279" y="24" text-anchor="middle" fill="rgba(192,57,43,0.6)" font-size="7" font-family="JetBrains Mono,monospace" font-weight="700">CRITICAL TRANSITION</text>
+
+        <!-- Parent influence area (dashed, fading) -->
+        <polygon points="48,12 202,47 356,117 510,157 664,222 818,257 972,292 972,292 48,292" fill="rgba(108,140,255,0.06)"/>
+        <polyline points="48,12 202,47 356,117 510,157 664,222 818,257 972,292" fill="none" stroke="rgba(108,140,255,0.35)" stroke-width="1.8" stroke-dasharray="6 4"/>
+
+        <!-- Peer influence area (dashed, rising) -->
+        <polygon points="48,292 202,257 356,152 510,117 664,82 818,47 972,30 972,292 48,292" fill="rgba(245,158,66,0.05)"/>
+        <polyline points="48,292 202,257 356,152 510,117 664,82 818,47 972,30" fill="none" stroke="rgba(245,158,66,0.35)" stroke-width="1.8" stroke-dasharray="6 4"/>
+
+        <!-- Crossover marker -->
+        <line x1="390" y1="12" x2="390" y2="292" stroke="rgba(180,180,200,0.25)" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="390" y="8" text-anchor="middle" fill="#8b90a5" font-size="6.5" font-family="DM Sans,sans-serif" font-style="italic">Peer overtakes Parent</text>
+
+        <!-- SLEEP (purple) - 4.5 → 4.0 → 2.5 → 1.75 → 1.5 → 1.25 → 1.25 -->
+        <polyline points="202,82 356,187 510,227 664,243 818,257" fill="none" stroke="#7b6cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="47" x2="202" y2="82" stroke="#7b6cf6" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <line x1="818" y1="257" x2="972" y2="257" stroke="#7b6cf6" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <circle cx="202" cy="82" r="4.5" fill="#7b6cf6" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="356" cy="187" r="4.5" fill="#7b6cf6" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="510" cy="227" r="4.5" fill="#7b6cf6" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="664" cy="243" r="4.5" fill="#7b6cf6" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="818" cy="257" r="4.5" fill="#7b6cf6" stroke="#fff" stroke-width="1.8"/>
+
+        <!-- EAT (green) - 4.5 → 4.25 → 3.0 → 2.75 → 2.5 → 2.25 → 2.0 -->
+        <polyline points="202,64 356,152 510,168 664,187 818,204" fill="none" stroke="#2ba56e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="47" x2="202" y2="64" stroke="#2ba56e" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <line x1="818" y1="204" x2="972" y2="222" stroke="#2ba56e" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <circle cx="202" cy="64" r="4.5" fill="#2ba56e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="356" cy="152" r="4.5" fill="#2ba56e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="510" cy="168" r="4.5" fill="#2ba56e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="664" cy="187" r="4.5" fill="#2ba56e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="818" cy="204" r="4.5" fill="#2ba56e" stroke="#fff" stroke-width="1.8"/>
+
+        <!-- EXERCISE (orange) - 4.5 → 4.25 → 4.0 → 3.5 → 2.0 → 1.75 → 1.5 -->
+        <polyline points="202,64 356,82 510,117 664,222 818,237" fill="none" stroke="#e68a2e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="47" x2="202" y2="64" stroke="#e68a2e" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <line x1="818" y1="237" x2="972" y2="257" stroke="#e68a2e" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <circle cx="202" cy="64" r="4.5" fill="#e68a2e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="356" cy="82" r="4.5" fill="#e68a2e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="510" cy="117" r="4.5" fill="#e68a2e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="664" cy="222" r="4.5" fill="#e68a2e" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="818" cy="237" r="4.5" fill="#e68a2e" stroke="#fff" stroke-width="1.8"/>
+
+        <!-- SCREEN (red) - 3.5 → 2.25 → 1.75 → 1.5 → 1.25 → 1.25 → 1.25 -->
+        <polyline points="202,204 356,227 510,243 664,257 818,257" fill="none" stroke="#e04343" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="117" x2="202" y2="204" stroke="#e04343" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <line x1="818" y1="257" x2="972" y2="257" stroke="#e04343" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <circle cx="202" cy="204" r="4.5" fill="#e04343" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="356" cy="227" r="4.5" fill="#e04343" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="510" cy="243" r="4.5" fill="#e04343" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="664" cy="257" r="4.5" fill="#e04343" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="818" cy="257" r="4.5" fill="#e04343" stroke="#fff" stroke-width="1.8"/>
+
+        <!-- BOND (purple-pink) - 4.5 → 4.25 → 3.25 → 2.5 → 2.0 → 1.75 → 1.5 -->
+        <polyline points="202,64 356,138 510,187 664,222 818,237" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <line x1="48" y1="47" x2="202" y2="64" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <line x1="818" y1="237" x2="972" y2="257" stroke="#c084fc" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.45"/>
+        <circle cx="202" cy="64" r="4.5" fill="#c084fc" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="356" cy="138" r="4.5" fill="#c084fc" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="510" cy="187" r="4.5" fill="#c084fc" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="664" cy="222" r="4.5" fill="#c084fc" stroke="#fff" stroke-width="1.8"/>
+        <circle cx="818" cy="237" r="4.5" fill="#c084fc" stroke="#fff" stroke-width="1.8"/>
+      </svg>
+
+      <div class="chart-legend">
+        <div class="leg-item"><div class="leg-line" style="background:#7b6cf6"></div>Sleep</div>
+        <div class="leg-item"><div class="leg-line" style="background:#2ba56e"></div>Eat</div>
+        <div class="leg-item"><div class="leg-line" style="background:#e68a2e"></div>Exercise</div>
+        <div class="leg-item"><div class="leg-line" style="background:#e04343"></div>Screen</div>
+        <div class="leg-item"><div class="leg-line" style="background:#c084fc"></div>Bond</div>
+        <div class="leg-item"><div class="leg-dash" style="border-color:rgba(108,140,255,0.5)"></div>Parent Influence</div>
+        <div class="leg-item"><div class="leg-dash" style="border-color:rgba(245,158,66,0.5)"></div>Peer Influence</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── THE HABIT CASCADE ── -->
+  <div class="section">
+    <h2>The Habit Cascade</h2>
+    <p>One habit slipping pulls the others with it. 8 out of 11 youth and 5 out of 10 parents described this exact pattern:</p>
+
+    <div class="cascade">
+      <div class="cascade-node" style="background:rgba(224,67,67,0.1); color:#e04343;">Screen late</div>
+      <div class="cascade-arrow">&rarr;</div>
+      <div class="cascade-node" style="background:rgba(123,108,246,0.1); color:#7b6cf6;">Poor sleep</div>
+      <div class="cascade-arrow">&rarr;</div>
+      <div class="cascade-node" style="background:rgba(43,165,110,0.1); color:#2ba56e;">Skip breakfast</div>
+      <div class="cascade-arrow">&rarr;</div>
+      <div class="cascade-node" style="background:rgba(230,138,46,0.1); color:#e68a2e;">No energy to move</div>
+      <div class="cascade-arrow">&rarr;</div>
+      <div class="cascade-node" style="background:rgba(224,67,67,0.1); color:#e04343;">More screen</div>
+      <div class="cascade-label">Reinforcing loop</div>
+    </div>
+
+    <div class="quote-block">
+      <p>"I had a really bad habit of sleeping late. 2 a.m. on a school day. Then I can't wake up, skip breakfast, drag myself to school."</p>
+      <div class="source">Y03 — 14 years old</div>
+    </div>
+  </div>
+
+  <!-- ── WELL PERFORMANCE MATRIX ── -->
+  <div class="section">
+    <div class="section-label">Data Visualisation</div>
+    <h2>Well Performance Across Stages</h2>
+    <p class="muted">How each of the 6 Wells tracks from late primary through upper secondary — showing where performance holds, where it drops, and what's driving the change.</p>
+
+    <div class="well-matrix">
+      <!-- Header -->
+      <div class="wm-corner">Well</div>
+      <div class="wm-col-hdr">
+        <div class="wm-stage">Late Primary</div>
+        <div class="wm-age">P5–P6 · 11–12yo</div>
+        <div class="wm-desc">Parent-structured</div>
+      </div>
+      <div class="wm-col-hdr">
+        <div class="wm-stage">Lower Secondary</div>
+        <div class="wm-age">Sec 1–2 · 13–14yo</div>
+        <div class="wm-desc">Structure eroding</div>
+      </div>
+      <div class="wm-col-hdr">
+        <div class="wm-stage">Upper Secondary</div>
+        <div class="wm-age">Sec 3–4 · 15–16yo</div>
+        <div class="wm-desc">Habits solidify</div>
+      </div>
+
+      <!-- SLEEP -->
+      <div class="wm-well-label">
+        <div class="wm-well-name"><div class="wm-dot" style="background:var(--sleep)"></div>Sleep</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status stable">Stable</div>
+        <div class="wm-finding">Parent-enforced bedtimes set the rhythm</div>
+        <div class="wm-driver parent">Parent-driven</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status declining">Declining</div>
+        <div class="wm-finding">Bedtimes shift later. Phone use before bed begins.</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status critical">Critical</div>
+        <div class="wm-finding">Phone required to fall asleep. No clear driver after parents withdraw.</div>
+        <div class="wm-driver gap">No one owns this</div>
+      </div>
+
+      <!-- SCREEN -->
+      <div class="wm-well-label">
+        <div class="wm-well-name"><div class="wm-dot" style="background:var(--screen)"></div>Screen</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status stable">Stable</div>
+        <div class="wm-finding">Many don't have own phone yet. Bounded by parental rules.</div>
+        <div class="wm-driver parent">Controls work</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status critical">Critical</div>
+        <div class="wm-finding">Own phone + unsupervised hours. Screen fills every unstructured gap.</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status critical">Critical</div>
+        <div class="wm-finding">Fully embedded. Average 8.5h daily. Cannot decline further.</div>
+        <div class="wm-driver gap">At floor</div>
+      </div>
+
+      <!-- EAT -->
+      <div class="wm-well-label">
+        <div class="wm-well-name"><div class="wm-dot" style="background:var(--eat)"></div>Eat</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status stable">Stable</div>
+        <div class="wm-finding">Family meals structure nutrition. Parent-prepared food.</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status declining">Declining</div>
+        <div class="wm-finding">Canteen shift. First autonomous food choices without skills.</div>
+        <div class="wm-driver peer">Peer norms establish</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status declining">Declining</div>
+        <div class="wm-finding">Convenience eating locked in. Meal skipping increases.</div>
+      </div>
+
+      <!-- EXERCISE -->
+      <div class="wm-well-label">
+        <div class="wm-well-name"><div class="wm-dot" style="background:var(--exercise)"></div>Exercise</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status stable">Stable</div>
+        <div class="wm-finding">Structured PE and play. Parent encouragement effective.</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status stable">Stable</div>
+        <div class="wm-finding">CCA cushions this. Holds better than other wells.</div>
+      </div>
+      <div class="wm-cell">
+        <div class="wm-status critical">Critical</div>
+        <div class="wm-finding">Sharpest cliff. Academic pressure eliminates non-identity exercise.</div>
+        <div class="wm-driver gap">Survives only if identity-anchored</div>
+      </div>
+
+      <!-- BOND -->
+      <div class="wm-well-label" style="border-bottom:none;">
+        <div class="wm-well-name"><div class="wm-dot" style="background:var(--bond)"></div>Bond</div>
+      </div>
+      <div class="wm-cell" style="border-bottom:none;">
+        <div class="wm-status stable">Stable</div>
+        <div class="wm-finding">Parent-youth communication strong. Rules accepted.</div>
+      </div>
+      <div class="wm-cell" style="border-bottom:none;">
+        <div class="wm-status declining">Declining</div>
+        <div class="wm-finding">Conversations narrow to transactional. Nagging dynamic starts.</div>
+      </div>
+      <div class="wm-cell" style="border-bottom:none;">
+        <div class="wm-status critical">Critical</div>
+        <div class="wm-finding">Safety net only. Both sides want connection but tools are misaligned.</div>
+        <div class="wm-driver gap">Last lever — barely functional</div>
+      </div>
+    </div>
+
+    <div class="chain-strip">
+      <h4>Well Interaction Chains</h4>
+      <div class="chain">
+        <span class="chain-node wt-screen">Screen</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node wt-sleep">Sleep</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node wt-eat">Eat</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node wt-exercise">Exercise</span>
+        <span class="chain-label">Dominant cascade (8/11 youth)</span>
+      </div>
+      <div class="chain">
+        <span class="chain-node wt-bond">Bond</span>
+        <span class="chain-arrow">&rarr;</span>
+        <span class="chain-node wt-sleep">Sleep</span>
+        <span class="chain-arrow">+</span>
+        <span class="chain-node wt-screen">Screen</span>
+        <span class="chain-label">Parent withdrawal removes last check</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COM-B ANALYSIS ── -->
+  <div class="section">
+    <div class="section-label">Data Visualisation</div>
+    <h2>The "Why" Behind the Drift — COM-B Analysis</h2>
+    <p class="muted">Capability, Opportunity, and Motivation barriers mapped for both youth and parents. The core tension isn't awareness — it's misalignment. Both sides are trying, but the system shifted faster than their strategies adapted.</p>
+
+    <div class="comb-grid">
+      <!-- YOUTH COLUMN -->
+      <div class="comb-col">
+        <div class="comb-col-hdr youth">Youth Barriers · n=11</div>
+        <div class="comb-section-hdr cap"><span class="comb-icon cap">C</span> Capability — Self-regulation under pressure</div>
+        <div class="comb-barrier">
+          <span style="flex:1">Phone feels addictive and hard to control</span>
+          <span class="well-tag wt-screen">Scrn</span>
+          <span class="well-tag wt-sleep">Sleep</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">Habits regress during school term due to fatigue</span>
+          <span class="well-tag wt-sleep">Sleep</span>
+          <span class="well-tag wt-eat">Eat</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">Know what's healthy but not <em>how</em> to do it independently</span>
+          <span class="well-tag wt-eat">Eat</span>
+        </div>
+        <div class="comb-section-hdr opp"><span class="comb-icon opp">O</span> Opportunity — Environment defaults to unhealthy</div>
+        <div class="comb-barrier">
+          <span style="flex:1">After-school gap (2–6pm) — 4 hours unsupervised, 0/6 parents present</span>
+          <span class="well-tag wt-screen">Scrn</span>
+          <span class="well-tag wt-eat">Eat</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">Phone in bedroom at night — sleep entirely self-managed</span>
+          <span class="well-tag wt-sleep">Sleep</span>
+        </div>
+        <div class="comb-section-hdr mot"><span class="comb-icon mot">M</span> Motivation — Competing priorities win</div>
+        <div class="comb-barrier">
+          <span style="flex:1">Future health feels irrelevant — "I'm young, I'll be fine"</span>
+          <span class="well-tag wt-eat">Eat</span>
+          <span class="well-tag wt-exercise">Exer</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">Academics, appearance, and social acceptance take precedence</span>
+          <span class="well-tag wt-exercise">Exer</span>
+          <span class="well-tag wt-sleep">Sleep</span>
+        </div>
+      </div>
+
+      <!-- PARENT COLUMN -->
+      <div class="comb-col">
+        <div class="comb-col-hdr parent">Parent Barriers · n=10</div>
+        <div class="comb-section-hdr cap"><span class="comb-icon cap">C</span> Capability — Tools stopped working</div>
+        <div class="comb-barrier">
+          <span style="flex:1">Primary-school strategies (rules, monitoring) trigger resistance</span>
+          <span class="well-tag wt-bond">Bond</span>
+          <span class="well-tag wt-screen">Scrn</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">Don't know how to talk about health without it sounding like nagging</span>
+          <span class="well-tag wt-bond">Bond</span>
+        </div>
+        <div class="comb-section-hdr opp"><span class="comb-icon opp">O</span> Opportunity — Visibility drops</div>
+        <div class="comb-barrier">
+          <span style="flex:1">Can't see what youth eat, when they sleep, or how much they move</span>
+          <span class="well-tag wt-eat">Eat</span>
+          <span class="well-tag wt-sleep">Sleep</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">No equivalent of student care centre in secondary school</span>
+          <span class="well-tag wt-screen">Scrn</span>
+        </div>
+        <div class="comb-section-hdr mot"><span class="comb-icon mot">M</span> Motivation — Picking battles</div>
+        <div class="comb-barrier">
+          <span style="flex:1">Fear of damaging the relationship overrides health concerns</span>
+          <span class="well-tag wt-bond">Bond</span>
+        </div>
+        <div class="comb-barrier">
+          <span style="flex:1">"Just don't get into trouble" becomes the operating principle</span>
+          <span class="well-tag wt-eat">Eat</span>
+          <span class="well-tag wt-exercise">Exer</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="convergence">
+      <h3>Where Youth and Parent Barriers Converge</h3>
+      <div class="conv-grid">
+        <div class="conv-card cap">
+          <h4 class="cap">Capability</h4>
+          <div class="conv-pair"><span class="conv-label y">Youth</span><span>Know what's healthy, can't execute independently</span></div>
+          <div class="conv-pair"><span class="conv-label p">Parent</span><span>Want to guide but tools trigger resistance</span></div>
+        </div>
+        <div class="conv-card opp">
+          <h4 class="opp">Opportunity</h4>
+          <div class="conv-pair"><span class="conv-label y">Youth</span><span>Unsupervised hours default to screens + convenience</span></div>
+          <div class="conv-pair"><span class="conv-label p">Parent</span><span>Can't see what's happening, no structural replacement</span></div>
+        </div>
+        <div class="conv-card mot">
+          <h4 class="mot">Motivation</h4>
+          <div class="conv-pair"><span class="conv-label y">Youth</span><span>Health isn't urgent — exams, friends, appearance matter now</span></div>
+          <div class="conv-pair"><span class="conv-label p">Parent</span><span>Preserving the relationship feels more important than any single habit</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="thinking-block">
+      <div class="label">The Thinking Process</div>
+      <p>This is the slide that changed the project. When we laid out COM-B side by side — youth and parents — <strong>we saw they were describing the same problem from opposite sides.</strong> Both are trying. Both are failing. Not because of a missing touchpoint or a bad experience, but because the behavioural system shifted and neither side has the tools to adapt. A UX lens would have said "improve the communication." A behavioural lens says "the communication itself is fine — the <em>strategies</em> available to both sides are mismatched to the developmental stage." That's a fundamentally different design brief.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 04 THE SOLUTION                                     -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">04 — The Solution</div>
+    <h2>Three physical interventions. No apps.</h2>
+    <p>All three concepts are intentionally physical — not digital. A phone in the bedroom is the problem (Bedtime Wind-Down). After-school time is already screen-dominated (Hook U Up). Face-to-face conversation is the whole point (WOU). These aren't touchpoints in a service — they're behavioural scaffolds designed to fill the gap where structure used to be.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="num">01</div>
+        <h4>Autonomy with Guardrails</h4>
+        <p>Design for shared structure, not control. The youth owns the choice; the framework holds the edges.</p>
+      </div>
+      <div class="principle">
+        <div class="num">02</div>
+        <h4>Replace, Don't Restrict</h4>
+        <p>Never remove a behaviour without introducing an alternative. Removing phones without substitutes leads to workarounds.</p>
+      </div>
+      <div class="principle">
+        <div class="num">03</div>
+        <h4>Fit the Day They Already Have</h4>
+        <p>Strengthen existing behaviours before introducing new ones. Don't add to the load — reshape what's already there.</p>
+      </div>
+    </div>
+
+    <div class="concept-grid">
+      <!-- C1 -->
+      <div class="concept-card c1">
+        <div class="concept-hdr">
+          <span class="score">DVF 44/48</span>
+          <h3>Bedtime Wind-Down</h3>
+          <div class="type">Physical magnet board for the fridge</div>
+        </div>
+        <div class="concept-body">
+          Youth design their own bedtime routine on a fridge magnet board. They pick wind-down activities (warm shower, chill music, dim lights) and room setup (phone outside room, alarm set). Parent has a visible commitment column. Weekly review. Framed as a <strong>"5-night experiment, not a rule."</strong>
+        </div>
+        <div class="concept-wells">
+          <span class="well-tag wt-sleep">Sleep</span>
+          <span class="well-tag wt-screen">Screen</span>
+          <span class="well-tag wt-bond">Bond</span>
+        </div>
+      </div>
+
+      <!-- C2 -->
+      <div class="concept-card c2">
+        <div class="concept-hdr">
+          <span class="score">DVF 38/48</span>
+          <h3>Hook U Up</h3>
+          <div class="type">14-day buddy challenge card deck</div>
+        </div>
+        <div class="concept-body">
+          Physical deck of challenge cards done in buddy pairs. Five topic decks named after what youth care about: <strong>Glow Up</strong> (skin), <strong>Bulk Up</strong> (strength), <strong>Cut Season</strong> (energy), <strong>Recharge</strong> (less tired), <strong>Energy Era</strong> (mood). Daily card flip. QR proof upload.
+        </div>
+        <div class="concept-wells">
+          <span class="well-tag wt-eat">Eat</span>
+          <span class="well-tag wt-exercise">Exercise</span>
+          <span class="well-tag wt-screen">Screen</span>
+        </div>
+      </div>
+
+      <!-- C3 -->
+      <div class="concept-card c3">
+        <div class="concept-hdr">
+          <span class="score">DVF 36/48</span>
+          <h3>We Open Up (WOU)</h3>
+          <div class="type">Parent-youth conversation card game</div>
+        </div>
+        <div class="concept-body">
+          22 cards: 16 category cards (both answer), 2 swap cards (answer as each other), 4 spark cards (go deeper). Questions drawn from real research tensions. Uses <strong>"For Now"</strong> framing to make answers feel temporary. Designed to side-step the lecture dynamic.
+        </div>
+        <div class="concept-wells">
+          <span class="well-tag wt-bond">Bond</span>
+          <span class="well-tag wt-sleep">Sleep</span>
+          <span class="well-tag wt-eat">Eat</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="thinking-block">
+      <div class="label">The Thinking Process</div>
+      <p>The decision to go physical was a direct output of behavioural analysis, not a creative preference. When we mapped the two critical windows — <strong>after-school (2–6pm)</strong> and <strong>nighttime (9pm–1am)</strong> — digital devices were the common thread. Adding another app would have been adding to the problem. The COM-B analysis showed that the <em>opportunity</em> gap was environmental, not informational. So we designed environmental interventions: a board on the fridge (visible, shared), cards on the table (social, tangible), a game face-to-face (relational, not transactional). Each concept targets a specific COM-B gap rather than trying to be a general "health solution."</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 05 IMPACT                                           -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">05 — Impact & Outcomes</div>
+    <h2>From insight to pilot-ready</h2>
+    <p>The three concepts form a system — no single concept addresses all Wells. Together they cover all 6 Wells across the cascade, targeting different behavioural mechanisms (self-regulation, peer motivation, parent-youth communication) in different windows of the day.</p>
+
+    <div class="stat-strip">
+      <div class="stat-card">
+        <div class="stat-num">24</div>
+        <div class="stat-label">in-depth behavioural interviews powering the evidence base</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">25 &rarr; 3</div>
+        <div class="stat-label">concepts narrowed using DVF behavioural criteria</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">18</div>
+        <div class="stat-label">DVF scoring criteria applied to each concept</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">44/48</div>
+        <div class="stat-label">top DVF score (Bedtime Wind-Down)</div>
+      </div>
+    </div>
+
+    <p>Key recommendations delivered to HPB:</p>
+    <div class="principles" style="grid-template-columns: 1fr 1fr; margin-bottom: 0;">
+      <div class="principle">
+        <h4>Design for the gap, not the school day</h4>
+        <p>HPB's current touchpoints sit in the structured school window (8am–1:30pm). The drift happens in the unsupervised windows. Solutions must work when parents can't see.</p>
+      </div>
+      <div class="principle">
+        <h4>Don't lead with "health"</h4>
+        <p>Lead with what matters now: energy, confidence, appearance, social credibility. Health is the outcome, not the hook.</p>
+      </div>
+      <div class="principle">
+        <h4>Parents need a different playbook</h4>
+        <p>Shift from enforcers to facilitators. The relationship itself becomes the structure, not a set of rules.</p>
+      </div>
+      <div class="principle">
+        <h4>Peers will shape choices in the gap</h4>
+        <p>If habits are to stick, the healthier option must be easier in friend settings. Peer influence is the primary lever after Sec 2.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════════ -->
+  <!-- 06 REFLECTION                                       -->
+  <!-- ═══════════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-label">06 — Reflection</div>
+    <h2>Why this is a behaviour study, not a service design project</h2>
+    <p>The instinct in human-centred design is to map journeys, find friction, and optimise touchpoints. That works when someone is using a service and having a bad experience. But these youth weren't having a bad experience — they were drifting without noticing. There was no "service" to fix. The problem was behavioural: habits eroding as environmental structures shifted.</p>
+
+    <p>We made a conscious decision early to frame this as a behavioural study. That meant:</p>
+
+    <div class="principles" style="grid-template-columns: 1fr 1fr;">
+      <div class="principle">
+        <h4>COM-B before personas</h4>
+        <p>We mapped Capability, Opportunity, and Motivation barriers before we built any personas. The personas emerged <em>from</em> the behavioural analysis, not the other way around.</p>
+      </div>
+      <div class="principle">
+        <h4>Ecosystem before journey</h4>
+        <p>We built a behavioural ecosystem (7 behaviours x 7 stages) before any journey map. This revealed the cascade effect — something a linear journey would have missed.</p>
+      </div>
+      <div class="principle">
+        <h4>Transition zones, not touchpoints</h4>
+        <p>Instead of mapping service touchpoints, we mapped developmental transitions. The drift doesn't happen at a touchpoint — it happens in the gaps between them.</p>
+      </div>
+      <div class="principle">
+        <h4>Behavioural leverage, not desirability</h4>
+        <p>Concepts were evaluated on whether they address a specific COM-B gap, not just whether users liked them. DVF scoring included behavioural criteria alongside feasibility.</p>
+      </div>
+    </div>
+
+    <div class="thinking-block">
+      <div class="label">The Shift</div>
+      <p>The biggest shift wasn't methodological — it was mindset. The team moved from asking <strong>"what's the user's pain point?"</strong> to asking <strong>"what behavioural mechanism is driving this pattern?"</strong> That one question changed everything: the research design, the analysis framework, the concept evaluation criteria, and ultimately the kind of solutions we built. A CX project would have designed a better health app. A behavioural project designed a magnet board, a card deck, and a conversation game — <strong>because those are what the behavioural analysis said would actually work.</strong></p>
+    </div>
+
+    <div class="quote-block">
+      <p>"If I have a good relationship with her, then I'll listen to her. It's relevant for everything else."</p>
+      <div class="source">Y01 — 14 years old</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
