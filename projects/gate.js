@@ -18,9 +18,9 @@
     password: 'chrysalis2026',           // Change this to your chosen password
     storageKey: 'portfolio_access',
     emailjs: {
-      publicKey: 'YOUR_PUBLIC_KEY',      // EmailJS public key
-      serviceId: 'YOUR_SERVICE_ID',      // EmailJS service ID
-      templateId: 'YOUR_TEMPLATE_ID',    // EmailJS template ID
+      publicKey: 'puqK8otqvMg_20bti',
+      serviceId: 'service_0fnh6zd',
+      templateId: 'template_yv4o8yu',
     },
   };
 
