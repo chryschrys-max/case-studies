@@ -302,7 +302,15 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
 /* ── TOP NAV ── */
 .top-nav {
-  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(249, 250, 251, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 40px;
+  margin: 0 -40px;
+  border-bottom: 1px solid var(--bdr);
 }
 .top-nav a {
   font-family: var(--font);
