@@ -244,7 +244,123 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   .cs-card { padding: 24px 20px; }
   .cs-card h3 { font-size: 20px; }
   .cs-card .cs-arrow { right: 20px; }
+  .nav { padding: 12px 20px; }
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: 13px; }
+  .svc-card { padding: 24px 20px; }
+  .svc-card h3 { font-size: 19px; }
   .footer { margin-top: 48px; }
+}
+
+/* ── NAV ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+.nav-brand {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--txb);
+  text-decoration: none;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--tx2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--grape); }
+
+/* ── SERVICES ── */
+.svc-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+.svc-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 14px;
+  padding: 36px 40px;
+  position: relative;
+  overflow: hidden;
+}
+.svc-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+}
+.svc-card.s1::before { background: var(--grape); }
+.svc-card.s2::before { background: var(--coral); }
+.svc-card.s3::before { background: var(--sky); }
+.svc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.svc-card h3 {
+  font-family: var(--font);
+  font-size: 22px;
+  color: var(--txb);
+  line-height: 1.3;
+}
+.svc-duration {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--grape);
+  white-space: nowrap;
+}
+.svc-card > p {
+  font-size: 15px;
+  color: var(--tx);
+  line-height: 1.8;
+  max-width: 720px;
+  margin-bottom: 16px;
+}
+.svc-card h4 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--deep);
+  margin-bottom: 8px;
+}
+.svc-list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+.svc-list li {
+  font-size: 14px;
+  color: var(--tx2);
+  line-height: 1.8;
+  padding-left: 18px;
+  position: relative;
+}
+.svc-list li::before {
+  content: '\2022';
+  position: absolute;
+  left: 0;
+  color: var(--silver);
+}
+.svc-fit {
+  font-size: 13px;
+  color: var(--tx3);
+  font-style: italic;
 }
 
 /* ── FOOTER ── */
@@ -269,6 +385,15 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 </head>
 <body>
 <div class="vibe-banner">Designed &amp; built by me</div>
+<nav class="nav">
+  <a class="nav-brand" href="index.html">Chrys Ramoso</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#case-studies">Case Studies</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:ramoso.christina@gmail.com">Contact</a></li>
+  </ul>
+</nav>
 <div class="page">
 
 <!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
@@ -283,8 +408,69 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   </div>
 </header>
 
+<!-- ═══════════════════════════════════════════════ SERVICES ═══════════════════════════════════════════════ -->
+<section id="services" class="section">
+  <div class="section-label">Services</div>
+  <h2>I turn ambiguous problems into clear direction &mdash; through research, design, and strategy.</h2>
+
+  <div class="svc-grid">
+
+    <div class="svc-card s1">
+      <div class="svc-head">
+        <h3>Discovery Sprint</h3>
+        <span class="svc-duration">4&ndash;6 weeks</span>
+      </div>
+      <p>Most teams skip straight to building. This is the work that happens before that &mdash; so you&rsquo;re solving the right problem, not just shipping fast.</p>
+      <p>I run a focused discovery: stakeholder interviews, user research, behavioural analysis, and synthesis into clear strategic recommendations. You walk away knowing what to build, why, and for whom.</p>
+      <h4>You get</h4>
+      <ul class="svc-list">
+        <li>Research findings and synthesis</li>
+        <li>Opportunity areas and prioritised recommendations</li>
+        <li>Journey maps or service blueprints where relevant</li>
+        <li>A clear brief for whatever comes next</li>
+      </ul>
+      <p class="svc-fit">Good for: healthcare orgs, fintechs, startups, and government-adjacent teams who need clarity before committing to a direction.</p>
+    </div>
+
+    <div class="svc-card s2">
+      <div class="svc-head">
+        <h3>UX/Design Team Audit &amp; Capability Building</h3>
+        <span class="svc-duration">4&ndash;8 weeks</span>
+      </div>
+      <p>Your design team exists. But is it working at the level your product needs?</p>
+      <p>I assess where your team actually is &mdash; skills, processes, cross-functional collaboration &mdash; and build a clear path forward. Not abstract theory. Practical frameworks tied to real project work.</p>
+      <h4>You get</h4>
+      <ul class="svc-list">
+        <li>Design maturity assessment</li>
+        <li>Individual growth plans per designer</li>
+        <li>Process and workflow redesign</li>
+        <li>Design ops recommendations</li>
+        <li>Training programme tied to live delivery</li>
+      </ul>
+      <p class="svc-fit">Good for: BPOs, fintechs, and mid-size tech companies building or scaling internal design functions.</p>
+    </div>
+
+    <div class="svc-card s3">
+      <div class="svc-head">
+        <h3>Fractional Design &amp; Research</h3>
+        <span class="svc-duration">Ongoing, part-time, embedded</span>
+      </div>
+      <p>Need senior design or research capability without the full-time headcount? I embed into your team on a flexible basis &mdash; as a design lead, hands-on UX designer, researcher, or CX consultant &mdash; depending on where the gap is.</p>
+      <h4>Depending on what you need, I can</h4>
+      <ul class="svc-list">
+        <li>Lead product and experience direction</li>
+        <li>Run hands-on UX and interaction design</li>
+        <li>Own research and synthesis end-to-end</li>
+        <li>Map and redesign customer and service experiences</li>
+      </ul>
+      <p class="svc-fit">Good for: teams between hires, scaling fast, or running a specific programme that needs experienced design input.</p>
+    </div>
+
+  </div>
+</section>
+
 <!-- ═══════════════════════════════════════════════ WHAT I DO ═══════════════════════════════════════════════ -->
-<section class="section">
+<section id="about" class="section">
   <div class="section-label">What I do</div>
   <h2>Where I operate</h2>
 
