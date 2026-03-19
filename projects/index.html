@@ -254,6 +254,15 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 }
 
 /* ── NAV ── */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(249, 250, 251, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--bdr);
+}
 .nav {
   display: flex;
   align-items: center;
@@ -386,6 +395,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 </head>
 <body>
 <div class="vibe-banner">Designed &amp; built by me</div>
+<div class="nav-wrap">
 <nav class="nav">
   <a class="nav-brand" href="index.html">Chrys Ramoso</a>
   <ul class="nav-links">
@@ -395,6 +405,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     <li><a href="mailto:ramoso.christina@gmail.com">Contact</a></li>
   </ul>
 </nav>
+</div>
 <div class="page">
 
 <!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->

@@ -462,6 +462,9 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   padding: 16px 40px;
   margin: 0 -40px;
   border-bottom: 1px solid var(--bdr);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .top-nav a {
   font-family: var(--font);
@@ -476,8 +479,12 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .top-nav a:hover {
   color: var(--salmon);
 }
-.top-nav a::before {
+.top-nav .nav-left a::before {
   content: '\2190\00a0\00a0';
+}
+.top-nav .nav-right {
+  display: flex;
+  gap: 24px;
 }
 
 /* ── STICKY BOTTOM BAR ── */
@@ -522,9 +529,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 <div class="page">
 
 <nav class="top-nav">
-  <a href="index.html#case-studies">All Projects</a>
-  <a href="index.html#services">Services</a>
-  <a href="mailto:ramoso.christina@gmail.com">Contact</a>
+  <div class="nav-left"><a href="index.html#case-studies">All Projects</a></div>
+  <div class="nav-right">
+    <a href="index.html#services">Services</a>
+    <a href="mailto:ramoso.christina@gmail.com">Contact</a>
+  </div>
 </nav>
 
 <!-- ═══════════════════════════════════════════════ HERO ═══════════════════════════════════════════════ -->
