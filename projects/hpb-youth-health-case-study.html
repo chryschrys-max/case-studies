@@ -1019,6 +1019,403 @@ a.viz-link::after {
   .section { margin-bottom: 48px; }
   .section h2 { font-size: 22px; }
 }
+
+/* ── HEADLINE RESULT BAND ── */
+.headline-band {
+  background: linear-gradient(135deg, rgba(109,40,217,0.06) 0%, rgba(236,72,153,0.04) 100%);
+  border-left: 4px solid var(--grape);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 40px 0 32px;
+}
+.headline-band p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--txb);
+  margin: 0;
+}
+.headline-band p.timeline {
+  font-size: 13px;
+  color: var(--tx2);
+  margin-top: 14px;
+  font-weight: 500;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 56px;
+}
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 18px;
+  text-align: left;
+}
+.kpi-tile .kpi-num {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--grape);
+  line-height: 1;
+}
+.kpi-tile .kpi-label {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  font-weight: 500;
+}
+@media (max-width: 680px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── DECISION CALLOUT ── */
+.decision-block {
+  background: rgba(109,40,217,0.04);
+  border-left: 3px solid var(--grape);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin: 28px 0;
+}
+.decision-block .decision-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grape);
+  margin-bottom: 8px;
+}
+.decision-block p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--tx);
+  margin: 0;
+}
+
+/* ── CONVERGENCE TABLE ── */
+.converge-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 24px 0 32px;
+}
+.converge-table .ct-head {
+  background: rgba(109,40,217,0.06);
+  padding: 14px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--grape);
+  border-bottom: 1px solid var(--bdr);
+}
+.converge-table .ct-row {
+  padding: 16px 18px;
+  border-top: 1px solid var(--bdr);
+  font-size: 15px;
+  color: var(--tx);
+  line-height: 1.6;
+}
+.converge-table .ct-left { border-right: 1px solid var(--bdr); }
+
+/* ── KAB BRIDGE ── */
+.kab-bridge {
+  background: var(--bg2);
+  border-radius: 6px;
+  padding: 22px 26px;
+  margin: 28px 0;
+}
+.kab-bridge p { font-size: 15px; line-height: 1.7; margin: 0; color: var(--tx); }
+
+/* ── CONCEPT CARDS ── */
+.concept-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 28px 0;
+}
+.concept-block {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 8px;
+  padding: 24px;
+}
+.concept-block h3 {
+  font-size: 20px;
+  color: var(--txb);
+  margin-bottom: 6px;
+}
+.concept-block .concept-host {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--grape);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.concept-block dl { margin: 0; }
+.concept-block dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--tx3);
+  margin-top: 14px;
+}
+.concept-block dd {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--tx);
+  margin: 4px 0 0;
+}
+@media (max-width: 720px) {
+  .concept-pair { grid-template-columns: 1fr; }
+  .converge-table { grid-template-columns: 1fr; }
+  .converge-table .ct-left { border-right: none; }
+}
+
+/* ── DVF GRID ── */
+.dvf-wrap {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 20px;
+  margin: 28px 0;
+  align-items: start;
+}
+.dvf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.dvf-grid .dvf-head {
+  background: var(--deep);
+  color: #fff;
+  padding: 12px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.15);
+}
+.dvf-grid .dvf-head:last-child { border-right: none; }
+.dvf-grid .dvf-cell {
+  padding: 14px;
+  border-top: 1px solid var(--bdr);
+  border-right: 1px solid var(--bdr);
+  font-size: 13px;
+  color: var(--tx);
+  background: var(--surface);
+  min-height: 52px;
+}
+.dvf-grid .dvf-cell:nth-child(3n) { border-right: none; }
+.dvf-grid .dvf-cell .dvf-code {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--grape);
+  background: rgba(109,40,217,0.08);
+  border-radius: 3px;
+  padding: 2px 6px;
+  margin-right: 6px;
+}
+.dvf-total {
+  background: var(--deep);
+  color: #fff;
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+}
+.dvf-total .dvf-total-num {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+}
+.dvf-total .dvf-total-lbl {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 6px;
+  opacity: 0.85;
+}
+@media (max-width: 720px) {
+  .dvf-wrap { grid-template-columns: 1fr; }
+}
+
+/* ── ROADMAP ── */
+.roadmap {
+  margin: 28px 0;
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.roadmap-head {
+  display: grid;
+  grid-template-columns: 180px repeat(5, 1fr);
+  background: var(--bg2);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--tx2);
+}
+.roadmap-head > div { padding: 12px 10px; text-align: center; border-right: 1px solid var(--bdr); }
+.roadmap-head > div:last-child { border-right: none; }
+.roadmap-head > div:first-child { text-align: left; }
+.roadmap-row {
+  display: grid;
+  grid-template-columns: 180px repeat(5, 1fr);
+  border-top: 1px solid var(--bdr);
+}
+.roadmap-row > div { padding: 14px 10px; font-size: 13px; color: var(--tx); border-right: 1px solid var(--bdr); text-align: center; }
+.roadmap-row > div:last-child { border-right: none; }
+.roadmap-row > div:first-child { text-align: left; font-weight: 600; color: var(--txb); background: var(--bg2); }
+.roadmap-row.wellbits > div.phase-build { background: rgba(124,58,237,0.10); }
+.roadmap-row.wellbits > div.phase-pilot { background: rgba(124,58,237,0.18); }
+.roadmap-row.wellbits > div.phase-review { background: rgba(124,58,237,0.26); }
+.roadmap-row.wellbits > div.phase-national { background: var(--grape); color: #fff; font-weight: 600; }
+.roadmap-row.pfp > div.phase-build { background: rgba(236,72,153,0.10); }
+.roadmap-row.pfp > div.phase-pilot { background: rgba(236,72,153,0.18); }
+.roadmap-row.pfp > div.phase-review { background: rgba(236,72,153,0.26); }
+.roadmap-row.pfp > div.phase-national { background: var(--coral); color: #fff; font-weight: 600; }
+@media (max-width: 720px) {
+  .roadmap-head, .roadmap-row { grid-template-columns: 100px repeat(5, 1fr); font-size: 11px; }
+  .roadmap-row > div { padding: 10px 6px; font-size: 11px; }
+}
+
+/* ── RECOMMENDATION WORKSTREAMS ── */
+.workstreams {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.workstream-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-top: 4px solid var(--grape);
+  border-radius: 6px;
+  padding: 22px;
+}
+.workstream-card:nth-child(2) { border-top-color: var(--sky); }
+.workstream-card:nth-child(3) { border-top-color: var(--sage); }
+.workstream-card h4 {
+  font-size: 15px;
+  color: var(--txb);
+  margin-bottom: 6px;
+}
+.workstream-card .ws-q {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--tx2);
+  margin-bottom: 12px;
+}
+.workstream-card p { font-size: 13.5px; line-height: 1.6; margin: 0; color: var(--tx); }
+@media (max-width: 720px) {
+  .workstreams { grid-template-columns: 1fr; }
+}
+
+/* ── UNDEREXPLORED TIERS ── */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 28px 0;
+}
+.tier-block {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 22px;
+  position: relative;
+}
+.tier-block .tier-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.tier-block .tier-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--grape);
+}
+.tier-block .tier-count {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--txb);
+  line-height: 1;
+}
+.tier-block h4 {
+  font-size: 15px;
+  color: var(--txb);
+  margin: 6px 0 10px;
+}
+.tier-block p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--tx);
+  margin: 0 0 10px;
+}
+.tier-block .tier-example {
+  font-size: 12.5px;
+  color: var(--tx2);
+  font-style: italic;
+  border-top: 1px dashed var(--bdr);
+  padding-top: 10px;
+  margin-top: 8px;
+}
+@media (max-width: 720px) {
+  .tiers { grid-template-columns: 1fr; }
+}
+
+/* ── GATE DECISIONS TABLE ── */
+.gate-table {
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 24px 0;
+}
+.gate-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  border-top: 1px solid var(--bdr);
+}
+.gate-row:first-child { border-top: none; }
+.gate-row > div:first-child {
+  background: var(--bg2);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--grape);
+  padding: 14px 18px;
+  border-right: 1px solid var(--bdr);
+}
+.gate-row > div:last-child {
+  padding: 14px 18px;
+  font-size: 14px;
+  color: var(--tx);
+  line-height: 1.6;
+}
+
+/* ── SIGNATURE MOVE ── */
+.signature-move {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--grape);
+  font-style: italic;
+  font-weight: 500;
+  padding: 18px 22px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 24px;
+}
 </style>
 </head>
 <body>
@@ -1039,30 +1436,43 @@ a.viz-link::after {
   <p class="hero-sub">A human-centred design project with Singapore's Health Promotion Board to understand why healthy habits decline among youth aged 13&ndash;16 &mdash; and to co-design interventions that work within their real lives.</p>
   <div class="hero-meta">
     <div class="hero-meta-item"><strong>Client</strong>Health Promotion Board (HPB), Singapore</div>
-    <div class="hero-meta-item"><strong>Duration</strong>Dec 2025 &ndash; Mar 2026</div>
+    <div class="hero-meta-item"><strong>Duration</strong>Dec 2025 &ndash; Apr 2026 (13 weeks)</div>
     <div class="hero-meta-item"><strong>Method</strong>Human-Centred Design (4 Phases)</div>
     <div class="hero-meta-item"><strong>Role</strong>Lead Designer / Researcher</div>
   </div>
 </header>
 
+<!-- ═══════════════════════════════════════════════ HEADLINE RESULT ═══════════════════════════════════════════════ -->
+<div class="headline-band">
+  <p>Two pilot-ready concepts for HPB's national youth wellness programme &mdash; embedded in Healthy 365 and Parent for Wellness &mdash; with a Pilot Readiness framework, a 7&ndash;8 month roadmap to national scale, a proposed integrated validation study, and 26 underexplored areas mapped for the next wave of work.</p>
+  <p class="timeline">Delivered end-to-end in 13 weeks across four phases and four gate reviews.</p>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-tile"><div class="kpi-num">26</div><div class="kpi-label">In-depth interviews</div></div>
+  <div class="kpi-tile"><div class="kpi-num">24</div><div class="kpi-label">Validation participants</div></div>
+  <div class="kpi-tile"><div class="kpi-num">4</div><div class="kpi-label">Client gate reviews</div></div>
+  <div class="kpi-tile"><div class="kpi-num">2</div><div class="kpi-label">Pilot-ready concepts</div></div>
+</div>
+
 <!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
 <section class="section">
   <div class="section-label">The Brief</div>
   <h2>Why do healthy habits decline between ages 13 and 16?</h2>
-  <p>HPB tracks youth health across 6 "Wells" &mdash; Eat, Sleep, Exercise, Learn, Bond, and Screen Time. The data showed a consistent decline as youth moved through secondary school. But the data showed <em>what</em> was declining &mdash; not <em>why</em>.</p>
-  <p>The brief was to investigate the age group 13&ndash;16, understand the drivers behind the decline, and design interventions grounded in what youth and their families actually experience.</p>
+  <p>HPB tracks youth health across 6 "Wells" &mdash; Eat, Sleep, Exercise, Learn, Bond, and Screen Time. The data showed a consistent decline as youth moved through secondary school, but the data showed <em>what</em> was declining &mdash; not <em>why</em>. The answer had to be usable at national scale through HPB's existing channels, and robust enough to hold up under four gate reviews.</p>
 
   <div class="role-block">
     <div class="label">What I did</div>
-    <p>I led the entire design process end-to-end &mdash; from research planning and fieldwork through synthesis, co-creation facilitation, prototyping, and validation testing.</p>
+    <p>I led the engagement end-to-end &mdash; planned the 4-phase arc, designed the research, ran the analysis, shaped the final recommendation to HPB, and built the Pilot Readiness framework HPB's team can reuse on future concepts.</p>
     <ul>
       <li><strong>Planned and conducted</strong> 26 in-depth interviews (12 youth, 12 parents, 2 experts) &mdash; designed the discussion guides, recruited participants, and ran all sessions</li>
-      <li><strong>Built the analytical frameworks</strong> &mdash; the <a class="viz-link" href="visualisations/behavioural_ecosystem.html" target="_blank">behavioural ecosystem map</a>, the 2&times;2 matrix, and the <a class="viz-link" href="visualisations/transition_map.html" target="_blank">transition model</a> &mdash; to make sense of qualitative data and give the team a shared language for what we were seeing</li>
-      <li><strong>Facilitated co-creation workshops</strong> with 6 youth and 6 parents &mdash; designed the scenario prompts, ran the ideation exercises, and synthesised 25+ ideas into actionable concept directions</li>
-      <li><strong>Designed and simulated 3 prototypes</strong> and ran <a class="viz-link" href="visualisations/YPS_ConceptAssessment.html" target="_blank">validation testing</a> with 24 participants using think-aloud protocol and Likert-scale ratings</li>
-      <li><strong>Managed stakeholder alignment</strong> across 4 gate reviews with HPB &mdash; structured each gate around clear decision points so the client could see exactly what evidence supported each recommendation, and where we were asking them to make a call</li>
-      <li><strong>Shaped the team's thinking</strong> &mdash; the drift, the vicious/virtuous cycle, the two windows &mdash; these weren't just research outputs, they became the shared mental models the entire team used to evaluate ideas, align on direction, and explain decisions to stakeholders</li>
+      <li><strong>Authored the mental models the team reasoned with</strong> &mdash; <em>the Drift</em>, <em>the Two Windows</em>, <em>the 2&times;2</em>, <em>the KAB mapping</em>, and the <a class="viz-link" href="visualisations/transition_map.html" target="_blank">transition model</a>. These became the shared language we used to evaluate ideas, defend decisions, and align with HPB.</li>
+      <li><strong>Facilitated co-creation workshops</strong> with 6 youth and 6 parents &mdash; designed the scenario prompts, ran ideation, and synthesised 25+ ideas into concept directions through a four-filter triage</li>
+      <li><strong>Designed and simulated 3 prototypes</strong> and ran <a class="viz-link" href="visualisations/YPS_ConceptAssessment.html" target="_blank">validation testing</a> with 24 participants using think-aloud protocol and Likert ratings &mdash; then led the convergence into 2 ecosystem-native concepts for the final report</li>
+      <li><strong>Built the DVF Pilot Readiness framework</strong> &mdash; sourced 15 criteria from HPB's pilot governance constraints, categorised across desirability, viability, and feasibility, and calibrated thresholds with the PM</li>
+      <li><strong>Ran 4 gate reviews as decision milestones</strong> &mdash; structured each gate around the minimum evidence needed for HPB to commit, not the maximum I could present</li>
     </ul>
+    <p class="signature-move">The through-line of this project: building the frameworks that turn research into pilot-ready commitments &mdash; and knowing when to converge.</p>
 
     <div class="methods-grid">
       <div class="method-item">
@@ -1104,16 +1514,16 @@ a.viz-link::after {
 <section class="section">
   <div class="section-label">Project Journey</div>
   <h2>From research to pilot-ready concepts</h2>
-  <p>Each phase built on the last. Nothing was invented &mdash; every decision traced back to something we heard in research or co-creation.</p>
+  <p>Each phase built on the last. Nothing was invented &mdash; every decision traced back to something we heard in research or co-creation. Phase 4 is where the project earned its consulting weight: the convergence, the readiness framework, the roadmap, and the recommendation that turned four months of research into a pilot HPB can fund.</p>
 
   <div class="flow">
     <div class="flow-node" style="background: var(--almond); color: var(--deep);">Phase 1<small>Discover</small></div>
     <div class="flow-arrow">&rarr;</div>
     <div class="flow-node" style="background: rgba(109,40,217,0.12); color: var(--grape);">Phase 2<small>Define</small></div>
     <div class="flow-arrow">&rarr;</div>
-    <div class="flow-node" style="background: rgba(124,58,237,0.2); color: var(--deep);">Phase 3<small>Design</small></div>
+    <div class="flow-node" style="background: rgba(124,58,237,0.2); color: var(--deep);">Phase 3<small>Co-create &amp; Validate</small></div>
     <div class="flow-arrow">&rarr;</div>
-    <div class="flow-node" style="background: var(--deep); color: var(--almond);">Phase 4<small>Deliver</small></div>
+    <div class="flow-node" style="background: var(--deep); color: var(--almond);">Phase 4<small>Strategic Assessment</small></div>
   </div>
 
 
@@ -1141,6 +1551,11 @@ a.viz-link::after {
   <div class="thinking-block">
     <div class="label">My thinking</div>
     <p>Going in, the assumption was that youth are <em>choosing</em> to be unhealthy. The interviews showed the opposite. Youth know what healthy looks like and most want it. But <strong>three things keep getting in the way:</strong> (1) they know what to do but no one taught them how to do it alone, (2) structured routines fade while choices multiply, and (3) parents step back before youth are ready &mdash; creating distance instead of independence. This reframing &mdash; from "youth are making bad choices" to "the system around them is changing faster than their skills" &mdash; shaped every design decision that followed.</p>
+  </div>
+
+  <div class="decision-block">
+    <div class="decision-label">A decision I made &mdash; scoping</div>
+    <p>HPB's initial ask was 13&ndash;18. I pushed it to 13&ndash;16. With 12 youth interviews and four months, a wider range would have averaged out the mechanism we were trying to see. The trade-off was coverage; the gain was a defensible causal frame for why the drift happens when it does.</p>
   </div>
 
   <h3>Three transition zones where habits break</h3>
@@ -1463,24 +1878,24 @@ a.viz-link::after {
 <section class="section">
   <div class="section-label">Phase 3b &mdash; Validation Testing</div>
   <h2>Validation findings</h2>
-  <p>Tested all three prototypes with 24 participants (12 youth, 12 parents) through 60-minute moderated sessions. Full findings linked below, alongside the <a class="viz-link" href="visualisations/YPS_ConceptAssessment.html" target="_blank">concept assessment dashboard</a>.</p>
+  <p>Tested all three prototypes with 24 participants (12 youth, 12 parents) through 60-minute moderated sessions.</p>
 
   <div class="finding-grid">
   <!-- C1 FINDINGS -->
   <div class="finding-card">
-    <h4><span class="finding-verdict verdict-pilot">Go to pilot</span> <a class="viz-link" href="visualisations/C1_BedtimeWindDown_Findings.html" target="_blank">Bedtime Wind-Down</a></h4>
+    <h4><span class="finding-verdict verdict-pilot">Go to pilot</span> Bedtime Wind-Down</h4>
     <p>The persistent physical cue beside the bed was the strongest signal &mdash; always visible, no willpower needed. An undesigned feature emerged as the most powerful: feelings magnets let youth signal emotional states without starting a conversation. The risk: the parent column was read as surveillance, not mutual commitment, and weekly reviews were universally flagged as a chore with predicted drop-off within 1&ndash;2 weeks.</p>
   </div>
 
   <!-- C2 FINDINGS -->
   <div class="finding-card">
-    <h4><span class="finding-verdict verdict-pilot">Go to pilot</span> <a class="viz-link" href="visualisations/C2_HookUUp_Findings.html" target="_blank">Hook U Up</a></h4>
+    <h4><span class="finding-verdict verdict-pilot">Go to pilot</span> Hook U Up</h4>
     <p>Highest desirability &mdash; two youth asked to buy it unprompted mid-session. Identity-first framing (Glow Up, Recharge, Energy Era) made health behaviour feel aspirational, not instructional. Peer accountability clicked instantly &mdash; youth compared it to Snapchat streaks without being told. The QR proof mechanic was completely blocked by the 2026 school phone ban, privacy concerns, and too many steps. "Bulk Up" label alienated female participants.</p>
   </div>
 
   <!-- C3 FINDINGS -->
   <div class="finding-card">
-    <h4><span class="finding-verdict verdict-refine">Needs physical testing</span> <a class="viz-link" href="visualisations/C3_WeOpenUp_Findings.html" target="_blank">WOU (We Open Up)</a></h4>
+    <h4><span class="finding-verdict verdict-refine">Needs physical testing</span> WOU (We Open Up)</h4>
     <p>Most polarised &mdash; ratings split by family communication quality, not age. The swap mechanic produced genuine engagement and youth-led questioning was an unexpected strength (most parent-youth conversations only go one direction). But mechanic comprehension failed in online testing, questions were too deep for low-trust families, and there's no natural trigger to pick it up &mdash; unlike the board (visible) or cards (friend texts), this sits in a drawer.</p>
   </div>
   </div>
@@ -1489,6 +1904,216 @@ a.viz-link::after {
     <div class="label">Behavioural assessment frameworks</div>
     <p>After validation testing, I assessed each concept through three behavioural lenses. <strong>B=MAP</strong> (Behaviour = Motivation &times; Ability &times; Prompt) &mdash; to diagnose <em>why</em> certain mechanics failed: Hook U Up's QR proof had high friction (low ability) despite strong motivation; Bedtime Wind-Down's board was a persistent prompt that lowered the ability threshold. <strong>EAST</strong> (Easy, Attractive, Social, Timely) &mdash; to score each concept against behavioural design heuristics: Hook U Up scored highest on Social and Attractive; WOU scored lowest on Timely (no natural trigger). <strong>Kano model</strong> &mdash; to classify which features were baseline expectations vs. delighters: the feelings magnets and the swap mechanic were unexpected delighters that drove the strongest emotional responses, while the weekly review was a dissatisfier across the board.</p>
   </div>
+
+  <p style="margin-top: 28px; font-size: 16px; color: var(--tx); border-top: 1px dashed var(--bdr); padding-top: 20px;">Round 1 settled which behavioural mechanics worked. Round 2 &mdash; with 12 additional participants &mdash; asked a harder question: can these mechanics survive national scale through HPB's existing channels?</p>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ PHASE 4 — CONVERGENCE ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phase 4 &mdash; Strategic Assessment</div>
+  <h2>The convergence: from 3 physical prototypes to 2 ecosystem-native concepts</h2>
+
+  <div class="decision-block">
+    <div class="decision-label">A decision I made &mdash; Round 2 design</div>
+    <p>The testing protocol didn't need more participants &mdash; it needed sharper questions. I redesigned Round 2 to stress-test each concept against national-scale distribution, not user delight. That's what made the convergence undeniable: the artifacts tested well; the delivery path didn't.</p>
+  </div>
+
+  <p>Round 2 surfaced a pattern the team couldn't unsee. The behavioural mechanics worked. The artifacts didn't scale. A card deck in every household, a bedtime board for every bedroom &mdash; each had a distribution, maintenance, and replacement problem HPB couldn't solve at national scale. The answer wasn't to soften the research. It was to port the mechanics into channels HPB already owns.</p>
+
+  <div class="converge-table">
+    <div class="ct-head ct-left">What we preserved (the mechanics)</div>
+    <div class="ct-head">What we changed (the vehicle)</div>
+    <div class="ct-row ct-left">The wind-down ritual for bedtime friction</div>
+    <div class="ct-row">Moved from a physical object to a daily Check-In inside Healthy 365</div>
+    <div class="ct-row ct-left">Replace-don't-restrict for after-school screen time</div>
+    <div class="ct-row">Moved from a card deck to a gamified challenge set in Healthy 365</div>
+    <div class="ct-row ct-left">Peer parent learning instead of expert lecture</div>
+    <div class="ct-row">Moved from facilitated sessions to structured content modules in Parent for Wellness</div>
+  </div>
+
+  <div class="decision-block">
+    <div class="decision-label">A framing I got wrong &mdash; and caught</div>
+    <p>I initially conceived Parent for Parent as a community-based peer-matching model: parent pairs, facilitator-led sessions, conversation guides. In Phase 4, when we mapped platform distribution, the model broke &mdash; HPB couldn't run peer-matching at national scale through PfW. I called it, reset the brief, and PfP became a content-module design inside PfW instead. The wrong framing cost three days. Naming it saved the concept. At senior levels, the miss you catch early is cheaper than the one you defend.</p>
+  </div>
+
+  <div class="kab-bridge">
+    <p>The three drift barriers map directly onto three shifts we had to design for: <strong>Knowing &rarr; Not Doing</strong> is a <em>Knowledge</em> shift; <strong>Structure &rarr; Gap</strong> is a <em>Behaviour</em> shift; <strong>Guidance &rarr; Friction</strong> is an <em>Attitude</em> shift. Both concepts &mdash; Wellbits 3.0 and Parent for Parent &mdash; were built to produce all three shifts together, not in isolation.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ TWO CONCEPTS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phase 4 &mdash; Two Concepts</div>
+  <h2>Two concepts, both within HPB's existing channels</h2>
+  <p>National scale isn't built &mdash; it's inherited. Both concepts live inside platforms HPB already runs, so the distribution, governance, and trust problems are already solved.</p>
+
+  <div class="concept-pair">
+    <div class="concept-block">
+      <h3>Wellbits 3.0</h3>
+      <div class="concept-host">Lives in Healthy 365 (H365)</div>
+      <dl>
+        <dt>For</dt><dd>Youth 13&ndash;16</dd>
+        <dt>Mechanic</dt><dd>Daily Character Check-In. Five character archetypes, thirty challenges calibrated to the after-school and bedtime windows.</dd>
+        <dt>KAB target</dt><dd>Attitude + Behaviour &mdash; autonomy, peer-positive framing, replace-don't-restrict.</dd>
+        <dt>Why H365</dt><dd>Scale is inherited, not built. Youth already touch H365 for tracking.</dd>
+      </dl>
+    </div>
+    <div class="concept-block">
+      <h3>Parent for Parent (PfP)</h3>
+      <div class="concept-host">Lives in Parent for Wellness (PfW)</div>
+      <dl>
+        <dt>For</dt><dd>Parents of youth 13&ndash;16</dd>
+        <dt>Mechanic</dt><dd>Structured content modules on the specific transitions where parents drift from supervising to reminding &mdash; written by parents who've lived it, not experts lecturing them.</dd>
+        <dt>KAB target</dt><dd>Knowledge + Attitude &mdash; relatable framing, confidence that the hard conversations are normal.</dd>
+        <dt>Why PfW</dt><dd>Parents already look to PfW for sanctioned guidance; it solves the trust problem.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ DVF FRAMEWORK ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phase 4 &mdash; Pilot Readiness</div>
+  <h2>Building the DVF Pilot Readiness framework</h2>
+  <p>A pilot-ready verdict isn't a yes/no. It's a structured claim about what's been proven, what's assumed, and what the pilot itself still has to answer. HPB's governance process required evidence at three levels &mdash; does it work for users, does it work for the institution, does it work for the build &mdash; so that's the frame I designed the criteria around.</p>
+
+  <div class="dvf-wrap">
+    <div class="dvf-grid">
+      <div class="dvf-head">Desirability</div>
+      <div class="dvf-head">Viability</div>
+      <div class="dvf-head">Feasibility</div>
+      <div class="dvf-cell"><span class="dvf-code">D1</span>Behavioural fit</div>
+      <div class="dvf-cell"><span class="dvf-code">V1</span>Policy alignment</div>
+      <div class="dvf-cell"><span class="dvf-code">F1</span>Technical lift</div>
+      <div class="dvf-cell"><span class="dvf-code">D2</span>Motivational alignment</div>
+      <div class="dvf-cell"><span class="dvf-code">V2</span>Measurability</div>
+      <div class="dvf-cell"><span class="dvf-code">F2</span>Dependency risk</div>
+      <div class="dvf-cell"><span class="dvf-code">D3</span>Voluntary uptake</div>
+      <div class="dvf-cell"><span class="dvf-code">V3</span>Cost at scale</div>
+      <div class="dvf-cell"><span class="dvf-code">F3</span>Delivery confidence</div>
+      <div class="dvf-cell"><span class="dvf-code">D4</span>Retention signal</div>
+      <div class="dvf-cell"><span class="dvf-code">V4</span>Programme fit</div>
+      <div class="dvf-cell"><span class="dvf-code">F4</span>Vendor capacity</div>
+      <div class="dvf-cell"><span class="dvf-code">D5</span>Cross-cohort fit</div>
+      <div class="dvf-cell"><span class="dvf-code">V5</span>Long-run sustainability</div>
+      <div class="dvf-cell"><span class="dvf-code">F5</span>Time-to-pilot</div>
+    </div>
+    <div class="dvf-total">
+      <div class="dvf-total-num">/45</div>
+      <div class="dvf-total-lbl">Scored 0&ndash;3<br>per criterion</div>
+    </div>
+  </div>
+
+  <p><strong>Desirability (5 criteria) &mdash; "Does it work for users?"</strong> Drawn from validation testing evidence and co-creation patterns. Criteria cover behavioural fit, motivational alignment, and evidence of voluntary uptake in prototype testing.</p>
+  <p><strong>Viability (5 criteria) &mdash; "Does it work for the institution?"</strong> Drawn from HPB's strategic priorities, measurement expectations, and programme sustainability constraints. Criteria cover policy alignment, measurability, and long-run cost-per-user at national scale.</p>
+  <p><strong>Feasibility (5 criteria) &mdash; "Does it work for the build?"</strong> Drawn from H365 and PfW platform realities, vendor capacity, and time-to-pilot. Criteria cover technical lift, dependency risk, and delivery confidence.</p>
+
+  <div class="thinking-block">
+    <div class="label">Why this framing matters</div>
+    <p>Thresholds were calibrated with the PM against HPB's internal pilot-gate norms. Amber (pilot-ready <em>with conditions</em>) means specific gaps flagged for the pilot to resolve, not avoid. Both concepts scored into the pilot-ready range &mdash; each with its own conditions. The framework itself is reusable: HPB's team can re-score future concepts against the same criteria.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ ROADMAP ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phase 4 &mdash; Roadmap</div>
+  <h2>From today to national</h2>
+  <p>Both concepts land inside HPB's existing platforms, so national rollout isn't a separate programme &mdash; it's a feature release.</p>
+
+  <div class="roadmap">
+    <div class="roadmap-head">
+      <div>Concept</div>
+      <div>Now</div>
+      <div>M1&ndash;M3</div>
+      <div>M3&ndash;M5</div>
+      <div>M5&ndash;M7</div>
+      <div>M7&ndash;M8+</div>
+    </div>
+    <div class="roadmap-row wellbits">
+      <div>Wellbits 3.0</div>
+      <div>Start</div>
+      <div class="phase-build">Build in H365</div>
+      <div class="phase-pilot">Pilot + validate</div>
+      <div class="phase-review">Evidence review</div>
+      <div class="phase-national">National via H365</div>
+    </div>
+    <div class="roadmap-row pfp">
+      <div>Parent for Parent</div>
+      <div>Start</div>
+      <div class="phase-build">Build in PfW</div>
+      <div class="phase-pilot">Pilot + validate</div>
+      <div class="phase-review">Evidence review</div>
+      <div class="phase-national">National via PfW</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════ RECOMMENDATION ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phase 4 &mdash; Recommendation</div>
+  <h2>One study, three parallel workstreams, 4&ndash;6 months</h2>
+  <p>Three sequential phases would take 18 months. HPB doesn't have 18 months. The recommendation is one integrated study with three parallel workstreams &mdash; each owning a different question the programme has to answer before national launch.</p>
+
+  <div class="workstreams">
+    <div class="workstream-card">
+      <h4>RCT with embedded diary</h4>
+      <div class="ws-q">"Does it actually work?"</div>
+      <p>A randomised controlled trial for each concept against a control arm, with embedded diary studies capturing qualitative evidence of behaviour change inside the drift windows.</p>
+    </div>
+    <div class="workstream-card">
+      <h4>Behavioural science advisory panel</h4>
+      <div class="ws-q">"Will directors trust the evidence?"</div>
+      <p>A standing panel reviewing methodology and findings to give HPB internal defensibility when scaling.</p>
+    </div>
+    <div class="workstream-card">
+      <h4>Implementation readiness</h4>
+      <div class="ws-q">"Is HPB ready to launch when the green light comes?"</div>
+      <p>Platform readiness audit, content pipeline build, and governance workflow so the day the evidence lands, national rollout is a configuration change, not a new programme.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px;">Running them in parallel cuts 12 months off the path and &mdash; more importantly &mdash; means the programme can act on the evidence the moment it arrives.</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════ UNDEREXPLORED AREAS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Phase 4 &mdash; Strategic Surface</div>
+  <h2>What this project surfaced but didn't solve</h2>
+  <p>A four-month HCD engagement can answer a bounded question well, but it will surface many more. I mapped the 26 underexplored areas this project surfaced into a three-tier strategic assessment &mdash; so HPB's next wave of work can pick them up with the context already structured.</p>
+
+  <div class="tiers">
+    <div class="tier-block">
+      <div class="tier-head">
+        <div class="tier-label">Tier 1</div>
+        <div class="tier-count">8</div>
+      </div>
+      <h4>Quick wins</h4>
+      <p>Areas with existing evidence and a clear lever. Ready to act on without new research.</p>
+      <p class="tier-example">Example: formal sleep education in school curriculum.</p>
+    </div>
+    <div class="tier-block">
+      <div class="tier-head">
+        <div class="tier-label">Tier 2</div>
+        <div class="tier-count">10</div>
+      </div>
+      <h4>Instruments &amp; workstreams</h4>
+      <p>Areas that need structured measurement or targeted qualitative work before HPB can commit to an intervention.</p>
+      <p class="tier-example">Example: the parent&ndash;youth conversation repertoire during Sec 2&ndash;3.</p>
+    </div>
+    <div class="tier-block">
+      <div class="tier-head">
+        <div class="tier-label">Tier 3</div>
+        <div class="tier-count">8</div>
+      </div>
+      <h4>Longer-term systemic</h4>
+      <p>Areas requiring policy coordination, cross-agency alignment, or multi-year horizons.</p>
+      <p class="tier-example">Example: the handover architecture between primary and secondary school wellness programmes.</p>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px;">Five of the 26 areas consolidate into strategic opportunity areas HPB can fund as their own next projects. The full matrix is available on request.</p>
 </section>
 
 <hr class="divider">
@@ -1507,28 +2132,18 @@ a.viz-link::after {
     </div>
     <div class="learning-card">
       <div class="num">02</div>
-      <h4>Identity framing beats health messaging</h4>
-      <p>Youth don't engage with "health intervention." They engage with "who I want to be." Naming the card decks "Glow Up" instead of "Healthy Eating" wasn't just branding &mdash; it was the entire reason the concept worked. Health behaviour becomes socially relevant when framed as identity.</p>
-    </div>
-    <div class="learning-card">
-      <div class="num">03</div>
       <h4>Never take something away without offering something better</h4>
       <p>The most consistent finding across the entire research: bans trigger sneakier behaviour. <em>"Once take back, I will go back to my sneakier behaviour!"</em> &mdash; Amanda, 15. Every attempt to remove phones or ban fast food met with workarounds. What worked was offering something that met the same need through a different channel.</p>
     </div>
     <div class="learning-card">
-      <div class="num">04</div>
+      <div class="num">03</div>
       <h4>The best features are the ones you didn't design</h4>
       <p>The feelings magnets on the Bedtime board weren't designed as a communication tool. But they became the strongest emotional channel &mdash; youth could signal how they felt without starting a conversation. The youth-led questioning in WOU was the same: not designed, but emerged as the most powerful feature. I learned to design for emergence, not just function.</p>
     </div>
     <div class="learning-card">
-      <div class="num">05</div>
-      <h4>Readiness matters more than design quality</h4>
-      <p>One parent asked for a copy of the prototype on the spot. Another &mdash; testing the same prototype &mdash; found it completely pointless. Same design, completely different reception. The difference wasn't the product; it was where the family was on the readiness spectrum. I now think about TTM staging before I think about features.</p>
-    </div>
-    <div class="learning-card">
-      <div class="num">06</div>
-      <h4>Physical objects change behaviour differently than digital ones</h4>
-      <p>A magnet board beside the bed changes the environment before anyone has to make a decision. A card deck between two friends displaces screen time rather than adding to it. The medium isn't just a delivery mechanism &mdash; it's part of the intervention. This shifted how I think about choosing formats.</p>
+      <div class="num">04</div>
+      <h4>Knowing when rigour is defence vs. decision-making</h4>
+      <p>In Phase 2 my instinct was to deepen the research frame before narrowing. The PM pushed back &mdash; narrow first, thicken where it actually matters. She was right. I've since calibrated the difference between <em>"what I want to be sure of"</em> and <em>"what the decision actually requires."</em> On this project it saved two weeks and sharpened the final concepts. It's the kind of call I now make earlier.</p>
     </div>
   </div>
 </section>
@@ -1556,6 +2171,26 @@ a.viz-link::after {
       <p>Co-creation wasn't a checkbox. I designed scenario prompts around real moments in their day, then let youth and parents generate the ideas. Every concept traces back to something a participant said or built &mdash; I shaped and filtered, but the ideas came from them.</p>
     </div>
   </div>
+
+  <h3 style="margin-top: 48px; font-size: 20px; color: var(--txb);">The four gates &mdash; what was decided</h3>
+  <div class="gate-table">
+    <div class="gate-row">
+      <div>Gate 1</div>
+      <div>Scope confirmed: 13&ndash;16 cohort, four behavioural domains, HCD arc approved.</div>
+    </div>
+    <div class="gate-row">
+      <div>Gate 2</div>
+      <div>Drift model adopted as shared frame; HMW and design principles signed off.</div>
+    </div>
+    <div class="gate-row">
+      <div>Gate 3</div>
+      <div>3 concepts advanced to validation; escalation meeting resolved prototype scope with HPB.</div>
+    </div>
+    <div class="gate-row">
+      <div>Gate 4</div>
+      <div>Convergence to 2 ecosystem-native concepts approved; DVF framework accepted; integrated validation study recommended.</div>
+    </div>
+  </div>
 </section>
 
 <hr class="divider">
@@ -1564,7 +2199,7 @@ a.viz-link::after {
 <section class="section">
   <div class="section-label">Outcome</div>
   <h2>Where this landed</h2>
-  <p>We started with a brief about declining health metrics. We ended with a behavioural framework, three tested prototypes, and a clear recommendation for pilot. The most important reframe: youth aren't choosing to be unhealthy &mdash; the structures holding their habits just disappear, and nobody taught them what to do when that happens. That's the gap this project fills.</p>
+  <p>We started with a brief about declining health metrics. We ended with two pilot-ready concepts HPB can launch through platforms it already runs, a Pilot Readiness framework its team can reuse on future concepts, a 7&ndash;8 month roadmap to national scale, a proposed integrated validation study, and 26 underexplored areas mapped for the next wave of work. The most important reframe of the project: youth aren't choosing to be unhealthy &mdash; the structures holding their habits just disappear, and nobody taught them what to do when that happens. The concepts that made it through are the ones that fill that gap at national scale.</p>
 </section>
 
 <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
