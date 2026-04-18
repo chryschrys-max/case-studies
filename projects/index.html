@@ -87,6 +87,41 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 .hero-contact a:hover {
   text-decoration-color: var(--grape);
 }
+.cv-link-wrap {
+  position: relative;
+  display: inline-block;
+}
+.cv-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--grape);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 12px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(109,40,217,0.25);
+  animation: cv-tooltip-float 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.cv-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--grape);
+}
+@keyframes cv-tooltip-float {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-3px); }
+}
 
 /* ── SECTION ── */
 .section {
@@ -416,7 +451,10 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <div class="hero-contact">
     <a href="mailto:ramoso.christina@gmail.com">ramoso.christina@gmail.com</a>
     <a href="https://www.linkedin.com/in/christina-ramoso/" target="_blank">LinkedIn</a>
-    <a href="Chrys_Ramoso_CV_Updated.pdf" target="_blank">Download CV</a>
+    <span class="cv-link-wrap">
+      <span class="cv-tooltip">Updated CV</span>
+      <a href="Chrys_Ramoso_CV_Updated.pdf" target="_blank">Download CV</a>
+    </span>
   </div>
 </header>
 
