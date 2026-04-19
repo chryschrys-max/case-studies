@@ -197,6 +197,85 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   .hero h1 { font-size: 30px; }
   .page { padding: 0 20px 100px; }
 }
+
+/* ── HEADLINE RESULT BAND ── */
+.headline-band {
+  background: linear-gradient(135deg, rgba(109,40,217,0.06) 0%, rgba(236,72,153,0.04) 100%);
+  border-left: 4px solid var(--grape);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 40px 0 32px;
+}
+.headline-band p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--txb);
+  margin: 0;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 56px;
+}
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 18px;
+  text-align: left;
+}
+.kpi-tile .kpi-num {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--grape);
+  line-height: 1;
+}
+.kpi-tile .kpi-label {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  font-weight: 500;
+}
+@media (max-width: 680px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── DECISION CALLOUT ── */
+.decision-block {
+  background: rgba(109,40,217,0.04);
+  border-left: 3px solid var(--grape);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin: 28px 0;
+}
+.decision-block .decision-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grape);
+  margin-bottom: 8px;
+}
+.decision-block p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--tx);
+  margin: 0;
+}
+
+/* ── SIGNATURE MOVE ── */
+.signature-move {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--grape);
+  font-style: italic;
+  font-weight: 500;
+  padding: 18px 22px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 24px;
+}
 </style>
 </head>
 <body>
@@ -219,10 +298,22 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     <div class="hero-meta-item"><strong>Client</strong>Singapore Government Agency (Public Sector)</div>
     <div class="hero-meta-item"><strong>Phase</strong>Pre-Discovery Scoping &mdash; 1 Month</div>
     <div class="hero-meta-item"><strong>Year</strong>2025</div>
-    <div class="hero-meta-item"><strong>Team</strong>UX Consultant &bull; Principal BA &bull; Solutions Architect</div>
+    <div class="hero-meta-item"><strong>Team</strong>UX Consultant &bull; Principal BA &bull; Principal Solutions Architect</div>
     <div class="hero-meta-item"><strong>Role</strong>UX Consultant</div>
   </div>
 </header>
+
+<!-- ════════════════════ HEADLINE RESULT ════════════════════ -->
+<div class="headline-band">
+  <p>A one-month scoping engagement across four interconnected case management platforms. Delivered a current-state view, a 12-capability assessment, and a handshake map of every integration &mdash; so the discovery phase that followed could focus on the right questions instead of spending its first weeks getting oriented.</p>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-tile"><div class="kpi-num">4</div><div class="kpi-label">Case management platforms mapped</div></div>
+  <div class="kpi-tile"><div class="kpi-num">12</div><div class="kpi-label">Capability categories assessed</div></div>
+  <div class="kpi-tile"><div class="kpi-num">30+</div><div class="kpi-label">Agency interfaces catalogued</div></div>
+  <div class="kpi-tile"><div class="kpi-num">1 mo</div><div class="kpi-label">Scoping phase to full as-is picture</div></div>
+</div>
 
 <!-- ════════════════════ THE BRIEF ════════════════════ -->
 <section class="section">
@@ -233,7 +324,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="role-block">
     <div class="label">What I did</div>
-    <p>I was brought in as UX Consultant on a three-person cross-functional scoping team &mdash; alongside a Principal BA and a Solutions Architect. Each of us brought a different lens; the value was in the synthesis across all three.</p>
+    <p>I was brought in as UX Consultant on a three-person cross-functional scoping team &mdash; alongside a Principal BA and a Principal Solutions Architect. Each of us brought a different lens; the value was in the synthesis across all three.</p>
     <ul>
       <li><strong>Structured the engagement</strong> &mdash; designed how we would systematically move through all four systems, who we needed to speak to, and how to capture information consistently across different environments and vendor relationships</li>
       <li><strong>Led stakeholder walkthroughs</strong> &mdash; facilitated sessions with system owners, court officers, judicial officers, registry staff, and operational teams to understand how each system was actually used day-to-day, not just what it was documented to do</li>
@@ -268,13 +359,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
         <p>Structuring all findings into actionable inputs: what we know, what we don&rsquo;t, where to focus, and what risks to flag</p>
       </div>
     </div>
-  </div>
-
-  <div class="stat-strip">
-    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Case management platforms mapped end-to-end</div></div>
-    <div class="stat-card"><div class="stat-num">12</div><div class="stat-label">Capability categories assessed across all systems</div></div>
-    <div class="stat-card"><div class="stat-num">30+</div><div class="stat-label">Agency interfaces catalogued</div></div>
-    <div class="stat-card"><div class="stat-num">1 mo</div><div class="stat-label">Scoping phase to full as-is picture</div></div>
+    <p class="signature-move">The through-line of this project: treating orientation as its own deliverable &mdash; so a complex programme doesn&rsquo;t waste its discovery phase getting its bearings.</p>
   </div>
 </section>
 
@@ -288,6 +373,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <div class="thinking-block">
     <div class="label">My framing for the scoping phase</div>
     <p>We weren&rsquo;t there to find problems &mdash; that was discovery&rsquo;s job. What we were trying to do was make sure the discovery team would already have enough systems context that when a user described something frustrating, the researchers could immediately place it: which system, which capability, which integration point. Instead of spending interview time asking &ldquo;walk me through what happens when you file a case,&rdquo; they could ask sharper questions because they already understood the mechanics. We were giving them a head start.</p>
+  </div>
+
+  <div class="decision-block">
+    <div class="decision-label">A decision I made &mdash; defining scoping as a distinct phase</div>
+    <p>For a programme touching four platforms, dozens of integrations, and 20&ndash;30 people across different teams, going straight into discovery would have meant spending weeks just getting oriented before any useful user conversations could happen. I structured scoping as a focused one-month phase with a clear output: give the discovery team a shared picture of the landscape and a short list of where to focus, so they could start at a higher altitude instead of from scratch.</p>
   </div>
 </section>
 
@@ -629,7 +719,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
       <p>Documented business processes, capability inventories, and data flows within each system. Surfaced the operational logic behind how cases moved through each platform, and identified where documented processes diverged from actual practice.</p>
     </div>
     <div class="team-card">
-      <div class="role">Solutions Architect</div>
+      <div class="role">Principal Solutions Architect</div>
       <h4>Technical Architecture</h4>
       <p>Assessed the technical landscape: integration patterns, deployment architectures, legacy dependencies, code ownership arrangements, and vendor constraints. Identified the architectural decisions that would shape what modernisation was actually feasible and in what sequence.</p>
     </div>
@@ -637,7 +727,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
   <div class="thinking-block">
     <div class="label">What the cross-functional model gave us</div>
-    <p>The most useful findings came from the intersections between what each of us was looking at. The BA would document a business process. The Solutions Architect would assess the system underpinning it. And I could sit across both and ask: does this platform actually support the process it&rsquo;s supposed to? The answer was frequently &ldquo;partly&rdquo; &mdash; sometimes because the system technically couldn&rsquo;t do what was needed, sometimes because the process had evolved and the system hadn&rsquo;t kept up. Either way, you only see those mismatches when someone is deliberately looking at both layers at the same time. That was essentially my job on this team.</p>
+    <p>The most useful findings came from the intersections between what each of us was looking at. The BA would document a business process. The Principal Solutions Architect would assess the system underpinning it. And I could sit across both and ask: does this platform actually support the process it&rsquo;s supposed to? The answer was frequently &ldquo;partly&rdquo; &mdash; sometimes because the system technically couldn&rsquo;t do what was needed, sometimes because the process had evolved and the system hadn&rsquo;t kept up. Either way, you only see those mismatches when someone is deliberately looking at both layers at the same time. That was essentially my job on this team.</p>
   </div>
 </section>
 
@@ -698,12 +788,12 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     <div class="learning-card">
       <div class="num">03</div>
       <h4>A cross-functional team sees what a single discipline misses</h4>
-      <p>Working alongside a Principal BA and Solutions Architect meant we could catch things none of us would have spotted individually. The BA understood how cases were supposed to move through a process. The architect understood what the system could and couldn&rsquo;t technically support. My role was to sit across both and ask whether the process and the system were actually compatible &mdash; and often they weren&rsquo;t, in ways that neither person had flagged because each was looking at their own layer. Someone has to hold that synthesis role explicitly, or the mismatches just sit there.</p>
+      <p>Working alongside a Principal BA and a Principal Solutions Architect meant we could catch things none of us would have spotted individually. The BA understood how cases were supposed to move through a process. The architect understood what the system could and couldn&rsquo;t technically support. My role was to sit across both and ask whether the process and the system were actually compatible &mdash; and often they weren&rsquo;t, in ways that neither person had flagged because each was looking at their own layer. Someone has to hold that synthesis role explicitly, or the mismatches just sit there.</p>
     </div>
     <div class="learning-card">
       <div class="num">04</div>
       <h4>In complex programmes, framing is as important as findings</h4>
-      <p>The capability map and handshake documentation were useful, but what actually shaped the programme&rsquo;s direction most was the 4-layer model. It gave people a shared way to talk about where decisions needed to be made before features could be designed. In environments this complex, I&rsquo;ve found the designer&rsquo;s most important contribution is often not any single artefact but the conceptual structure that helps a large team make sense of what they&rsquo;re all looking at. If sixty people can&rsquo;t agree on how to think about the problem, the individual deliverables don&rsquo;t matter much.</p>
+      <p>The capability map and handshake documentation were useful, but what actually shaped the programme&rsquo;s direction most was the 4-layer model. It gave people a shared way to talk about where decisions needed to be made before features could be designed. In environments this complex, I&rsquo;ve found the designer&rsquo;s most important contribution is often not any single artefact but the conceptual structure that helps a large team make sense of what they&rsquo;re all looking at. If twenty or thirty people can&rsquo;t agree on how to think about the problem, the individual deliverables don&rsquo;t matter much.</p>
     </div>
   </div>
 </section>
