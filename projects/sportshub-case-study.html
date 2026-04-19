@@ -523,6 +523,62 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   .section { margin-bottom: 48px; }
   .section h2 { font-size: 22px; }
 }
+
+/* ── HEADLINE RESULT BAND ── */
+.headline-band {
+  background: linear-gradient(135deg, rgba(109,40,217,0.06) 0%, rgba(236,72,153,0.04) 100%);
+  border-left: 4px solid var(--grape);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 40px 0 32px;
+}
+.headline-band p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--txb);
+  margin: 0;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 56px;
+}
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 18px;
+  text-align: left;
+}
+.kpi-tile .kpi-num {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--grape);
+  line-height: 1;
+}
+.kpi-tile .kpi-label {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  font-weight: 500;
+}
+@media (max-width: 680px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── SIGNATURE MOVE ── */
+.signature-move {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--grape);
+  font-style: italic;
+  font-weight: 500;
+  padding: 18px 22px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 24px;
+}
 </style>
 </head>
 <body>
@@ -545,9 +601,21 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     <div class="hero-meta-item"><strong>Client</strong>Major Sports &amp; Entertainment Venue</div>
     <div class="hero-meta-item"><strong>Domain</strong>Live Events &bull; Venue Experience</div>
     <div class="hero-meta-item"><strong>Method</strong>Behavioural Design (in hindsight)</div>
-    <div class="hero-meta-item"><strong>Role</strong>UX Designer</div>
+    <div class="hero-meta-item"><strong>Role</strong>Senior UX Designer / Lead</div>
   </div>
 </header>
+
+<!-- ═══════════════════════════════════════════════ HEADLINE RESULT ═══════════════════════════════════════════════ -->
+<div class="headline-band">
+  <p>Behavioural research across 3 event types and 20 on-site interviews built into a concert-goer journey framework, 4 decision-based personas, and a wayfinding POC &mdash; handed over to the venue as a plan and prototype.</p>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-tile"><div class="kpi-num">3</div><div class="kpi-label">Event types observed</div></div>
+  <div class="kpi-tile"><div class="kpi-num">20</div><div class="kpi-label">On-site interviews</div></div>
+  <div class="kpi-tile"><div class="kpi-num">4</div><div class="kpi-label">Decision-based personas</div></div>
+  <div class="kpi-tile"><div class="kpi-num">10</div><div class="kpi-label">Cross-functional team</div></div>
+</div>
 
 <!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
 <section class="section">
@@ -582,6 +650,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
         <p>Wayfinding systems, information architecture, touchpoint design, spatial UX</p>
       </div>
     </div>
+    <p class="signature-move">The through-line of this project: meeting 55,000 people where they already were &mdash; instead of asking them to meet the design.</p>
   </div>
 
   <img class="img-full" src="images/sh-venue-walkthrough.jpg" alt="On-site venue walkthrough — observing the stadium concourse and wayfinding environment">
