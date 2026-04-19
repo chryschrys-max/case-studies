@@ -549,6 +549,62 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   .section { margin-bottom: 48px; }
   .section h2 { font-size: 22px; }
 }
+
+/* ── HEADLINE RESULT BAND ── */
+.headline-band {
+  background: linear-gradient(135deg, rgba(109,40,217,0.06) 0%, rgba(236,72,153,0.04) 100%);
+  border-left: 4px solid var(--grape);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 40px 0 32px;
+}
+.headline-band p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--txb);
+  margin: 0;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 56px;
+}
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 18px;
+  text-align: left;
+}
+.kpi-tile .kpi-num {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--grape);
+  line-height: 1;
+}
+.kpi-tile .kpi-label {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  font-weight: 500;
+}
+@media (max-width: 680px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── SIGNATURE MOVE ── */
+.signature-move {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--grape);
+  font-style: italic;
+  font-weight: 500;
+  padding: 18px 22px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 24px;
+}
 </style>
 </head>
 <body>
@@ -571,9 +627,21 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     <div class="hero-meta-item"><strong>Client</strong>Major Indonesian Healthcare Provider</div>
     <div class="hero-meta-item"><strong>Domain</strong>Digital Health &bull; Healthcare</div>
     <div class="hero-meta-item"><strong>Method</strong>Requirements Engineering &bull; Workflow Design &bull; Design Systems</div>
-    <div class="hero-meta-item"><strong>Role</strong>UX Designer</div>
+    <div class="hero-meta-item"><strong>Role</strong>Senior UX Designer / Lead &bull; BA</div>
   </div>
 </header>
+
+<!-- ═══════════════════════════════════════════════ HEADLINE RESULT ═══════════════════════════════════════════════ -->
+<div class="headline-band">
+  <p>Indonesia&rsquo;s first all-in-one digital health app went live, with a clinician companion app reaching 5,000+ installs &mdash; built with a 40&ndash;50 person cross-functional team across Singapore, Vietnam, and Hong Kong, and grounded in on-site immersion in Jakarta.</p>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-tile"><div class="kpi-num">40&ndash;50</div><div class="kpi-label">Cross-functional team</div></div>
+  <div class="kpi-tile"><div class="kpi-num">5k+</div><div class="kpi-label">Clinician app installs at launch</div></div>
+  <div class="kpi-tile"><div class="kpi-num">3</div><div class="kpi-label">Connected apps in ecosystem</div></div>
+  <div class="kpi-tile"><div class="kpi-num">6</div><div class="kpi-label">Phases from scoping to handover</div></div>
+</div>
 
 <!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
 <section class="section">
@@ -581,21 +649,6 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <h2>A single platform for an entire healthcare ecosystem</h2>
   <p>Indonesia is committed to improving general access to healthcare through digitalisation. In this context, one of Indonesia&rsquo;s largest healthcare providers aimed to develop a revolutionary solution: Indonesia&rsquo;s first digital health app perfectly tailored to individual needs and lifestyles.</p>
   <p>The solution needed to go beyond booking medical appointments. It had to enable online consultations, deliver preventive care guidance, and provide personalised health information &mdash; all within a single, seamless digital workflow that connects patients, doctors, and back-office systems.</p>
-
-  <div class="stat-strip">
-    <div class="stat-card">
-      <div class="stat-num">40&ndash;50</div>
-      <div class="stat-label">Team members across apps</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">5k+</div>
-      <div class="stat-label">Clinician app installs at launch</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3</div>
-      <div class="stat-label">Connected apps in ecosystem</div>
-    </div>
-  </div>
 
   <div class="role-block">
     <div class="label">What I did</div>
@@ -622,6 +675,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
         <p>Lo-fi &rarr; hi-fi prototyping, design system, localisation, developer handover</p>
       </div>
     </div>
+    <p class="signature-move">The through-line of this project: holding two roles at once &mdash; design and business analysis &mdash; so the requirements the engineers built from and the designs they built to came from the same head.</p>
   </div>
 
   <img class="img-wide" src="images/ih-case-study-overview.jpg" alt="Patient app screens — diagnostics, home service review, health score assessment, and health shop">
@@ -689,7 +743,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     </div>
   </div>
 
-  <img class="img-full" src="images/ih-design-library-fix.png" alt="Research and design plan — study purpose, research questions, and activities for the Prodia mobile app optimisation">
+  <img class="img-full" src="images/ih-design-library-fix.png" alt="Research and design plan — study purpose, research questions, and activities for the mobile app optimisation">
   <p class="img-caption">The research &amp; design plan — scoping the study purpose, research questions, and activities before diving into design</p>
 
   <img class="img-wide" src="images/ih-hifi-prototypes.png" alt="Jobs-to-Be-Done mapping with journey flows across patient, doctor, and health coach roles">
