@@ -723,6 +723,85 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   .section { margin-bottom: 48px; }
   .section h2 { font-size: 22px; }
 }
+
+/* ── HEADLINE RESULT BAND ── */
+.headline-band {
+  background: linear-gradient(135deg, rgba(109,40,217,0.06) 0%, rgba(236,72,153,0.04) 100%);
+  border-left: 4px solid var(--grape);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 40px 0 32px;
+}
+.headline-band p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--txb);
+  margin: 0;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 56px;
+}
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 18px;
+  text-align: left;
+}
+.kpi-tile .kpi-num {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--grape);
+  line-height: 1;
+}
+.kpi-tile .kpi-label {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  font-weight: 500;
+}
+@media (max-width: 680px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── DECISION CALLOUT ── */
+.decision-block {
+  background: rgba(109,40,217,0.04);
+  border-left: 3px solid var(--grape);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin: 28px 0;
+}
+.decision-block .decision-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--grape);
+  margin-bottom: 8px;
+}
+.decision-block p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--tx);
+  margin: 0;
+}
+
+/* ── SIGNATURE MOVE ── */
+.signature-move {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--grape);
+  font-style: italic;
+  font-weight: 500;
+  padding: 18px 22px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 24px;
+}
 </style>
 </head>
 <body>
@@ -749,11 +828,23 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   </div>
 </header>
 
+<!-- ═══════════════════════════════════════════════ HEADLINE RESULT ═══════════════════════════════════════════════ -->
+<div class="headline-band">
+  <p>Two parallel streams across 2024: a capability uplift for 4 designers (personalised growth plans, 1:1 assessments, and cross-functional workshops with BA, FE, and BE teams), and a unified design operation mapped as a reusable service blueprint across all four teams.</p>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-tile"><div class="kpi-num">4</div><div class="kpi-label">Designers uplifted</div></div>
+  <div class="kpi-tile"><div class="kpi-num">4</div><div class="kpi-label">Cross-functional teams aligned (UX, BA, FE, BE)</div></div>
+  <div class="kpi-tile"><div class="kpi-num">2</div><div class="kpi-label">Parallel streams delivered</div></div>
+  <div class="kpi-tile"><div class="kpi-num">1</div><div class="kpi-label">Reusable service blueprint</div></div>
+</div>
+
 <!-- ═══════════════════════════════════════════════ THE BRIEF ═══════════════════════════════════════════════ -->
 <section class="section">
   <div class="section-label">The Brief</div>
   <h2>A UX team with potential but no pathway</h2>
-  <p>A leading global investment firm wanted to mature its in-house UX team. Designers had raw talent but no structured development path, inconsistent skill levels, and fragmented delivery workflows. The result: uneven outputs, siloed decision-making, and UX positioned as a production function rather than a strategic one.</p>
+  <p>The client, a Singapore-based arm of a leading global investment firm, wanted to mature its in-house UX team. Designers had raw talent but no structured development path, inconsistent skill levels, and fragmented delivery workflows. The result: uneven outputs, siloed decision-making, and UX positioned as a production function rather than a strategic one.</p>
   <p>The brief came without a defined scope. My first move was to assess the landscape and carve the engagement into distinct, manageable streams &mdash; each with clear deliverables, timelines, and success criteria.</p>
 
   <div class="role-block">
@@ -790,6 +881,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
         <p>Structured updates, decision-ready reports, progressive disclosure, cross-functional alignment sessions</p>
       </div>
     </div>
+    <p class="signature-move">The through-line of this project: scoping where there was no brief, assessing before acting, and building the capability stack that lets a team sustain the work after the consultant leaves.</p>
   </div>
 </section>
 
@@ -813,7 +905,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
         <span class="tag tag-primary">Primary focus</span>
       </div>
       <div class="stream-body">
-        Build individual designer capability. Upskill each designer in research, data-driven design, and strategic thinking through personalised growth plans and hands-on training.
+        Build individual designer capability. Upskill each designer in research, data-driven design, and strategic thinking through personalised growth plans and hands-on training. Capability wasn&rsquo;t uplifted in a silo &mdash; workshops ran with BA, FE, and BE teams so new skills landed inside the actual delivery context.
       </div>
     </div>
     <div class="stream-card s2">
@@ -958,6 +1050,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <img class="img-full" src="images/fi-workflow-final.png" alt="Final unified workflow with 7 numbered steps">
   <p class="img-caption">The co-created final workflow — a unified 7-step process built with the team, not imposed on them</p>
 
+  <div class="decision-block">
+    <div class="decision-label">A decision I made &mdash; choosing where to push</div>
+    <p>Process mapping surfaced a systemic finding: delegation wasn&rsquo;t structured into the current operating model, and several decision points created bottlenecks that couldn&rsquo;t realistically be unwound inside a 2024 engagement. I walked leadership through the mapped process with the bottlenecks highlighted, proposed incremental delegation patterns to test, and co-designed a set of low-risk wins the team could run without waiting for structural change. Not every consulting move lands by fixing the root cause. Some land by designing around it &mdash; and letting the evidence build the case over time.</p>
+  </div>
+
 </section>
 
 <hr class="divider">
@@ -1016,8 +1113,8 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
     </div>
     <div class="learning-card">
       <div class="num">03</div>
-      <h4>Blueprints beat documents</h4>
-      <p>A process document describes what should happen. A service design blueprint shows what actually happens &mdash; where teams intersect, where handoffs break, where decisions stall. It became the shared artefact that every team could point to, argue with, and improve. It outlived the engagement.</p>
+      <h4>I used to think more data wins the argument</h4>
+      <p>This project taught me that when the appetite for structural change is limited, more evidence doesn&rsquo;t unlock it &mdash; but demonstration often does. I&rsquo;ve recalibrated how I allocate effort in difficult conversations: less time making the airtight case, more time building proof points the system can see working.</p>
     </div>
     <div class="learning-card">
       <div class="num">04</div>
