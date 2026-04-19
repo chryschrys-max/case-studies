@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Case Study — Transforming the Skincare Experience: Sequential Skin App Redesign</title>
 <meta property="og:title" content="Case Study — Transforming the Skincare Experience: Sequential Skin App Redesign">
-<meta property="og:description" content="Redesigning a healthtech startup's app to streamline onboarding, improve usability, and boost user engagement by 25%.">
+<meta property="og:description" content="Redesigning a microbiome skincare startup's app to streamline onboarding, improve usability, and make complex health data easier to engage with.">
 <meta property="og:type" content="article">
-<meta name="description" content="Redesigning a healthtech startup's app to streamline onboarding, improve usability, and boost user engagement by 25%.">
+<meta name="description" content="Redesigning a microbiome skincare startup's app to streamline onboarding, improve usability, and make complex health data easier to engage with.">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -371,6 +371,98 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   .section h2 { font-size: 22px; }
   .challenge-goal { grid-template-columns: 1fr; }
 }
+
+/* ── HEADLINE RESULT BAND ── */
+.headline-band {
+  background: linear-gradient(135deg, rgba(109,40,217,0.06) 0%, rgba(236,72,153,0.04) 100%);
+  border-left: 4px solid var(--grape);
+  border-radius: 4px;
+  padding: 28px 32px;
+  margin: 40px 0 32px;
+}
+.headline-band p {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--txb);
+  margin: 0;
+}
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 0 0 56px;
+}
+.kpi-tile {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 20px 18px;
+  text-align: left;
+}
+.kpi-tile .kpi-num {
+  font-family: var(--font);
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--grape);
+  line-height: 1;
+}
+.kpi-tile .kpi-label {
+  font-size: 12px;
+  color: var(--tx2);
+  margin-top: 8px;
+  font-weight: 500;
+}
+@media (max-width: 680px) {
+  .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ── SIGNATURE MOVE ── */
+.signature-move {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--grape);
+  font-style: italic;
+  font-weight: 500;
+  padding: 18px 22px;
+  border-top: 1px solid var(--bdr);
+  margin-top: 24px;
+}
+
+/* ── LEARNING GRID (reflections) ── */
+.learning-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin: 24px 0;
+}
+.learning-card {
+  background: var(--surface);
+  border: 1px solid var(--bdr);
+  border-radius: 6px;
+  padding: 22px 24px;
+}
+.learning-card .num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--grape);
+  margin-bottom: 8px;
+}
+.learning-card h4 {
+  font-size: 16px;
+  color: var(--txb);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.learning-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--tx);
+  margin: 0;
+}
+@media (max-width: 680px) {
+  .learning-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -388,17 +480,29 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 <header class="hero">
   <div class="hero-label">Case Study</div>
   <h1>Transforming the Skincare Experience: Sequential Skin App Redesign</h1>
-  <p class="hero-sub">Redesigning a healthtech startup&rsquo;s app to streamline onboarding, improve usability, and enhance information clarity &mdash; through workshops, design audits, and usability studies that boosted user engagement by 25%.</p>
+  <p class="hero-sub">Redesigning a microbiome skincare startup&rsquo;s app (UX + UI) to streamline onboarding, improve usability, and enhance information clarity &mdash; through workshops, design audits, and usability studies.</p>
   <div class="hero-meta">
-    <div class="hero-meta-item"><strong>Client</strong>Sequential Skin (Healthtech Startup)</div>
+    <div class="hero-meta-item"><strong>Client</strong>Sequential Skin (Microbiome Skincare)</div>
     <div class="hero-meta-item"><strong>Year</strong>2024</div>
     <div class="hero-meta-item"><strong>Role</strong>Lead UX Designer / Researcher</div>
-    <div class="hero-meta-item"><strong>Focus</strong>App Redesign &amp; Rebranding</div>
+    <div class="hero-meta-item"><strong>Focus</strong>App Redesign &amp; Usability</div>
   </div>
 </header>
 
 <!-- ═══════════════════════════════════════════════ INTRO IMAGE ═══════════════════════════════════════════════ -->
 <img class="img-full" src="sequential-skin-images/SS+Intro+Image.jpg" alt="Sequential Skin intro">
+
+<!-- ═══════════════════════════════════════════════ HEADLINE RESULT ═══════════════════════════════════════════════ -->
+<div class="headline-band">
+  <p>A full app redesign (UX + UI) for a microbiome skincare startup &mdash; grounded in physical kit testing, a design audit, stakeholder workshops, and a usability study &mdash; delivered on-site with a six-person team on a two-week cadence.</p>
+</div>
+
+<div class="kpi-strip">
+  <div class="kpi-tile"><div class="kpi-num">6</div><div class="kpi-label">Team size</div></div>
+  <div class="kpi-tile"><div class="kpi-num">2-week</div><div class="kpi-label">Cadence with client</div></div>
+  <div class="kpi-tile"><div class="kpi-num">1</div><div class="kpi-label">Full app redesign delivered</div></div>
+  <div class="kpi-tile"><div class="kpi-num">On-site</div><div class="kpi-label">Engagement format</div></div>
+</div>
 
 <!-- ═══════════════════════════════════════════════ OVERVIEW ═══════════════════════════════════════════════ -->
 <section class="section">
@@ -406,6 +510,7 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
   <h2>Personalised skincare, powered by microbiome data</h2>
   <p>Sequential Skin is a healthtech startup offering personalised skincare recommendations based on microbiome and genetics data. The app faced usability challenges &mdash; including confusing onboarding and overwhelming information &mdash; that made it difficult for users to engage with their skincare insights.</p>
   <p>Through workshops, design audits, and usability studies, the app was transformed into a user-friendly platform that better aligned with the brand&rsquo;s vision and boosted user engagement.</p>
+  <p>The visual rebrand &mdash; logo and brand identity &mdash; was delivered by a separate design studio; my work covered the app redesign (UX + UI), research, and usability validation.</p>
 </section>
 
 <!-- ═══════════════════════════════════════════════ PROBLEM STATEMENT ═══════════════════════════════════════════════ -->
@@ -439,10 +544,11 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
       <li><strong>Optimised the onboarding process</strong>, ensuring a seamless journey from using the kits to onboarding within the app</li>
       <li><strong>Facilitated feature prioritisation workshops</strong> with the client to align product development with business goals</li>
       <li><strong>Conducted design audits and navigation assessments</strong> to identify areas for improvement</li>
-      <li><strong>Redesigned the app&rsquo;s user interface</strong>, rebranded the overall experience, and streamlined navigation for better usability</li>
+      <li><strong>Redesigned the app&rsquo;s user interface (UX + UI)</strong>, applied the new brand identity from the rebranding studio, and streamlined navigation for better usability</li>
       <li><strong>Led a usability study</strong> to validate the design changes and enhance user satisfaction</li>
       <li><strong>Improved the app&rsquo;s information presentation</strong>, making it more engaging and user-friendly</li>
     </ul>
+    <p class="signature-move">The through-line of this project: making a microbiome-data app legible to the people using it &mdash; simpler onboarding, clearer hierarchy, a navigable flow.</p>
   </div>
 </section>
 
@@ -494,32 +600,38 @@ body { background: var(--bg); color: var(--tx); font-family: var(--font); line-h
 
 <!-- ═══════════════════════════════════════════════ OUTCOMES ═══════════════════════════════════════════════ -->
 <section class="section">
-  <div class="section-label">Outcomes &amp; Key Takeaways</div>
-  <h2>Measurable impact</h2>
-
-  <div class="stat-strip">
-    <div class="stat-card">
-      <div class="stat-num">+25%</div>
-      <div class="stat-label">User engagement increase</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">+20%</div>
-      <div class="stat-label">More time spent in-app</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">15%</div>
-      <div class="stat-label">Faster task completion</div>
-    </div>
-  </div>
+  <div class="section-label">Outcomes</div>
+  <h2>What we delivered</h2>
 
   <ul>
-    <li>Streamlining the onboarding process reduced friction, enhancing user satisfaction and engagement</li>
-    <li>User engagement rose by 25%, with users spending an average of 20% more time within the app after usability improvements</li>
-    <li>Navigation confusion decreased with users completing key tasks 15% faster due to optimised user flows and clearer navigation</li>
-    <li>Adoption of key features (e.g., personalised skincare insights) increased, as the rebranded interface and clearer information presentation made it easier for users to access these features</li>
-    <li>Involving stakeholders in feature prioritisation ensured alignment with business goals and streamlined decision-making</li>
-    <li>Regularly refining the app based on user feedback significantly improved the overall experience</li>
+    <li>Redesigned app interface (UX + UI) with streamlined navigation and clearer information hierarchy</li>
+    <li>Optimised onboarding across the physical kit experience &mdash; sample collection, submission, and first-time app use</li>
+    <li>Prioritised feature roadmap developed through stakeholder workshops</li>
+    <li>Usability study validating the redesigned flows with real users</li>
+    <li>Integration of the new brand identity (from the rebranding studio) into the redesigned app UI</li>
+    <li>Alignment between product, design, and business stakeholders through a two-week delivery cadence</li>
   </ul>
+</section>
+
+<hr class="divider">
+
+<!-- ═══════════════════════════════════════════════ REFLECTIONS ═══════════════════════════════════════════════ -->
+<section class="section">
+  <div class="section-label">Reflections</div>
+  <h2>What I took forward</h2>
+
+  <div class="learning-grid">
+    <div class="learning-card">
+      <div class="num">01</div>
+      <h4>Onboarding friction was a journey problem, not a screen problem</h4>
+      <p>The weakest point wasn&rsquo;t any single screen. It was the transition from the physical kit to the app &mdash; sample collection, submission, then onboarding. Fixing screens in isolation wouldn&rsquo;t have moved the needle; the redesign had to treat the physical-to-digital journey as one continuous flow.</p>
+    </div>
+    <div class="learning-card">
+      <div class="num">02</div>
+      <h4>Data-heavy products need subtraction, not addition</h4>
+      <p>Microbiome data is already hard to interpret. Every additional UI element added cognitive load on top of content that was already demanding. The redesign mostly removed things &mdash; extra nav, redundant copy, features that didn&rsquo;t connect to a user goal &mdash; rather than adding new ones.</p>
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════ FOOTER ═══════════════════════════════════════════════ -->
